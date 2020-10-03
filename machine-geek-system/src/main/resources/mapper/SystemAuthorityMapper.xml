@@ -19,4 +19,15 @@
     <sql id="Base_Column_List">
         name,key,description,sort,disable,version,create_time,update_time
     </sql>
+    <!-- 根据用户ID查询权力 -->
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM
+        system_authority
+        INNER JOIN system_role_authority_relation ON system_role_authority_relation.authority_id = system_authority.id
+        INNER JOIN system_user_role_relation ON system_user_role_relation.role_id = system_role_authority_relation.role_id
+        WHERE
+        system_user_role_relation.user_id = #{userId}
+    </select>
 </mapper>

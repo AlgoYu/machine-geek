@@ -6,6 +6,8 @@ import cn.machine.geek.service.ISystemRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author: MachineGeek
  * @Description: 系统角色实现类
@@ -13,4 +15,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SystemRoleServiceImpl extends ServiceImpl<ISystemRoleMapper, SystemRole> implements ISystemRoleService {
+    @Override
+    public List<SystemRole> listByUserId(Long userId) {
+        return baseMapper.selectByUserId(userId);
+    }
 }

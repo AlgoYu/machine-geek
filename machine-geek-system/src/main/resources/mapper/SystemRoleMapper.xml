@@ -18,4 +18,14 @@
     <sql id="Base_Column_List">
         name,key,description,disable,version,create_time,update_time
     </sql>
+    <!-- 根据用户ID查询角色 -->
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"></include>
+        FROM
+            system_role
+        INNER JOIN system_user_role_relation ON system_user_role_relation.role_id = system_role.id
+        WHERE
+        system_user_role_relation.user_id = #{userId}
+    </select>
 </mapper>
