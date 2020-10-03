@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.machine.geek.mapper.ISystemUserMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.machine.geek.entity.SystemUser">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="nickname" property="nickname" />
+        <result column="description" property="description" />
+        <result column="email" property="email" />
+        <result column="phone" property="phone" />
+        <result column="ip" property="ip" />
+        <result column="disable" property="disable" />
+        <result column="version" property="version" />
+        <result column="last_login" property="lastLogin" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        username,password,nickname,description,email,phone,ip,disable,version,last_login,create_time,update_time
+    </sql>
+</mapper>

@@ -1,0 +1,17 @@
+spring:
+  # 数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/machine_geek?useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: root
+    password: 123456
+    # 连接池
+    druid:
+      min-idle: 5
+      max-active: 20
+      initial-size: 5
+  # Redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
