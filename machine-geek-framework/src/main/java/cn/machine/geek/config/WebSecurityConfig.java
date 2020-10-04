@@ -16,8 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true,jsr250Enabled = true,prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    // 忽略路径
+    private String[] ignores = new String[]{"/upload/**","/static/**","/doc.html","/api-docs-ext/**","/swagger-resources/**","/api-docs/**","/swagger-ui.html","/swagger-resources/configuration/ui/**","/swagger-resources/configuration/security/**"};
+
     /** @Author: MachineGeek
      * @Description: 配置认证路径
      * @Date: 2020/10/3
@@ -26,13 +29,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 不认证路径
+        // 关闭跨域和CSRF攻击
+        http.cors().disable().csrf().disable();
+        // 不需要认证的资源
         http.authorizeRequests()
-                .antMatchers("/static/**","/doc.html","/api-docs-ext/**","/swagger-resources/**","/api-docs/**","/swagger-ui.html","/swagger-resources/configuration/ui/**","/swagger-resources/configuration/security/**")
+                .antMatchers(this.ignores)
                 .permitAll();
         // 表单登录注销
         http.formLogin()
-                .loginPage("/login.html")
+                .loginPage("/login.ftlh")
                 .loginProcessingUrl("/login")
                 .permitAll()
                 .and()
@@ -47,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /** @Author: MachineGeek
     * @Description: 注册密码加密器
     * @Date: 2020/10/4
-     * @param
+    * @param
     * @Return org.springframework.security.crypto.password.PasswordEncoder
     */
     @Bean
