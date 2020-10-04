@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import java.util.List;
  * @Description: 用户细节实现类
  * @Date: 2020/10/3
  */
-@Service("userDetailsService")
+@Component
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     private ISystemUserService systemUserService;
@@ -50,6 +51,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(authority.getKey()));
         });
 
-        return new User(systemUser.getUsername(),systemUser.getPassword(),authorities);
+        return new User(systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),false,false,false,authorities);
     }
 }

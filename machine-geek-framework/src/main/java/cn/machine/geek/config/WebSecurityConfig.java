@@ -1,15 +1,13 @@
 package cn.machine.geek.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
 * @Author: MachineGeek
@@ -20,31 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserDetailsService userDetailsService;
-    /** @Author: MachineGeek
-    * @Description: 配置用户细节类和加密器
-    * @Date: 2020/10/3
-     * @param auth
-    * @Return void
-    */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(new BCryptPasswordEncoder());
-    }
-
-    /** @Author: MachineGeek
-    * @Description: 配置忽略路径
-    * @Date: 2020/10/3
-     * @param web
-    * @Return void
-    */
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/doc.html","/static/**");
-    }
-
     /** @Author: MachineGeek
      * @Description: 配置认证路径
      * @Date: 2020/10/3
@@ -53,7 +26,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 表单登录
+        // 不认证路径
+        http.authorizeRequests()
+                .antMatchers("/static/**","/doc.html","/api-docs-ext/**","/swagger-resources/**","/api-docs/**","/swagger-ui.html","/swagger-resources/configuration/ui/**","/swagger-resources/configuration/security/**")
+                .permitAll();
+        // 表单登录注销
         http.formLogin()
                 .loginPage("/login.html")
                 .loginProcessingUrl("/login")
@@ -61,9 +38,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
-        // 其他路径都需要认证
+        // 其余地址全部认证
         http.authorizeRequests()
                 .anyRequest()
                 .authenticated();
+    }
+
+    /** @Author: MachineGeek
+    * @Description: 注册密码加密器
+    * @Date: 2020/10/4
+     * @param
+    * @Return org.springframework.security.crypto.password.PasswordEncoder
+    */
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }
