@@ -15,31 +15,12 @@ spring:
     host: 127.0.0.1
     port: 6379
     password: 123456
-  # FreeMarker
-  freemarker:
-    cache: false
-    charset: UTF-8
-    content-type: text/html
-    template-loader-path: classpath:/templates/
-    suffix: .ftlh
-    enabled: true
-    request-context-attribute: req
-    check-template-location: true
-    expose-request-attributes: false
-    expose-session-attributes: false
-# Mybatis Plus
-mybatis-plus:
-  mapper-locations: classpath*:/mapper/*.xml
 # 静态资源
 upload:
   urlPath: /upload/
   localPath: /Volumes/Project/upload/
-# Swagger
-swagger:
-  basic:
-    enable: true
-    username: mg
-    password: 123456
+# knife4j
+knife4j:
   production: false
 ## logback配置
 logging:

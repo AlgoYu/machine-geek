@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +20,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true,jsr250Enabled = true,prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // 忽略路径
-    private String[] ignores = new String[]{"/upload/**","/static/**","/doc.html","/api-docs-ext/**","/swagger-resources/**","/api-docs/**","/swagger-ui.html","/swagger-resources/configuration/ui/**","/swagger-resources/configuration/security/**"};
+    private String[] ignores = new String[]{"/upload/**","/static/**","/doc.html","/api-docs-ext","/swagger-resources","/api-docs","/swagger-ui.html","/swagger-resources/configuration/ui","/swagger-resources/configuration/security"};
+
+    /** @Author: MachineGeek
+    * @Description: 静态资源配置
+    * @Date: 2020/10/5
+     * @param web
+    * @Return void
+    */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(this.ignores);
+    }
 
     /** @Author: MachineGeek
      * @Description: 配置认证路径
@@ -29,24 +41,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 关闭跨域和CSRF攻击
-        http.cors().disable().csrf().disable();
-        // 不需要认证的资源
-        http.authorizeRequests()
-                .antMatchers(this.ignores)
-                .permitAll();
         // 表单登录注销
         http.formLogin()
-                .loginPage("/login.ftlh")
+                .loginPage("/login.html")
                 .loginProcessingUrl("/login")
+                .successForwardUrl("/success.html")
+                .failureForwardUrl("/fail.html")
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
-        // 其余地址全部认证
-        http.authorizeRequests()
+                .permitAll()
+                .and()
+                .authorizeRequests()
                 .anyRequest()
-                .authenticated();
+                .authenticated()
+                .and()
+                .cors().disable()
+                .csrf().disable();
     }
 
     /** @Author: MachineGeek

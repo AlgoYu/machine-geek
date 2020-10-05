@@ -21,6 +21,6 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        username,password,nickname,description,email,phone,ip,disable,version,last_login,create_time,update_time
+        `username`,`password`,`nickname`,`description`,`email`,`phone`,`ip`,`disable`,`version`,`last_login`,`create_time`,`update_time`
     </sql>
 </mapper>

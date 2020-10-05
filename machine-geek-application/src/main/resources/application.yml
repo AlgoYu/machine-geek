@@ -1,7 +1,22 @@
 # 服务器
 server:
   port: 8080
-# 配置文件
 spring:
+  # 配置文件
   profiles:
     active: dev
+  # FreeMarker
+  freemarker:
+    cache: false
+    charset: UTF-8
+    content-type: text/html
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+    enabled: true
+    request-context-attribute: req
+    check-template-location: true
+    expose-request-attributes: false
+    expose-session-attributes: false
+# Mybatis Plus
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml

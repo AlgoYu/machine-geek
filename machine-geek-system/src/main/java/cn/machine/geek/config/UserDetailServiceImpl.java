@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ import java.util.List;
  * @Description: 用户细节实现类
  * @Date: 2020/10/3
  */
-@Component
+@Service
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     private ISystemUserService systemUserService;
@@ -33,9 +32,16 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private ISystemRoleService systemRoleService;
     @Autowired
     private ISystemAuthorityService systemAuthorityService;
+
+    /** @Author: MachineGeek
+    * @Description: 通过用户名加载用户
+    * @Date: 2020/10/5
+     * @param username
+    * @Return org.springframework.security.core.userdetails.UserDetails
+    */
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        SystemUser systemUser = systemUserService.getByName(s);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        SystemUser systemUser = systemUserService.getByName(username);
         if(null == systemUser){
             throw new UsernameNotFoundException("用户不存在！");
         }

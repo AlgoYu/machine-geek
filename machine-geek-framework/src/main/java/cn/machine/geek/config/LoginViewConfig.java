@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date: 2020/10/4
  */
 @Configuration
-public class ViewConfig implements WebMvcConfigurer {
+public class LoginViewConfig implements WebMvcConfigurer {
     /** @Author: MachineGeek
      * @Description: 视图控制器
      * @Date: 2020/10/4
@@ -19,6 +19,9 @@ public class ViewConfig implements WebMvcConfigurer {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/","/login.html");
         registry.addViewController("/login.html").setViewName("login");
+        registry.addViewController("/success.html").setViewName("success");
+        registry.addViewController("/fail.html").setViewName("fail");
     }
 }

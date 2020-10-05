@@ -6,9 +6,9 @@
 </head>
 <body>
     <form method="post" action="/login">
-        <input name="username">
-        <input name="password">
-        <input type="submit">
+        <input name="username" type="text">
+        <input name="password" type="password">
+        <input type="submit" value="登录">
     </form>
 </body>
 </html>

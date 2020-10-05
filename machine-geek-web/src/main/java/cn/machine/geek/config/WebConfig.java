@@ -24,7 +24,7 @@ public class WebConfig implements WebMvcConfigurer {
     /** @Author: MachineGeek
     * @Description: 跨域配置
     * @Date: 2020/10/4
-     * @param registry
+    * @param registry
     * @Return void
     */
     @Override
@@ -39,16 +39,16 @@ public class WebConfig implements WebMvcConfigurer {
     /** @Author: MachineGeek
     * @Description: 静态资源配置
     * @Date: 2020/10/4
-     * @param registry
+    * @param registry
     * @Return void
     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 上传路径映射
         registry.addResourceHandler(this.urlPath+"**")
-                .addResourceLocations(this.localPath);
+                .addResourceLocations("file:"+this.localPath);
         // 静态资源映射
-        registry.addResourceHandler("/*")
-                .addResourceLocations("classpath:/static/**");
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
     }
 }
