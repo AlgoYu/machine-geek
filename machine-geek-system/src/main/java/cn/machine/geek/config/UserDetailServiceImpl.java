@@ -36,7 +36,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     /** @Author: MachineGeek
     * @Description: 通过用户名加载用户
     * @Date: 2020/10/5
-     * @param username
+    * @param username
     * @Return org.springframework.security.core.userdetails.UserDetails
     */
     @Override

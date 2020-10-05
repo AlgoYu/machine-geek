@@ -1,5 +1,7 @@
 package cn.machine.geek.config;
 
+import cn.machine.geek.handler.AuthenticationFail;
+import cn.machine.geek.handler.AuthenticationSuccess;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -25,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /** @Author: MachineGeek
     * @Description: 静态资源配置
     * @Date: 2020/10/5
-     * @param web
+    * @param web
     * @Return void
     */
     @Override
@@ -47,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .successForwardUrl("/success.html")
                 .failureForwardUrl("/fail.html")
+                .successHandler(new AuthenticationSuccess())
+                .failureHandler(new AuthenticationFail())
                 .permitAll()
                 .and()
                 .logout()
