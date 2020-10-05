@@ -1,5 +1,6 @@
 package cn.machine.geek.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,9 @@ import lombok.NoArgsConstructor;
 public class R {
     private boolean success;
     private int code;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String msg;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Object data;
 
     /** @Author: MachineGeek
