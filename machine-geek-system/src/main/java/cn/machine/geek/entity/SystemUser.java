@@ -14,6 +14,7 @@ public class SystemUser{
     private Long id;
     private String username;
     private String password;
+    private String picture;
     private String nickname;
     private String description;
     private String email;

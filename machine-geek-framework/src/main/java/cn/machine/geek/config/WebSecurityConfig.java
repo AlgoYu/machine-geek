@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true,jsr250Enabled = true,prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // 忽略路径
-    private String[] ignores = new String[]{"/upload/**","/static/**","/doc.html","/api-docs-ext","/swagger-resources","/api-docs","/swagger-ui.html","/swagger-resources/configuration/ui","/swagger-resources/configuration/security"};
+    private String[] ignores = new String[]{"/upload/**","/static/**","/doc.html","/webjars/**","/v2/**","/api-docs-ext","/swagger-resources/**","/api-docs","/swagger-ui.html"};
 
     /** @Author: MachineGeek
     * @Description: 静态资源配置

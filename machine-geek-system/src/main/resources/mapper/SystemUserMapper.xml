@@ -8,6 +8,7 @@
         <id column="id" property="id" />
         <result column="username" property="username" />
         <result column="password" property="password" />
+        <result column="picture" property="picture" />
         <result column="nickname" property="nickname" />
         <result column="description" property="description" />
         <result column="email" property="email" />
@@ -21,6 +22,6 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        `username`,`password`,`nickname`,`description`,`email`,`phone`,`ip`,`disable`,`version`,`last_login`,`create_time`,`update_time`
+        `username`,`password`,`picture`,`nickname`,`description`,`email`,`phone`,`ip`,`disable`,`version`,`last_login`,`create_time`,`update_time`
     </sql>
 </mapper>

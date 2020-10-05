@@ -21,7 +21,5 @@ public class LoginViewConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/","/login.html");
         registry.addViewController("/login.html").setViewName("login");
-        registry.addViewController("/success.html").setViewName("success");
-        registry.addViewController("/fail.html").setViewName("fail");
     }
 }

@@ -17,7 +17,7 @@
         <start-class>cn.machine.geek.Application</start-class>
         <lombok.version>1.18.12</lombok.version>
         <mysql.version>8.0.21</mysql.version>
-        <druid.version>1.1.24</druid.version>
+        <druid.version>1.1.22</druid.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
         <knife4j.version>2.0.5</knife4j.version>

@@ -41,7 +41,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SystemUser systemUser = systemUserService.getByName(username);
+        SystemUser systemUser = systemUserService.getByUserName(username);
         if(null == systemUser){
             throw new UsernameNotFoundException("用户不存在！");
         }
@@ -57,6 +57,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(authority.getKey()));
         });
 
-        return new User(systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),false,false,false,authorities);
+        return new User(systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),true,true,true,authorities);
     }
 }

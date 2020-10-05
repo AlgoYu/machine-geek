@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SystemUserServiceImpl extends ServiceImpl<ISystemUserMapper, SystemUser> implements ISystemUserService {
     @Override
-    public SystemUser getByName(String username) {
+    public SystemUser getByUserName(String username) {
         QueryWrapper<SystemUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(SystemUser::getUsername,username);
         return baseMapper.selectOne(queryWrapper);

@@ -9,5 +9,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @Date: 2020/10/3
  */
 public interface ISystemUserService extends IService<SystemUser> {
-    SystemUser getByName(String username);
+    SystemUser getByUserName(String username);
 }
