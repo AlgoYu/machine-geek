@@ -27,7 +27,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        if(MediaType.APPLICATION_JSON.equals(request.getContentType())){
+        if(MediaType.APPLICATION_JSON_VALUE.equals(request.getContentType())){
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = null;
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF-8"));
