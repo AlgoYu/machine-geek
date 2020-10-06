@@ -15,6 +15,7 @@ spring:
     host: 127.0.0.1
     port: 6379
     password: 123456
+    database: 0
 # 静态资源
 upload:
   urlPath: /upload/

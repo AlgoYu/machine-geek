@@ -1,13 +1,11 @@
 package cn.machine.geek.config;
 
-import cn.machine.geek.security.AccessDeniedHandlerImpl;
-import cn.machine.geek.security.AuthenticationEntryPointImpl;
-import cn.machine.geek.security.AuthenticationFailureHandlerImpl;
-import cn.machine.geek.security.AuthenticationSuccessHandlerImpl;
+import cn.machine.geek.security.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -31,9 +29,6 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true,jsr250Enabled = true,prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    // 自定义认证逻辑
-    @Autowired
-    private UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter;
     // 自定义未登陆逻辑
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
@@ -71,11 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 设置自定义的登陆成功失败逻辑
-        this.usernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(this.authenticationSuccessHandler);
-        this.usernamePasswordAuthenticationFilter.setAuthenticationFailureHandler(this.authenticationFailureHandler);
-        this.usernamePasswordAuthenticationFilter.setFilterProcessesUrl("/login");
-        this.usernamePasswordAuthenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
         // 设置表单登录
         http.formLogin()
                 .loginPage("/login.html")
@@ -97,11 +87,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(this.authenticationEntryPoint)
                 .accessDeniedHandler(this.accessDeniedHandler)
                 .and()
-                // 设置替换认证逻辑
-                .addFilterAt(this.usernamePasswordAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
                 // 设置关闭CSRF与CORS
                 .cors().disable()
                 .csrf().disable();
+        // 设置替换认证逻辑
+        http.addFilterAt(this.customAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);
     }
 
     /** @Author: MachineGeek
@@ -124,5 +114,38 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public ObjectMapper objectMapper(){
         return new ObjectMapper();
+    }
+
+    /** @Author: MachineGeek
+    * @Description: 注册认证管理类
+    * @Date: 2020/10/6
+     * @param
+    * @Return org.springframework.security.authentication.AuthenticationManager
+    */
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    /** @Author: MachineGeek
+    * @Description: 注册自定义登录逻辑
+    * @Date: 2020/10/6
+    * @param
+    * @Return cn.machine.geek.security.CustomAuthenticationFilter
+    */
+    @Bean
+    public CustomAuthenticationFilter customAuthenticationFilter(){
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter();
+        // 设置自定义的登陆成功失败逻辑
+        customAuthenticationFilter.setAuthenticationSuccessHandler(this.authenticationSuccessHandler);
+        customAuthenticationFilter.setAuthenticationFailureHandler(this.authenticationFailureHandler);
+        customAuthenticationFilter.setFilterProcessesUrl("/login");
+        try {
+            customAuthenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return customAuthenticationFilter;
     }
 }

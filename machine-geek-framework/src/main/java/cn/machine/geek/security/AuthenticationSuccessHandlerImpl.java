@@ -2,6 +2,7 @@ package cn.machine.geek.security;
 
 import cn.machine.geek.entity.R;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ import java.io.PrintWriter;
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
     // Jackson
+    @Autowired
     private ObjectMapper objectMapper;
 
     /** @Author: MachineGeek
