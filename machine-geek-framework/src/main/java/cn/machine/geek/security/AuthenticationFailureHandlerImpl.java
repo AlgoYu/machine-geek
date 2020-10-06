@@ -1,9 +1,11 @@
-package cn.machine.geek.handler;
+package cn.machine.geek.security;
 
 import cn.machine.geek.entity.R;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +15,14 @@ import java.io.PrintWriter;
 
 /**
  * @Author: MachineGeek
- * @Description: 认证失败处理器
+ * @Description: 认证失败处理类
  * @Date: 2020/10/6
  */
-public class AuthenticationFail implements AuthenticationFailureHandler {
+@Component
+public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler {
     // Jackson
+    @Autowired
     private ObjectMapper objectMapper;
-
-    public AuthenticationFail(){
-        objectMapper = new ObjectMapper();
-    }
 
     /** @Author: MachineGeek
     * @Description: 认证失败处理

@@ -1,5 +1,6 @@
 package cn.machine.geek.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 public class SystemRole {
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     private String name;
     private String key;

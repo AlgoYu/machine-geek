@@ -1,4 +1,4 @@
-package cn.machine.geek.config;
+package cn.machine.geek.security;
 
 import cn.machine.geek.entity.SystemAuthority;
 import cn.machine.geek.entity.SystemRole;
