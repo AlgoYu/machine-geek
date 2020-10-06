@@ -21,15 +21,18 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     /** @Author: MachineGeek
     * @Description: 重写验证逻辑使用JSON
     * @Date: 2020/10/6
-     * @param request
-     * @param response
+    * @param request
+    * @param response
     * @Return org.springframework.security.core.Authentication
     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        // 判断是否是JSON
         if(MediaType.APPLICATION_JSON_VALUE.equals(request.getContentType())){
+            // 构建验证对象
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = null;
             try {
+                // 转换为JSON对象
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF-8"));
                 StringBuilder stringBuilder = new StringBuilder();
                 String temp = null;
@@ -37,16 +40,20 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                     stringBuilder.append(temp);
                 }
                 JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+                // 赋值验证对象
                 usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(jsonObject.getString("username"),jsonObject.getString("password"));
                 return usernamePasswordAuthenticationToken;
             } catch (Exception e) {
                 e.printStackTrace();
+                // 赋值出错则为空
                 usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken("","");
             }finally {
+                // 提交验证对象
                 this.setDetails(request,usernamePasswordAuthenticationToken);
                 return this.getAuthenticationManager().authenticate(usernamePasswordAuthenticationToken);
             }
         }
+        // 不是JSON调用父类FORM表单
         return super.attemptAuthentication(request, response);
     }
 }

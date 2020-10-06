@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -67,13 +68,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 设置表单登录
-        http.formLogin()
-                .loginPage("/login.html")
-                .permitAll()
+        http
+                // 关闭Session
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                // 设置注销
+                // 设置注销路径
                 .logout()
                 .logoutUrl("/logout")
+                // 设置注销处理逻辑
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .permitAll()
                 .and()
@@ -90,8 +93,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 设置关闭CSRF与CORS
                 .cors().disable()
                 .csrf().disable();
+
+        // 设置自定义登录逻辑
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter();
+        // 设置自定义的登陆成功失败逻辑
+        customAuthenticationFilter.setAuthenticationSuccessHandler(this.authenticationSuccessHandler);
+        customAuthenticationFilter.setAuthenticationFailureHandler(this.authenticationFailureHandler);
+        customAuthenticationFilter.setFilterProcessesUrl("/login");
+        try {
+            customAuthenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // 设置替换认证逻辑
-        http.addFilterAt(this.customAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAt(customAuthenticationFilter,UsernamePasswordAuthenticationFilter.class);
     }
 
     /** @Author: MachineGeek
@@ -126,26 +141,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
-
-    /** @Author: MachineGeek
-    * @Description: 注册自定义登录逻辑
-    * @Date: 2020/10/6
-    * @param
-    * @Return cn.machine.geek.security.CustomAuthenticationFilter
-    */
-    @Bean
-    public CustomAuthenticationFilter customAuthenticationFilter(){
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter();
-        // 设置自定义的登陆成功失败逻辑
-        customAuthenticationFilter.setAuthenticationSuccessHandler(this.authenticationSuccessHandler);
-        customAuthenticationFilter.setAuthenticationFailureHandler(this.authenticationFailureHandler);
-        customAuthenticationFilter.setFilterProcessesUrl("/login");
-        try {
-            customAuthenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return customAuthenticationFilter;
     }
 }

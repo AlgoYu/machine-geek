@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 public class RedisConfig {
     public final static String accessTokenPrefix = "ACCESS_TOKEN_";
     public final static String refreshTokenPrefix = "REFRESH_TOKEN_";
+    public final static String AUTHORITIES_KEY = "AUTHORITIES";
+    public final static String PRINCIPAL_KEY = "PRINCIPAL";
     public static long accessTokenExpire;
     public static long refreshTokenExpire;
 

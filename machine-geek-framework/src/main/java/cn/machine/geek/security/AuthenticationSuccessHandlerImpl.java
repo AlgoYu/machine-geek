@@ -47,7 +47,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         String accessToken = UUID.randomUUID().toString();
         String refreshToken = UUID.randomUUID().toString();
         // 存储Token进Redis
-        redisTemplate.opsForValue().set(RedisConfig.accessTokenPrefix +accessToken,authentication.getName(),RedisConfig.accessTokenExpire, TimeUnit.SECONDS);
+        redisTemplate.opsForHash().put(RedisConfig.accessTokenPrefix + accessToken,RedisConfig.PRINCIPAL_KEY,authentication.getPrincipal());
+        redisTemplate.opsForHash().put(RedisConfig.accessTokenPrefix + accessToken,RedisConfig.AUTHORITIES_KEY,authentication.getAuthorities());
         redisTemplate.opsForValue().set(RedisConfig.refreshTokenPrefix + refreshToken,authentication.getName(),RedisConfig.refreshTokenExpire,TimeUnit.SECONDS);
         // 构建需要返回给前端的数据
         Map<String,Object> data = new HashMap<>();
