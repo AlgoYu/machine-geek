@@ -6,7 +6,8 @@ package cn.machine.geek.service;
  * @Date: 2020/10/9 15:43
  */
 public interface TokenService {
-    boolean existsToken(String key);
+    boolean existsAccessToken(String key);
+    boolean existsRefreshToken(String key);
     String createAccessToken(String key, Object info);
     String createRefreshToken(String key, Object info);
     Object getAccessToken(String key);
