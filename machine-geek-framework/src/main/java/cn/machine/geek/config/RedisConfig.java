@@ -5,13 +5,12 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @Author: MachineGeek
- * @Description:
+ * @Description: Token配置类
  * @Date: 2020/10/6
  */
 @Configuration
 public class RedisConfig {
-    public final static String accessTokenPrefix = "ACCESS_TOKEN_";
-    public final static String refreshTokenPrefix = "REFRESH_TOKEN_";
+
     public static long accessTokenExpire;
     public static long refreshTokenExpire;
 

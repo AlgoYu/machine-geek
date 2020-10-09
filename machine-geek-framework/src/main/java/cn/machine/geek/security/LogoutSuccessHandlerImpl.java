@@ -1,6 +1,7 @@
 package cn.machine.geek.security;
 
 import cn.machine.geek.entity.R;
+import cn.machine.geek.service.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,8 +24,12 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     // Jackson
     @Autowired
     private ObjectMapper objectMapper;
+    // Token服务
+    @Autowired
+    private TokenService tokenService;
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+        tokenService.deleteToken(httpServletRequest.getParameter("id"));
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter writer = httpServletResponse.getWriter();
         String json = objectMapper.writeValueAsString(R.ok());
