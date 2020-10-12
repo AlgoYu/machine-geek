@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class TokenServiceImpl implements TokenService {
-    public final static String ACCESS_TOKEN_PREFIX = "ACCESS_TOKEN_";
-    public final static String REFRESH_TOKEN_PREFIX = "REFRESH_TOKEN_";
+    public final static String ACCESS_TOKEN_KEY = "ACCESS_TOKEN_";
+    public final static String REFRESH_TOKEN_KEY = "REFRESH_TOKEN_";
     // AccessToken 过期时间
     @Value(value = "${token.accessTokenExpire}")
     private long accessTokenExpire;
@@ -26,7 +26,7 @@ public class TokenServiceImpl implements TokenService {
     private long refreshTokenExpire;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String,Object> redisTemplate;
 
     /**
     * @Author: MachineGeek
@@ -37,7 +37,7 @@ public class TokenServiceImpl implements TokenService {
     */
     @Override
     public boolean existsAccessToken(String key) {
-        return redisTemplate.hasKey(this.ACCESS_TOKEN_PREFIX + key);
+        return redisTemplate.hasKey(this.ACCESS_TOKEN_KEY + key);
     }
 
     /**
@@ -49,7 +49,7 @@ public class TokenServiceImpl implements TokenService {
     */
     @Override
     public boolean existsRefreshToken(String key) {
-        return redisTemplate.hasKey(this.REFRESH_TOKEN_PREFIX + key);
+        return redisTemplate.hasKey(this.REFRESH_TOKEN_KEY + key);
     }
 
     /**
@@ -63,7 +63,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public String createAccessToken(String key, Object info) {
         String accessToken = UUID.randomUUID().toString();
-        this.redisTemplate.opsForValue().set(this.ACCESS_TOKEN_PREFIX + key,info,accessTokenExpire, TimeUnit.SECONDS);
+        this.redisTemplate.opsForValue().set(this.ACCESS_TOKEN_KEY + key,info,accessTokenExpire, TimeUnit.SECONDS);
         return accessToken;
     }
 
@@ -78,7 +78,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public String createRefreshToken(String key, Object info) {
         String refreshToken = UUID.randomUUID().toString();
-        this.redisTemplate.opsForValue().set(this.REFRESH_TOKEN_PREFIX + key,info,this.refreshTokenExpire,TimeUnit.SECONDS);
+        this.redisTemplate.opsForValue().set(this.REFRESH_TOKEN_KEY + key,info,this.refreshTokenExpire,TimeUnit.SECONDS);
         return refreshToken;
     }
 
@@ -91,7 +91,7 @@ public class TokenServiceImpl implements TokenService {
     */
     @Override
     public Object getAccessToken(String key) {
-        return this.redisTemplate.opsForValue().get(this.ACCESS_TOKEN_PREFIX + key);
+        return this.redisTemplate.opsForValue().get(this.ACCESS_TOKEN_KEY + key);
     }
 
     /**
@@ -103,7 +103,7 @@ public class TokenServiceImpl implements TokenService {
     */
     @Override
     public Object getRefreshToken(String key) {
-        return this.redisTemplate.opsForValue().get(this.REFRESH_TOKEN_PREFIX + key);
+        return this.redisTemplate.opsForValue().get(this.REFRESH_TOKEN_KEY + key);
     }
 
     /**
