@@ -17,6 +17,33 @@ spring:
     check-template-location: true
     expose-request-attributes: false
     expose-session-attributes: false
+    # 数据源
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://${mysql.host}:${mysql.port}/machine_geek?useUnicode=true&useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true
+      username: ${mysql.user}
+      password: ${mysql.password}
+      # 连接池
+      druid:
+        min-idle: 5
+        max-active: 20
+        initial-size: 5
+    # Redis
+    redis:
+      host: ${redis.host}
+      port: ${redis.port}
+      password: ${redis.password}
+      database: ${redis.database}
 # Mybatis Plus
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
+# Token超时时间（单位秒）
+token:
+  # 8个小时28800
+  accessTokenExpire: 28800
+  # 15天1296000
+  refreshTokenExpire: 1296000
+# 上传路径
+upload:
+  urlPath: /upload/
+  localPath: /Volumes/Project/upload/
