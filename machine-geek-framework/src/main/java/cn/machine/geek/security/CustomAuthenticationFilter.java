@@ -29,19 +29,16 @@ import java.util.Map;
  * @Description: 自定义验证逻辑类
  * @Date: 2020/10/6
  */
-@Component
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     // Token
     private TokenService tokenService;
     // Jackson
     private ObjectMapper objectMapper;
 
-    @Autowired
-    public CustomAuthenticationFilter(TokenService tokenService, ObjectMapper objectMapper, AuthenticationManager authenticationManager) {
+    public CustomAuthenticationFilter(TokenService tokenService, ObjectMapper objectMapper) {
         this.tokenService = tokenService;
         this.objectMapper = objectMapper;
         this.setFilterProcessesUrl("/login");
-        this.setAuthenticationManager(authenticationManager);
     }
 
     /** @Author: MachineGeek
@@ -96,8 +93,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         // 构建Token
-        String accessToken = tokenService.createAccessToken(authResult.getName(),authResult.getPrincipal());
-        String refreshToken = tokenService.createAccessToken(authResult.getName(),null);
+        String accessToken = tokenService.createAccessToken(authResult.getPrincipal());
+        String refreshToken = tokenService.createAccessToken(null);
         // 构建需要返回给前端的数据
         Map<String,Object> data = new HashMap<>();
         data.put("accessToken",accessToken);

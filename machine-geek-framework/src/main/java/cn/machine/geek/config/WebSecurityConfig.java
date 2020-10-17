@@ -1,6 +1,9 @@
 package cn.machine.geek.config;
 
 import cn.machine.geek.security.CustomAuthenticationFilter;
+import cn.machine.geek.security.TokenAuthenticationFilter;
+import cn.machine.geek.service.TokenService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,9 +30,9 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true,jsr250Enabled = true,prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    // 自定义登录逻辑
+    // 自定义Token过滤器
     @Autowired
-    private CustomAuthenticationFilter customAuthenticationFilter;
+    private TokenAuthenticationFilter tokenAuthenticationFilter;
     // 自定义未登陆逻辑
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
@@ -39,6 +42,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // 自定义注销逻辑
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
+    // Token服务
+    @Autowired
+    private TokenService tokenService;
+    // Jackson实例
+    @Autowired
+    private ObjectMapper objectMapper;
     // 静态资源忽略路径
     private String[] ignores = new String[]{"/upload/**","/static/**","/doc.html","/webjars/**","/v2/**","/api-docs-ext","/swagger-resources/**","/api-docs","/swagger-ui.html"};
 
@@ -87,8 +96,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 设置关闭CSRF与CORS
                 .cors().disable()
                 .csrf().disable();
-        // 设置替换认证逻辑
-        http.addFilterAt(customAuthenticationFilter,UsernamePasswordAuthenticationFilter.class);
+
+        // 设置自定义验证逻辑
+        http.addFilterAt(this.customAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);
+        // 设置Token过滤器
+        http.addFilterBefore(tokenAuthenticationFilter,UsernamePasswordAuthenticationFilter.class);
+    }
+
+    /** @Author: MachineGeek
+    * @Description: 自定义验证逻辑
+    * @Date: 2020/10/17
+     * @param
+    * @Return cn.machine.geek.security.CustomAuthenticationFilter
+    */
+    private CustomAuthenticationFilter customAuthenticationFilter(){
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(tokenService,objectMapper);
+        customAuthenticationFilter.setFilterProcessesUrl("/login");
+        try {
+            customAuthenticationFilter.setAuthenticationManager(authenticationManagerBean());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return customAuthenticationFilter;
     }
 
     /** @Author: MachineGeek

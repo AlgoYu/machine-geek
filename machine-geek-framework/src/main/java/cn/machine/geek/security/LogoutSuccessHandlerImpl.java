@@ -6,7 +6,6 @@ import cn.machine.geek.entity.R;
 import cn.machine.geek.service.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -30,9 +29,17 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     // Token服务
     @Autowired
     private TokenService tokenService;
+    /** @Author: MachineGeek
+    * @Description: 用户注销处理
+    * @Date: 2020/10/17
+    * @param httpServletRequest
+    * @param httpServletResponse
+    * @param authentication
+    * @Return void
+    */
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        tokenService.deleteToken(httpServletRequest.getParameter("id"));
+        tokenService.deleteAccessToken(httpServletRequest.getParameter("id"));
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter writer = httpServletResponse.getWriter();
         String json = objectMapper.writeValueAsString(R.ok());

@@ -8,9 +8,10 @@ package cn.machine.geek.service;
 public interface TokenService {
     boolean existsAccessToken(String key);
     boolean existsRefreshToken(String key);
-    String createAccessToken(String key, Object info);
-    String createRefreshToken(String key, Object info);
+    String createAccessToken(Object info);
+    String createRefreshToken(Object info);
     Object getAccessToken(String key);
     Object getRefreshToken(String key);
-    void deleteToken(String key);
+    void deleteAccessToken(String key);
+    void deleteRefreshToken(String key);
 }

@@ -56,14 +56,13 @@ public class TokenServiceImpl implements TokenService {
     * @Author: MachineGeek
     * @Description: 创建访问Token
     * @Date: 2020/10/9 16:35
-    * @param key:
      * @param info:
     * @return: java.lang.String
     */
     @Override
-    public String createAccessToken(String key, Object info) {
+    public String createAccessToken(Object info) {
         String accessToken = UUID.randomUUID().toString();
-        this.redisTemplate.opsForValue().set(this.ACCESS_TOKEN_KEY + key,info,accessTokenExpire, TimeUnit.SECONDS);
+        this.redisTemplate.opsForValue().set(this.ACCESS_TOKEN_KEY + accessToken,info,this.accessTokenExpire, TimeUnit.SECONDS);
         return accessToken;
     }
 
@@ -71,14 +70,13 @@ public class TokenServiceImpl implements TokenService {
     * @Author: MachineGeek
     * @Description: 创建刷新Token
     * @Date: 2020/10/9 16:35
-    * @param key:
      * @param info:
     * @return: java.lang.String
     */
     @Override
-    public String createRefreshToken(String key, Object info) {
+    public String createRefreshToken( Object info) {
         String refreshToken = UUID.randomUUID().toString();
-        this.redisTemplate.opsForValue().set(this.REFRESH_TOKEN_KEY + key,info,this.refreshTokenExpire,TimeUnit.SECONDS);
+        this.redisTemplate.opsForValue().set(this.REFRESH_TOKEN_KEY + refreshToken,info,this.refreshTokenExpire,TimeUnit.SECONDS);
         return refreshToken;
     }
 
@@ -114,7 +112,12 @@ public class TokenServiceImpl implements TokenService {
     * @return: void
     */
     @Override
-    public void deleteToken(String key) {
-        redisTemplate.delete(key);
+    public void deleteAccessToken(String key) {
+        redisTemplate.delete(this.ACCESS_TOKEN_KEY + key);
+    }
+
+    @Override
+    public void deleteRefreshToken(String key) {
+        redisTemplate.delete(this.REFRESH_TOKEN_KEY + key);
     }
 }
