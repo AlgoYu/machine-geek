@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 05/10/2020 16:28:52
+ Date: 18/10/2020 02:09:31
 */
 
 SET NAMES utf8mb4;
@@ -31,17 +31,12 @@ CREATE TABLE `system_authority` (
   `version` int DEFAULT NULL COMMENT '乐观锁',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `type` tinyint DEFAULT NULL COMMENT '权限类型：0是模块，1是菜单，2是按钮。',
   PRIMARY KEY (`id`),
   UNIQUE KEY `system_authority_id_uindex` (`id`),
   UNIQUE KEY `system_authority_key_uindex` (`key`),
   UNIQUE KEY `system_authority_name_uindex` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统权力';
-
--- ----------------------------
--- Records of system_authority
--- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for system_role
@@ -63,12 +58,6 @@ CREATE TABLE `system_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统角色';
 
 -- ----------------------------
--- Records of system_role
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
 -- Table structure for system_role_authority_relation
 -- ----------------------------
 DROP TABLE IF EXISTS `system_role_authority_relation`;
@@ -81,12 +70,6 @@ CREATE TABLE `system_role_authority_relation` (
   CONSTRAINT `system_role_authority_relation_authority_fk` FOREIGN KEY (`authority_id`) REFERENCES `system_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `system_role_authority_relation_role_fk` FOREIGN KEY (`role_id`) REFERENCES `system_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色权力';
-
--- ----------------------------
--- Records of system_role_authority_relation
--- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for system_user
@@ -113,13 +96,6 @@ CREATE TABLE `system_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统用户';
 
 -- ----------------------------
--- Records of system_user
--- ----------------------------
-BEGIN;
-INSERT INTO `system_user` VALUES (1, 'admin', '$2a$10$gga7aDaFQOJuKJSyuoFoX.nV9pLfBJ4D4xMcTMYQHCOzYchnF2pXu', '/static/admin.jpg', 'MachineGeek', '超级管理员', '794763733@qq.com', '18106666986', '127.0.0.1', 0, 0, '2020-10-05 15:47:19', '2020-10-05 15:47:21', '2020-10-05 15:47:22');
-COMMIT;
-
--- ----------------------------
 -- Table structure for system_user_role_relation
 -- ----------------------------
 DROP TABLE IF EXISTS `system_user_role_relation`;
@@ -132,11 +108,5 @@ CREATE TABLE `system_user_role_relation` (
   CONSTRAINT `system_user_role_relation_role_fk` FOREIGN KEY (`role_id`) REFERENCES `system_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `system_user_role_relation_user_fk` FOREIGN KEY (`user_id`) REFERENCES `system_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户角色关系';
-
--- ----------------------------
--- Records of system_user_role_relation
--- ----------------------------
-BEGIN;
-COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

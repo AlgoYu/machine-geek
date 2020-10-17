@@ -9,6 +9,7 @@
         <result column="name" property="name" />
         <result column="key" property="key" />
         <result column="description" property="description" />
+        <result column="type" property="type" />
         <result column="sort" property="sort" />
         <result column="disable" property="disable" />
         <result column="version" property="version" />
@@ -17,7 +18,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        `name`,`key`,`description`,`sort`,`disable`,`version`,`create_time`,`update_time`
+        `name`,`key`,`description`,`type`,`sort`,`disable`,`version`,`create_time`,`update_time`
     </sql>
     <!-- 根据用户ID查询权力 -->
     <select id="selectByUserId" resultMap="BaseResultMap">
