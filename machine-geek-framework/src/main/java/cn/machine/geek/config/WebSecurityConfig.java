@@ -1,7 +1,6 @@
 package cn.machine.geek.config;
 
-import cn.machine.geek.security.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import cn.machine.geek.security.CustomAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -30,15 +27,12 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true,jsr250Enabled = true,prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    // 自定义登录逻辑
+    @Autowired
+    private CustomAuthenticationFilter customAuthenticationFilter;
     // 自定义未登陆逻辑
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
-    // 自定义认证成功逻辑
-    @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
-    // 自定义认证失败逻辑
-    @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
     // 自定义访问拒绝逻辑
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
@@ -93,18 +87,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 设置关闭CSRF与CORS
                 .cors().disable()
                 .csrf().disable();
-
-        // 设置自定义登录逻辑
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter();
-        // 设置自定义的登陆成功失败逻辑
-        customAuthenticationFilter.setAuthenticationSuccessHandler(this.authenticationSuccessHandler);
-        customAuthenticationFilter.setAuthenticationFailureHandler(this.authenticationFailureHandler);
-        customAuthenticationFilter.setFilterProcessesUrl("/login");
-        try {
-            customAuthenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         // 设置替换认证逻辑
         http.addFilterAt(customAuthenticationFilter,UsernamePasswordAuthenticationFilter.class);
     }
@@ -118,17 +100,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-    }
-
-    /** @Author: MachineGeek
-    * @Description: 注册Jackson序列化类
-    * @Date: 2020/10/6
-    * @param
-    * @Return com.fasterxml.jackson.databind.ObjectMapper
-    */
-    @Bean
-    public ObjectMapper objectMapper(){
-        return new ObjectMapper();
     }
 
     /** @Author: MachineGeek

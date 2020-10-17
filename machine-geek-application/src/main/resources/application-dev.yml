@@ -1,37 +1,18 @@
-spring:
-  # 数据源
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/machine_geek?useUnicode=true&useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true
-    username: root
-    password: 123456
-    # 连接池
-    druid:
-      min-idle: 5
-      max-active: 20
-      initial-size: 5
-  # Redis
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    password: 123456
-    database: 0
-# 静态资源
-upload:
-  urlPath: /upload/
-  localPath: /Volumes/Project/upload/
-# knife4j
-knife4j:
-  production: false
+# mysql
+mysql:
+  host: 192.168.0.100
+  port: 3306
+  user: root
+  password: 123456
+# redis
+redis:
+  host: 192.168.0.100
+  port: 6379
+  password: 123456
+  database: 0
 ## logback配置
 logging:
   level:
     org:
       springframework:
         security: info
-# Token超时时间（单位秒）
-token:
-  # 8个小时28800
-  accessTokenExpire: 28800
-  # 15天1296000
-  refreshTokenExpire: 1296000
