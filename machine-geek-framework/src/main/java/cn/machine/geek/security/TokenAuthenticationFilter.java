@@ -1,6 +1,7 @@
 package cn.machine.geek.security;
 
 import cn.machine.geek.config.WebConfig;
+import cn.machine.geek.entity.LoginUser;
 import cn.machine.geek.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,7 +39,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         String tokenHeader = request.getHeader(WebConfig.TOKEN_HEADER);
         if(!StringUtils.isEmpty(tokenHeader)){
             if(tokenService.existsAccessToken(tokenHeader)){
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) tokenService.getAccessToken(tokenHeader);
+                LoginUser loginUser = tokenService.getAccessToken(tokenHeader);
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }

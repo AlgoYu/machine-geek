@@ -1,8 +1,6 @@
 package cn.machine.geek.security;
 
-import cn.machine.geek.entity.SystemAuthority;
-import cn.machine.geek.entity.SystemRole;
-import cn.machine.geek.entity.SystemUser;
+import cn.machine.geek.entity.*;
 import cn.machine.geek.service.ISystemAuthorityService;
 import cn.machine.geek.service.ISystemRoleService;
 import cn.machine.geek.service.ISystemUserService;
@@ -51,12 +49,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
         List<SystemAuthority> systemAuthorities = systemAuthorityService.listByUserId(systemUser.getId());
 
         systemRoles.forEach((role)->{
-            authorities.add(new SimpleGrantedAuthority(role.getKey()));
+            authorities.add(new UserAuthority(role.getKey()));
         });
         systemAuthorities.forEach((authority)->{
-            authorities.add(new SimpleGrantedAuthority(authority.getKey()));
+            authorities.add(new UserAuthority(authority.getKey()));
         });
 
-        return new User(systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),true,true,true,authorities);
+        return new LoginUser(systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),authorities,true,true,true);
     }
 }

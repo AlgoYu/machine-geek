@@ -1,5 +1,6 @@
 package cn.machine.geek.security;
 
+import cn.machine.geek.entity.LoginUser;
 import cn.machine.geek.entity.R;
 import cn.machine.geek.service.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -93,8 +94,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         // 构建Token
-        String accessToken = tokenService.createAccessToken(authResult.getPrincipal());
-        String refreshToken = tokenService.createAccessToken(null);
+        String accessToken = tokenService.createAccessToken((LoginUser) authResult.getPrincipal());
+        String refreshToken = tokenService.createRefreshToken(null);
         // 构建需要返回给前端的数据
         Map<String,Object> data = new HashMap<>();
         data.put("accessToken",accessToken);

@@ -1,5 +1,6 @@
 package cn.machine.geek.service.impl;
 
+import cn.machine.geek.entity.LoginUser;
 import cn.machine.geek.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,7 +61,7 @@ public class TokenServiceImpl implements TokenService {
     * @return: java.lang.String
     */
     @Override
-    public String createAccessToken(Object info) {
+    public String createAccessToken(LoginUser info) {
         String accessToken = UUID.randomUUID().toString();
         this.redisTemplate.opsForValue().set(this.ACCESS_TOKEN_KEY + accessToken,info,this.accessTokenExpire, TimeUnit.SECONDS);
         return accessToken;
@@ -74,7 +75,7 @@ public class TokenServiceImpl implements TokenService {
     * @return: java.lang.String
     */
     @Override
-    public String createRefreshToken( Object info) {
+    public String createRefreshToken(LoginUser info) {
         String refreshToken = UUID.randomUUID().toString();
         this.redisTemplate.opsForValue().set(this.REFRESH_TOKEN_KEY + refreshToken,info,this.refreshTokenExpire,TimeUnit.SECONDS);
         return refreshToken;
@@ -88,8 +89,8 @@ public class TokenServiceImpl implements TokenService {
     * @return: java.lang.Object
     */
     @Override
-    public Object getAccessToken(String key) {
-        return this.redisTemplate.opsForValue().get(this.ACCESS_TOKEN_KEY + key);
+    public LoginUser getAccessToken(String key) {
+        return (LoginUser)this.redisTemplate.opsForValue().get(this.ACCESS_TOKEN_KEY + key);
     }
 
     /**
@@ -100,8 +101,8 @@ public class TokenServiceImpl implements TokenService {
     * @return: java.lang.Object
     */
     @Override
-    public Object getRefreshToken(String key) {
-        return this.redisTemplate.opsForValue().get(this.REFRESH_TOKEN_KEY + key);
+    public LoginUser getRefreshToken(String key) {
+        return (LoginUser)this.redisTemplate.opsForValue().get(this.REFRESH_TOKEN_KEY + key);
     }
 
     /**
