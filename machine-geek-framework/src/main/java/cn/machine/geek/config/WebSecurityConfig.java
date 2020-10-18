@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -80,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout")
                 // 设置注销处理逻辑
-                .logoutSuccessHandler(logoutSuccessHandler)
+                .logoutSuccessHandler(this.logoutSuccessHandler)
                 .permitAll()
                 .and()
                 // 设置其余请求全部拦截
@@ -100,20 +99,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 设置自定义验证逻辑
         http.addFilterAt(this.customAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);
         // 设置Token过滤器
-        http.addFilterBefore(tokenAuthenticationFilter,UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(this.tokenAuthenticationFilter,UsernamePasswordAuthenticationFilter.class);
     }
 
     /** @Author: MachineGeek
     * @Description: 自定义验证逻辑
     * @Date: 2020/10/17
-     * @param
+    * @param
     * @Return cn.machine.geek.security.CustomAuthenticationFilter
     */
     private CustomAuthenticationFilter customAuthenticationFilter(){
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(tokenService,objectMapper);
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(this.tokenService,this.objectMapper);
         customAuthenticationFilter.setFilterProcessesUrl("/login");
         try {
-            customAuthenticationFilter.setAuthenticationManager(authenticationManagerBean());
+            customAuthenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -129,17 +128,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-    }
-
-    /** @Author: MachineGeek
-    * @Description: 注册认证管理类
-    * @Date: 2020/10/6
-     * @param
-    * @Return org.springframework.security.authentication.AuthenticationManager
-    */
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
     }
 }
