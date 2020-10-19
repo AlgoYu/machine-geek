@@ -1,6 +1,6 @@
 package cn.machine.geek.controller;
 
-import cn.machine.geek.entity.R;
+import cn.machine.geek.dto.R;
 import io.swagger.annotations.Api;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;

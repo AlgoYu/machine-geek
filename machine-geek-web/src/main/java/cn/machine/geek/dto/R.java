@@ -1,4 +1,4 @@
-package cn.machine.geek.entity;
+package cn.machine.geek.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

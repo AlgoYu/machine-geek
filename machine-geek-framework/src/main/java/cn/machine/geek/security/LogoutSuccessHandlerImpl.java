@@ -1,8 +1,6 @@
 package cn.machine.geek.security;
 
-import cn.machine.geek.config.RedisConfig;
-import cn.machine.geek.config.WebConfig;
-import cn.machine.geek.entity.R;
+import cn.machine.geek.dto.R;
 import cn.machine.geek.service.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package cn.machine.geek.security;
 
-import cn.machine.geek.entity.R;
+import cn.machine.geek.dto.R;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;

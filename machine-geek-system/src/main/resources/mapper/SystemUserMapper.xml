@@ -24,4 +24,13 @@
     <sql id="Base_Column_List">
         `username`,`password`,`picture`,`nickname`,`description`,`email`,`phone`,`ip`,`disable`,`version`,`last_login`,`create_time`,`update_time`
     </sql>
+    <!-- 条件查询 -->
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"></include>
+        FROM
+            system_user
+        WHERE
+            system_user.`username` like '%${keyWord}%'
+    </select>
 </mapper>

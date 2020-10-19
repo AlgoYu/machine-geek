@@ -4,6 +4,8 @@ import cn.machine.geek.entity.SystemUser;
 import cn.machine.geek.mapper.ISystemUserMapper;
 import cn.machine.geek.service.ISystemUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SystemUserServiceImpl extends ServiceImpl<ISystemUserMapper, SystemUser> implements ISystemUserService {
+    @Override
+    public IPage<SystemUser> listByCondition(int page, int size, String keyWord) {
+        return baseMapper.selectByCondition(new Page<SystemUser>(page,size),keyWord);
+    }
+
     @Override
     public SystemUser getByUserName(String username) {
         QueryWrapper<SystemUser> queryWrapper = new QueryWrapper<>();
