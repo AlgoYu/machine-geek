@@ -7,7 +7,6 @@
         <module>machine-geek-api</module>
         <module>machine-geek-application</module>
         <module>machine-geek-business</module>
-        <module>machine-geek-web</module>
         <module>machine-geek-framework</module>
         <module>machine-geek-common</module>
         <module>machine-geek-system</module>
@@ -15,7 +14,6 @@
 
     <properties>
         <start-class>cn.machine.geek.Application</start-class>
-        <lombok.version>1.18.12</lombok.version>
         <mysql.version>8.0.21</mysql.version>
         <druid.version>1.1.22</druid.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
@@ -44,11 +42,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.machine.geek</groupId>
-                <artifactId>machine-geek-web</artifactId>
-                <version>${version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.machine.geek</groupId>
                 <artifactId>machine-geek-framework</artifactId>
                 <version>${version}</version>
             </dependency>
@@ -68,11 +61,6 @@
                 <version>${version}</version>
             </dependency>
             <!-- 框架依赖 -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>

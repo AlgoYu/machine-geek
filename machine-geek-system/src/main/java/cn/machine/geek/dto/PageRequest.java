@@ -1,7 +1,5 @@
 package cn.machine.geek.dto;
 
-import lombok.Data;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -10,7 +8,6 @@ import javax.validation.constraints.NotNull;
  * @Description: 分页请求
  * @Date: 2020/10/19
  */
-@Data
 public class PageRequest {
     @Min(value = 1,message = "当前页不能小于1")
     private int page;
@@ -18,4 +15,28 @@ public class PageRequest {
     private int size;
     @NotNull(message = "关键字不能为空")
     private String keyWord;
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
+    }
 }

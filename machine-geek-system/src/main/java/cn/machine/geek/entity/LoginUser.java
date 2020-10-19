@@ -1,7 +1,5 @@
 package cn.machine.geek.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,16 +10,29 @@ import java.util.Collection;
  * @Description: 登录用户类
  * @Date: 2020/10/18
  */
-@NoArgsConstructor
-@AllArgsConstructor
 public class LoginUser implements UserDetails {
+    private Long id;
     private String username;
     private String password;
-    private boolean enabled;
+    private boolean enable;
     private Collection<GrantedAuthority> authorities;
     private boolean credentialsNonExpired;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
+
+    public LoginUser() {
+    }
+
+    public LoginUser(Long id, String username, String password, boolean enable, Collection<GrantedAuthority> authorities, boolean credentialsNonExpired, boolean accountNonExpired, boolean accountNonLocked) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.enable = enable;
+        this.authorities = authorities;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -55,6 +66,6 @@ public class LoginUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.enabled;
+        return this.enable;
     }
 }

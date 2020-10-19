@@ -1,4 +1,4 @@
-package cn.machine.geek.security;
+package cn.machine.geek.service.impl;
 
 import cn.machine.geek.entity.*;
 import cn.machine.geek.service.ISystemAuthorityService;
@@ -7,7 +7,6 @@ import cn.machine.geek.service.ISystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,22 +38,23 @@ public class UserDetailServiceImpl implements UserDetailsService {
     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // 根据用户名查询出用户
         SystemUser systemUser = systemUserService.getByUserName(username);
         if(null == systemUser){
             throw new UsernameNotFoundException("用户不存在！");
         }
-
+        // 根据用户名查询出角色与权限
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         List<SystemRole> systemRoles = systemRoleService.listByUserId(systemUser.getId());
         List<SystemAuthority> systemAuthorities = systemAuthorityService.listByUserId(systemUser.getId());
-
+        // 增加到权限集合中
         systemRoles.forEach((role)->{
-            authorities.add(new UserAuthority(role.getKey()));
+            authorities.add(new SimpleGrantedAuthority(role.getKey()));
         });
         systemAuthorities.forEach((authority)->{
-            authorities.add(new UserAuthority(authority.getKey()));
+            authorities.add(new SimpleGrantedAuthority(authority.getKey()));
         });
-
-        return new LoginUser(systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),authorities,true,true,true);
+        // 返回登录对象
+        return new LoginUser(systemUser.getId(),systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),authorities,true,true,true);
     }
 }

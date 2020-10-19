@@ -4,6 +4,8 @@ import cn.machine.geek.dto.R;
 import io.swagger.annotations.Api;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,14 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 @Secured(value = "ROLE_ADMINISTRATOR")
 public class TestController {
     @PreAuthorize("hasAuthority('SYSTEM')")
-    @GetMapping(value = "/test")
+    @GetMapping(value = "/system")
     public R test(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return R.ok();
     }
 
-    @PreAuthorize("hasAuthority('SYTEM')")
-    @GetMapping(value = "/test2")
+    @PreAuthorize("hasAuthority('TEST')")
+    @GetMapping(value = "/test")
     public R test2(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return R.ok();
     }
 }

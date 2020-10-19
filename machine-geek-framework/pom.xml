@@ -12,10 +12,29 @@
     <artifactId>machine-geek-framework</artifactId>
 
     <dependencies>
+        <!-- 模块依赖 -->
         <dependency>
             <groupId>cn.machine.geek</groupId>
-            <artifactId>machine-geek-web</artifactId>
+            <artifactId>machine-geek-common</artifactId>
         </dependency>
+        <!-- Web基础框架 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+        <!-- 第三方框架 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>

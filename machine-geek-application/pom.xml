@@ -12,9 +12,21 @@
     <artifactId>machine-geek-application</artifactId>
 
     <dependencies>
+        <!-- 模块依赖 -->
         <dependency>
             <groupId>cn.machine.geek</groupId>
             <artifactId>machine-geek-api</artifactId>
+        </dependency>
+        <!-- Dev依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
