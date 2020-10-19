@@ -89,8 +89,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+        // 把返回密码设置未空
+        LoginUser loginUser = (LoginUser) authResult.getPrincipal();
+        loginUser.setPassword(null);
         // 构建Token
-        String accessToken = tokenService.createAccessToken((LoginUser) authResult.getPrincipal());
+        String accessToken = tokenService.createAccessToken(loginUser);
         String refreshToken = tokenService.createRefreshToken(null);
         // 构建需要返回给前端的数据
         Map<String,Object> data = new HashMap<>();

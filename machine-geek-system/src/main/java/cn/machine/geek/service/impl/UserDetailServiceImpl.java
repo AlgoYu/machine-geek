@@ -6,7 +6,6 @@ import cn.machine.geek.service.ISystemRoleService;
 import cn.machine.geek.service.ISystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -49,10 +48,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
         List<SystemAuthority> systemAuthorities = systemAuthorityService.listByUserId(systemUser.getId());
         // 增加到权限集合中
         systemRoles.forEach((role)->{
-            authorities.add(new SimpleGrantedAuthority(role.getKey()));
+            authorities.add(new Authority(role.getKey()));
         });
         systemAuthorities.forEach((authority)->{
-            authorities.add(new SimpleGrantedAuthority(authority.getKey()));
+            authorities.add(new Authority(authority.getKey()));
         });
         // 返回登录对象
         return new LoginUser(systemUser.getId(),systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),authorities,true,true,true);

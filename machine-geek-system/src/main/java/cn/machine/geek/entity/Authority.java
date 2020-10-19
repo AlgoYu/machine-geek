@@ -7,13 +7,13 @@ import org.springframework.security.core.GrantedAuthority;
  * @Description: 用户权限类
  * @Date: 2020/10/18
  */
-public class UserAuthority implements GrantedAuthority {
+public class Authority implements GrantedAuthority {
     private String authority;
 
-    public UserAuthority() {
+    public Authority() {
     }
 
-    public UserAuthority(String authority) {
+    public Authority(String authority) {
         this.authority = authority;
     }
 
@@ -28,8 +28,8 @@ public class UserAuthority implements GrantedAuthority {
             return true;
         }
 
-        if (obj instanceof UserAuthority) {
-            return authority.equals(((UserAuthority) obj).authority);
+        if (obj instanceof Authority) {
+            return authority.equals(((Authority) obj).authority);
         }
 
         return false;
