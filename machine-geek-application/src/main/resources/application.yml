@@ -5,6 +5,10 @@ spring:
   # 配置文件
   profiles:
     active: dev
+  # Jackson配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   # FreeMarker
   freemarker:
     cache: false
