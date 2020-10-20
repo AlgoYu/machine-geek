@@ -91,17 +91,6 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot 打包插件 -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!--fork :  如果没有该项配置devtools不会起作用，即应用不会restart -->
-                    <fork>true</fork>
-                    <!--支持静态文件热部署-->
-                    <addResources>true</addResources>
-                </configuration>
-            </plugin>
             <!-- Maven编译器插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -110,7 +99,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <encoding>utf-8</encoding>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>

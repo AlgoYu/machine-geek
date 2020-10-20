@@ -17,8 +17,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class TokenServiceImpl implements TokenService {
-    public final static String ACCESS_TOKEN_KEY = "ACCESS_TOKEN_";
-    public final static String REFRESH_TOKEN_KEY = "REFRESH_TOKEN_";
+    public static final String ACCESS_TOKEN_KEY = "ACCESS_TOKEN_";
+    public static final String REFRESH_TOKEN_KEY = "REFRESH_TOKEN_";
     // AccessToken 过期时间
     @Value(value = "${token.accessTokenExpire}")
     private long accessTokenExpire;

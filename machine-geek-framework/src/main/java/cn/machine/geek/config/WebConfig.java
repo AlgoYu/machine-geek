@@ -17,8 +17,6 @@ public class WebConfig implements WebMvcConfigurer {
     public static String URL_PATH;
     // 本地路径
     public static String LOCAL_PATH;
-    // 请求头Token
-    public static String TOKEN_HEADER = "Token";
 
     @Value("${upload.urlPath}")
     public static void setUrlPath(String urlPath) {
