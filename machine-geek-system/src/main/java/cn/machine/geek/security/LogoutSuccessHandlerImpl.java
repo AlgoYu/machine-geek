@@ -1,5 +1,6 @@
 package cn.machine.geek.security;
 
+import cn.machine.geek.constant.WebConstant;
 import cn.machine.geek.dto.R;
 import cn.machine.geek.service.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,7 +38,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     */
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        tokenService.deleteAccessToken(httpServletRequest.getParameter("id"));
+        tokenService.deleteAccessToken(httpServletRequest.getHeader(WebConstant.TOKEN_HEADER));
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter writer = httpServletResponse.getWriter();
         String json = objectMapper.writeValueAsString(R.ok());

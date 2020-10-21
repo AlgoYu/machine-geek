@@ -38,7 +38,7 @@ public class SystemUserController {
     }
 
     @ApiOperation(value = "根据ID删除系统用户",notes = "根据ID删除系统用户")
-    @PutMapping(value = "/deleteById")
+    @DeleteMapping(value = "/deleteById")
     public R deleteById(@RequestParam(value = "id") Long id){
         return R.ok(systemUserService.removeById(id));
     }
