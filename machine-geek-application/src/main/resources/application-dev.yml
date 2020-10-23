@@ -16,4 +16,7 @@ logging:
     org:
       springframework:
         security: info
-spring:
+# 日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

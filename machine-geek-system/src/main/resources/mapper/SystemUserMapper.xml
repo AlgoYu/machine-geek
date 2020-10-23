@@ -30,7 +30,17 @@
             <include refid="Base_Column_List"></include>
         FROM
             system_user
-        WHERE
-            system_user.`username` like '%${keyWord}%'
+        <if test='keyWord != null and keyWord != ""'>
+            WHERE
+                system_user.`username` LIKE '%${keyWord}%'
+                OR
+                system_user.`nickname` LIKE '%${keyWord}%'
+                OR
+                system_user.`description` LIKE '%${keyWord}%'
+                OR
+                system_user.`email` LIKE '%${keyWord}%'
+                OR
+                system_user.`phone` LIKE '%${keyWord}%'
+        </if>
     </select>
 </mapper>
