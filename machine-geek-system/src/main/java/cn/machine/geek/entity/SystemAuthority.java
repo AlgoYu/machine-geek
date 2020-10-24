@@ -1,5 +1,6 @@
 package cn.machine.geek.entity;
 
+import cn.machine.geek.enums.AuthorityEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,10 @@ public class SystemAuthority {
     private String name;
     private String key;
     private String description;
-    private Integer type;
+    private AuthorityEnum type;
+    private String path;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long parentId;
     private Integer sort;
     private Boolean disable;
     private Integer version;
@@ -23,7 +27,7 @@ public class SystemAuthority {
     private LocalDateTime updateTime;
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -31,7 +35,7 @@ public class SystemAuthority {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -39,7 +43,7 @@ public class SystemAuthority {
     }
 
     public String getKey() {
-        return key;
+        return this.key;
     }
 
     public void setKey(String key) {
@@ -47,23 +51,39 @@ public class SystemAuthority {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public Integer getType() {
-        return type;
+    public AuthorityEnum getType() {
+        return this.type;
     }
 
-    public void setType(Integer type) {
+    public void setType(AuthorityEnum type) {
         this.type = type;
     }
 
+    public String getPath() {
+        return this.path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Long getParentId() {
+        return this.parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
     public Integer getSort() {
-        return sort;
+        return this.sort;
     }
 
     public void setSort(Integer sort) {
@@ -71,7 +91,7 @@ public class SystemAuthority {
     }
 
     public Boolean getDisable() {
-        return disable;
+        return this.disable;
     }
 
     public void setDisable(Boolean disable) {
@@ -79,7 +99,7 @@ public class SystemAuthority {
     }
 
     public Integer getVersion() {
-        return version;
+        return this.version;
     }
 
     public void setVersion(Integer version) {
@@ -87,7 +107,7 @@ public class SystemAuthority {
     }
 
     public LocalDateTime getCreateTime() {
-        return createTime;
+        return this.createTime;
     }
 
     public void setCreateTime(LocalDateTime createTime) {
@@ -95,7 +115,7 @@ public class SystemAuthority {
     }
 
     public LocalDateTime getUpdateTime() {
-        return updateTime;
+        return this.updateTime;
     }
 
     public void setUpdateTime(LocalDateTime updateTime) {

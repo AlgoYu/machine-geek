@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 18/10/2020 02:09:31
+ Date: 24/10/2020 16:37:28
 */
 
 SET NAMES utf8mb4;
@@ -27,11 +27,13 @@ CREATE TABLE `system_authority` (
   `key` varchar(30) DEFAULT NULL COMMENT '关键字',
   `description` varchar(100) DEFAULT NULL COMMENT '描述',
   `sort` int DEFAULT NULL COMMENT '排序',
+  `type` tinyint DEFAULT NULL COMMENT '权限类型：0是模块，1是菜单，3是接口。',
+  `path` varchar(2083) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '路径',
+  `parent_id` bigint DEFAULT NULL COMMENT '父级权限ID',
   `disable` tinyint DEFAULT NULL COMMENT '禁用',
   `version` int DEFAULT NULL COMMENT '乐观锁',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `type` tinyint DEFAULT NULL COMMENT '权限类型：0是模块，1是菜单，2是按钮。',
   PRIMARY KEY (`id`),
   UNIQUE KEY `system_authority_id_uindex` (`id`),
   UNIQUE KEY `system_authority_key_uindex` (`key`),
