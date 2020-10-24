@@ -2,7 +2,7 @@ package cn.machine.geek.security;
 
 import cn.machine.geek.constant.WebConstant;
 import cn.machine.geek.dto.R;
-import cn.machine.geek.service.TokenService;
+import cn.machine.geek.service.ITokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -27,7 +27,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     private ObjectMapper objectMapper;
     // Token服务
     @Autowired
-    private TokenService tokenService;
+    private ITokenService tokenService;
     /** @Author: MachineGeek
     * @Description: 用户注销处理
     * @Date: 2020/10/17

@@ -2,7 +2,7 @@ package cn.machine.geek.security;
 
 import cn.machine.geek.entity.LoginUser;
 import cn.machine.geek.dto.R;
-import cn.machine.geek.service.TokenService;
+import cn.machine.geek.service.ITokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.MediaType;
@@ -29,11 +29,11 @@ import java.util.Map;
  */
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     // Token
-    private TokenService tokenService;
+    private ITokenService tokenService;
     // Jackson
     private ObjectMapper objectMapper;
 
-    public CustomAuthenticationFilter(TokenService tokenService, ObjectMapper objectMapper) {
+    public CustomAuthenticationFilter(ITokenService tokenService, ObjectMapper objectMapper) {
         this.tokenService = tokenService;
         this.objectMapper = objectMapper;
     }

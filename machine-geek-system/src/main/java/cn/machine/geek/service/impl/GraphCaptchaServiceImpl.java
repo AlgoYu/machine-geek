@@ -1,6 +1,6 @@
 package cn.machine.geek.service.impl;
 
-import cn.machine.geek.service.GraphCaptchaService;
+import cn.machine.geek.service.IGraphCaptchaService;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import io.netty.util.internal.StringUtil;
@@ -16,7 +16,7 @@ import java.awt.*;
  * @Date: 2020/10/22
  */
 @Service
-public class GraphCaptchaServiceImpl implements GraphCaptchaService {
+public class GraphCaptchaServiceImpl implements IGraphCaptchaService {
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
     /** @Author: MachineGeek

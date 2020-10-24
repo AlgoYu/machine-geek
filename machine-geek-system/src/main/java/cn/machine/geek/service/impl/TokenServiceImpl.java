@@ -1,7 +1,7 @@
 package cn.machine.geek.service.impl;
 
 import cn.machine.geek.entity.LoginUser;
-import cn.machine.geek.service.TokenService;
+import cn.machine.geek.service.ITokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2020/10/9 15:46
  */
 @Service
-public class TokenServiceImpl implements TokenService {
+public class TokenServiceImpl implements ITokenService {
     public static final String ACCESS_TOKEN_KEY = "ACCESS_TOKEN_";
     public static final String REFRESH_TOKEN_KEY = "REFRESH_TOKEN_";
     // AccessToken 过期时间

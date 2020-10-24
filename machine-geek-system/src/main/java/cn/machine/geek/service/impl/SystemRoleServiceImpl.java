@@ -3,6 +3,8 @@ package cn.machine.geek.service.impl;
 import cn.machine.geek.entity.SystemRole;
 import cn.machine.geek.mapper.ISystemRoleMapper;
 import cn.machine.geek.service.ISystemRoleService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,10 @@ public class SystemRoleServiceImpl extends ServiceImpl<ISystemRoleMapper, System
     @Override
     public List<SystemRole> listByUserId(Long userId) {
         return baseMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public IPage<SystemRole> listByCondition(int page, int size, String keyWord) {
+        return baseMapper.selectByCondition(new Page<SystemRole>(page,size),keyWord);
     }
 }

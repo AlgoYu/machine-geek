@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @Api(tags = "系统用户接口")
 @RestController
-@RequestMapping(value = "/SystemUser")
+@RequestMapping(value = "/systemUser")
 public class SystemUserController {
     @Autowired
     private ISystemUserService systemUserService;
@@ -50,7 +50,7 @@ public class SystemUserController {
         return R.ok(systemUserService.updateById(systemUser));
     }
 
-    @ApiOperation(value = "根据ID获取用户",notes = "根据ID获取系统用户")
+    @ApiOperation(value = "根据ID获取系统用户",notes = "根据ID获取系统用户")
     @GetMapping(value = "/getById")
     public R getById(@RequestParam(value = "id") Long id){
         return R.ok(systemUserService.getById(id));

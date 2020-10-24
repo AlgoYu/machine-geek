@@ -7,7 +7,7 @@ import cn.machine.geek.entity.LoginUser;
  * @Description: Token服务类
  * @Date: 2020/10/9 15:43
  */
-public interface TokenService {
+public interface ITokenService {
     boolean existsAccessToken(String key);
     boolean existsRefreshToken(String key);
     String createAccessToken(LoginUser info);

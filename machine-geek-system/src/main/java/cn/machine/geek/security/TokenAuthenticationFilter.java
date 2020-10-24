@@ -2,7 +2,7 @@ package cn.machine.geek.security;
 
 import cn.machine.geek.constant.WebConstant;
 import cn.machine.geek.entity.LoginUser;
-import cn.machine.geek.service.TokenService;
+import cn.machine.geek.service.ITokenService;
 import io.netty.util.internal.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +25,7 @@ import java.io.IOException;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     // Token服务
     @Autowired
-    private TokenService tokenService;
+    private ITokenService tokenService;
 
     /**
      * @param request

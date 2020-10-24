@@ -2,7 +2,7 @@ package cn.machine.geek.config;
 
 import cn.machine.geek.security.CustomAuthenticationFilter;
 import cn.machine.geek.security.TokenAuthenticationFilter;
-import cn.machine.geek.service.TokenService;
+import cn.machine.geek.service.ITokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private LogoutSuccessHandler logoutSuccessHandler;
     // Token服务
     @Autowired
-    private TokenService tokenService;
+    private ITokenService tokenService;
     // Jackson实例
     @Autowired
     private ObjectMapper objectMapper;
