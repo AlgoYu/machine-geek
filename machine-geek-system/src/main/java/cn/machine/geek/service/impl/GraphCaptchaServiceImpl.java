@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: MachineGeek
@@ -19,6 +20,8 @@ import java.awt.*;
 public class GraphCaptchaServiceImpl implements IGraphCaptchaService {
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
+    private final String CAPTCHA_KEY = "CAPTCHA_TOKEN_";
+    private final int CAPTCHA_EXPIRE = 3;
     /** @Author: MachineGeek
     * @Description: 创建Base64验证码
     * @Date: 2020/10/22
@@ -34,7 +37,7 @@ public class GraphCaptchaServiceImpl implements IGraphCaptchaService {
         // 设置类型，纯数字、纯字母、字母数字混合
         specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
         // 存入Redis
-        redisTemplate.opsForValue().set(key,specCaptcha.text().toLowerCase());
+        redisTemplate.opsForValue().set(this.CAPTCHA_KEY + key,specCaptcha.text().toLowerCase(),CAPTCHA_EXPIRE, TimeUnit.MINUTES);
         // 输出为Base64
         return specCaptcha.toBase64();
     }
@@ -47,7 +50,7 @@ public class GraphCaptchaServiceImpl implements IGraphCaptchaService {
     */
     @Override
     public boolean verifyCaptcha(String key, String value) {
-        String captcha = (String) redisTemplate.opsForValue().get(key);
+        String captcha = (String) redisTemplate.opsForValue().get(this.CAPTCHA_KEY + key);
         if(!StringUtil.isNullOrEmpty(captcha) && captcha.equals(value)){
             return true;
         }
