@@ -47,13 +47,15 @@ public class UserDetailServiceImpl implements UserDetailsService {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         List<SystemRole> systemRoles = systemRoleService.listByUserId(systemUser.getId());
         List<SystemAuthority> systemAuthorities = systemAuthorityService.listByUserId(systemUser.getId());
-        // 增加角色信息到权限中
+        // 增加角色信息到权限集合中
         systemRoles.forEach((systemRole)->{
             SystemAuthority systemAuthority = new SystemAuthority();
             systemAuthority.setType(AuthorityEnum.ROLE);
             systemAuthority.setKey(systemRole.getKey());
-            systemAuthorities.add(systemAuthority);
+            authorities.add(systemAuthority);
         });
+        // 添加权限信息到权限集合中
+        authorities.addAll(systemAuthorities);
         // 返回登录对象
         return new LoginUser(systemUser.getId(),systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),authorities,true,true,true);
     }
