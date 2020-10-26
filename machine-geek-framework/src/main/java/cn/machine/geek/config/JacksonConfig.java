@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import static ch.qos.logback.core.rolling.helper.DateTokenConverter.DEFAULT_DATE_PATTERN;
-
 /**
  * @Author: MachineGeek
  * @Description: Jackson配置类

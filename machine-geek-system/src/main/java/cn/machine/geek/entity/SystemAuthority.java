@@ -2,6 +2,7 @@ package cn.machine.geek.entity;
 
 import cn.machine.geek.enums.AuthorityEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
  * @Description: 系统权力类
  * @Date: 2020/10/3
  */
-public class SystemAuthority {
+public class SystemAuthority implements GrantedAuthority {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     private String name;
@@ -120,5 +121,33 @@ public class SystemAuthority {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.key;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof SystemAuthority) {
+            return this.key.equals(((SystemAuthority) obj).key);
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.key.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return this.key;
     }
 }

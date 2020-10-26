@@ -8,12 +8,20 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
  * @Date: 2020/10/24
  */
 public enum  AuthorityEnum {
-    MODULE(0),MENU(1),API(2);
+    ROLE(-1),MODULE(0),MENU(1),API(2);
 
     @EnumValue
     private Integer type;
 
     AuthorityEnum(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
         this.type = type;
     }
 }

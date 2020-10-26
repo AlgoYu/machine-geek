@@ -1,6 +1,7 @@
 package cn.machine.geek.service.impl;
 
 import cn.machine.geek.entity.*;
+import cn.machine.geek.enums.AuthorityEnum;
 import cn.machine.geek.service.ISystemAuthorityService;
 import cn.machine.geek.service.ISystemRoleService;
 import cn.machine.geek.service.ISystemUserService;
@@ -46,12 +47,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         List<SystemRole> systemRoles = systemRoleService.listByUserId(systemUser.getId());
         List<SystemAuthority> systemAuthorities = systemAuthorityService.listByUserId(systemUser.getId());
-        // 增加到权限集合中
-        systemRoles.forEach((role)->{
-            authorities.add(new Authority(role.getKey()));
-        });
-        systemAuthorities.forEach((authority)->{
-            authorities.add(new Authority(authority.getKey()));
+        // 增加角色信息到权限中
+        systemRoles.forEach((systemRole)->{
+            SystemAuthority systemAuthority = new SystemAuthority();
+            systemAuthority.setType(AuthorityEnum.ROLE);
+            systemAuthority.setKey(systemRole.getKey());
+            systemAuthorities.add(systemAuthority);
         });
         // 返回登录对象
         return new LoginUser(systemUser.getId(),systemUser.getUsername(),systemUser.getPassword(),!systemUser.getDisable(),authorities,true,true,true);
