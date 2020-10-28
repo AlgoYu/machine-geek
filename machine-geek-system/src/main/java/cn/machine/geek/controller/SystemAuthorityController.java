@@ -42,7 +42,7 @@ public class SystemAuthorityController {
         LoginUser loginUser = tokenService.getAccessToken(tokenStr);
         Collection<? extends GrantedAuthority> authorities = loginUser.getAuthorities();
         // 转换为菜单树返回
-        return R.ok(this.getChildren(null,authorities));
+        return R.ok(this.getChildren(0L,authorities));
     }
 
     /** @Author: MachineGeek
@@ -56,7 +56,7 @@ public class SystemAuthorityController {
         List<AuthorityTree> authorityTrees = new ArrayList<>();
         authorities.forEach((authority)->{
             SystemAuthority systemAuthority = (SystemAuthority) authority;
-            if(systemAuthority.getParentId().equals(id)){
+            if(id.equals(systemAuthority.getParentId())){
                 AuthorityTree authorityTree = new AuthorityTree();
                 BeanUtils.copyProperties(systemAuthority, authorityTree);
                 authorityTree.setChildren(this.getChildren(authorityTree.getId(),authorities));
