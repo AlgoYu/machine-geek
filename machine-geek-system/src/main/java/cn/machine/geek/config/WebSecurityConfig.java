@@ -92,8 +92,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(this.authenticationEntryPoint)
                 .accessDeniedHandler(this.accessDeniedHandler)
                 .and()
-                // 设置关闭CSRF与CORS
-                .cors().disable()
+                // 开启跨域 关闭CSRF攻击
+                .cors().and()
                 .csrf().disable();
 
         // 设置自定义验证逻辑

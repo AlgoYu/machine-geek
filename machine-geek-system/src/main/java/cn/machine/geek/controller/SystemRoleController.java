@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 /**
  * @Author: MachineGeek
- * @Description: 系统角色表控制器
+ * @Description: 系统角色控制器
  * @Date: 2020/10/24
  */
 @Api(tags = "系统角色接口")
@@ -44,8 +44,8 @@ public class SystemRoleController {
     }
 
     @ApiOperation(value = "根据ID更新系统用户",notes = "根据ID更新系统用户")
-    @PutMapping(value = "/updateById")
-    public R updateById(@RequestBody SystemRole systemRole){
+    @PutMapping(value = "/modifyById")
+    public R modifyById(@RequestBody SystemRole systemRole){
         systemRole.setUpdateTime(LocalDateTime.now());
         return R.ok(systemRoleService.updateById(systemRole));
     }

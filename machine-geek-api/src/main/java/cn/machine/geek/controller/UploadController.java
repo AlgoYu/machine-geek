@@ -2,6 +2,7 @@ package cn.machine.geek.controller;
 
 import cn.machine.geek.dto.R;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import java.util.UUID;
  * @Description: 上传文件控制器
  * @Date: 2020/10/25
  */
-@Api(tags = "验证码接口")
+@Api(tags = "文件上传接口")
 @RestController
 @RequestMapping(value = "/api/upload/")
 public class UploadController {
@@ -46,6 +47,7 @@ public class UploadController {
         fileFormat.put(".xlsx",true);
     }
 
+    @ApiOperation(value = "上传图片",notes = "上传图片")
     @PostMapping(value = "/uploadPicture")
     public R uploadPicture(MultipartFile multipartFile){
         if(multipartFile == null || multipartFile.isEmpty()){
@@ -56,6 +58,29 @@ public class UploadController {
         String fileSuffix = originalFilename.substring(originalFilename.lastIndexOf("."));
 
         if(pictureFormat.get(fileSuffix)){
+            String fileName = UUID.randomUUID().toString() + fileSuffix;
+            try {
+                multipartFile.transferTo(new File(this.uploadLocalPath + fileName));
+                return R.ok(this.uploadUrlPath + fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return R.fail("保存文件失败！");
+            }
+        }
+        return R.fail("文件格式不允许！");
+    }
+
+    @ApiOperation(value = "上传文件",notes = "上传文件")
+    @PostMapping(value = "/uploadFile")
+    public R uploadFile(MultipartFile multipartFile){
+        if(multipartFile == null || multipartFile.isEmpty()){
+            return R.fail("文件为空！");
+        }
+
+        String originalFilename = multipartFile.getOriginalFilename();
+        String fileSuffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+
+        if(fileFormat.get(fileSuffix)){
             String fileName = UUID.randomUUID().toString() + fileSuffix;
             try {
                 multipartFile.transferTo(new File(this.uploadLocalPath + fileName));
