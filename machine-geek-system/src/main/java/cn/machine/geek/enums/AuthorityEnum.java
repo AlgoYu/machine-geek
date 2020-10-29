@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * @Date: 2020/10/24
  */
 public enum  AuthorityEnum {
-    ROLE(100),MODULE(0),MENU(1),API(2);
+    ROLE(100),MODULE(0),API(1);
 
     @EnumValue
     private Integer type;
