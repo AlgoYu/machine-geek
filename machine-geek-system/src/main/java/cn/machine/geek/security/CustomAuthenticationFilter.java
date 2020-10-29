@@ -99,7 +99,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Map<String,Object> data = new HashMap<>();
         data.put("accessToken",accessToken);
         data.put("refreshToken",refreshToken);
-        data.put("user",authResult.getPrincipal());
+        data.put("user",loginUser);
         // 返回JSON
         response.setContentType("application/json;charset=utf-8");
         PrintWriter writer = response.getWriter();
