@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: MachineGeek
@@ -53,6 +51,7 @@ public class SystemAuthorityController {
     * @Return java.util.List<cn.machine.geek.dto.Menu>
     */
     private List<AuthorityTree> getChildren(Long id, Collection<? extends GrantedAuthority> authorities){
+        // 递归获取子树
         List<AuthorityTree> authorityTrees = new ArrayList<>();
         authorities.forEach((authority)->{
             SystemAuthority systemAuthority = (SystemAuthority) authority;
@@ -61,6 +60,13 @@ public class SystemAuthorityController {
                 BeanUtils.copyProperties(systemAuthority, authorityTree);
                 authorityTree.setChildren(this.getChildren(authorityTree.getId(),authorities));
                 authorityTrees.add(authorityTree);
+            }
+        });
+        // 排序
+        Collections.sort(authorityTrees, new Comparator<AuthorityTree>() {
+            @Override
+            public int compare(AuthorityTree o1, AuthorityTree o2) {
+                return o2.getSort() - o1.getSort();
             }
         });
         return authorityTrees;

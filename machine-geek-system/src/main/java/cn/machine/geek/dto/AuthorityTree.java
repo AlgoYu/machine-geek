@@ -15,6 +15,7 @@ public class AuthorityTree {
     private Long id;
     private String name;
     private String key;
+    private Integer sort;
     private String description;
     private AuthorityEnum type;
     private String path;
@@ -42,6 +43,14 @@ public class AuthorityTree {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     public String getDescription() {
