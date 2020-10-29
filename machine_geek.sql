@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 26/10/2020 18:12:09
+ Date: 29/10/2020 18:23:19
 */
 
 SET NAMES utf8mb4;
@@ -43,14 +43,17 @@ CREATE TABLE `system_authority`  (
 -- ----------------------------
 -- Records of system_authority
 -- ----------------------------
-INSERT INTO `system_authority` VALUES (1, '系统设置', 'SYSTEM', '系统设置', 0, 0, NULL, NULL, 0, 0, '2020-10-26 17:47:10', '2020-10-26 17:47:12');
-INSERT INTO `system_authority` VALUES (2, '代码生成器', 'GENERATOR', '代码生成器', 0, 0, NULL, NULL, 0, 0, '2020-10-26 17:49:22', '2020-10-26 17:49:23');
-INSERT INTO `system_authority` VALUES (3, '开发者工具', 'DEVELOP', '开发者工具', 0, 0, NULL, NULL, 0, 0, '2020-10-26 17:50:25', '2020-10-26 17:50:28');
-INSERT INTO `system_authority` VALUES (4, '系统管理', 'MANAGEMENT', '系统管理', 0, 0, NULL, NULL, 0, 0, '2020-10-26 17:51:35', '2020-10-26 17:51:37');
-INSERT INTO `system_authority` VALUES (5, '服务信息', 'DEVELOP:SERVER', '服务信息', 0, 1, NULL, 3, 0, 0, '2020-10-26 17:53:49', '2020-10-26 17:53:52');
-INSERT INTO `system_authority` VALUES (6, '数据库信息', 'DEVELOP:DATABASE', '数据库信息', 0, 1, NULL, 3, 0, 0, '2020-10-26 17:54:47', '2020-10-26 17:54:49');
-INSERT INTO `system_authority` VALUES (7, '异常信息', 'DEVELOP:EXCEPTION', '异常信息', 0, 1, NULL, 3, 0, 0, '2020-10-26 17:55:44', '2020-10-26 17:55:47');
-INSERT INTO `system_authority` VALUES (8, '删除异常信息', 'DEVELOP:EXCEPTION:DELETE', '删除异常信息', 0, 2, NULL, 7, 0, 0, '2020-10-26 17:58:02', '2020-10-26 17:58:04');
+INSERT INTO `system_authority` VALUES (1, '系统设置', 'SYSTEM', '系统设置', 0, 0, '/Setting', 0, 0, 0, '2020-10-26 17:47:10', '2020-10-26 17:47:12');
+INSERT INTO `system_authority` VALUES (2, '数据中心', 'DATACENTER', '数据中心', 100, 0, '/DataCenter', 0, 0, 0, '2020-10-26 17:49:22', '2020-10-26 17:49:23');
+INSERT INTO `system_authority` VALUES (3, '开发者工具', 'DEVELOP', '开发者工具', 0, 0, '/DevTools', 0, 0, 0, '2020-10-26 17:50:25', '2020-10-26 17:50:28');
+INSERT INTO `system_authority` VALUES (4, '系统管理', 'MANAGEMENT', '系统管理', 0, 0, '/Management', 0, 0, 0, '2020-10-26 17:51:35', '2020-10-26 17:51:37');
+INSERT INTO `system_authority` VALUES (5, '代码生成器', 'DEVELOP:GENERATOR', '代码生成器', 0, 0, '/DevTools/CodeGenerator', 3, 0, 0, '2020-10-26 17:53:49', '2020-10-26 17:53:52');
+INSERT INTO `system_authority` VALUES (6, '数据库信息', 'DEVELOP:DATABASE', '数据库信息', 0, 0, '/DevTools/DataInfo', 3, 0, 0, '2020-10-26 17:54:47', '2020-10-26 17:54:49');
+INSERT INTO `system_authority` VALUES (7, '异常信息', 'DEVELOP:EXCEPTION', '异常信息', 0, 0, '/DevTools/ExceptionInfo', 3, 0, 0, '2020-10-26 17:55:44', '2020-10-26 17:55:47');
+INSERT INTO `system_authority` VALUES (8, '删除异常信息', 'DEVELOP:EXCEPTION:DELETE', '删除异常信息', 0, 1, NULL, 7, 0, 0, '2020-10-26 17:58:02', '2020-10-26 17:58:04');
+INSERT INTO `system_authority` VALUES (9, '用户管理', 'MANAGEMENT:SYSTEMUSER', '用户管理', 0, 0, '/Management/SystemUser', 4, 0, 0, '2020-10-29 13:13:58', '2020-10-29 13:14:06');
+INSERT INTO `system_authority` VALUES (10, '角色管理', 'MANAGEMENT:SYSTEMROLE', '角色管理', 0, 0, '/Management/SystemRole', 4, 0, 0, '2020-10-29 13:15:08', '2020-10-29 13:15:10');
+INSERT INTO `system_authority` VALUES (11, '权限管理', 'MANAGEMENT:SYSTEMAUTHORITY', '权限管理', 0, 0, '/Management/SystemAuthority', 4, 0, 0, '2020-10-29 13:16:05', '2020-10-29 13:16:07');
 
 -- ----------------------------
 -- Table structure for system_role
@@ -98,6 +101,9 @@ INSERT INTO `system_role_authority_relation` VALUES (1, 5);
 INSERT INTO `system_role_authority_relation` VALUES (1, 6);
 INSERT INTO `system_role_authority_relation` VALUES (1, 7);
 INSERT INTO `system_role_authority_relation` VALUES (1, 8);
+INSERT INTO `system_role_authority_relation` VALUES (1, 9);
+INSERT INTO `system_role_authority_relation` VALUES (1, 10);
+INSERT INTO `system_role_authority_relation` VALUES (1, 11);
 
 -- ----------------------------
 -- Table structure for system_user
@@ -126,7 +132,7 @@ CREATE TABLE `system_user`  (
 -- ----------------------------
 -- Records of system_user
 -- ----------------------------
-INSERT INTO `system_user` VALUES (1, 'admin', '$2a$10$SkUoVkbWjlPgzIKBSgvLvefWCdGmw00MZDLyADYfj9aKA8Ud1pvC6', '/static/picture.png', '超级管理员', '超级管理员', '794763733@qq.com', '18106666986', '127.0.0.1', 0, 0, '2020-10-26 17:36:43', '2020-10-26 17:36:47', '2020-10-26 17:36:50');
+INSERT INTO `system_user` VALUES (1, 'admin', '$2a$10$ygZQ5b508eevxCGV6NBNAuRVs3qkfSBgOqpa2PsyM11rkPloNTKkq', '/static/Administrator.jpg', '超级管理员', '超级管理员', '794763733@qq.com', '18106666986', '127.0.0.1', 0, 0, '2020-10-26 17:36:43', '2020-10-26 17:36:47', '2020-10-26 17:36:50');
 
 -- ----------------------------
 -- Table structure for system_user_role_relation

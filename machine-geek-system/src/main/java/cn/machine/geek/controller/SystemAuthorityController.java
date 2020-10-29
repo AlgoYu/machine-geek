@@ -32,9 +32,9 @@ public class SystemAuthorityController {
     @Autowired
     private ITokenService tokenService;
 
-    @ApiOperation(value = "获取菜单",notes = "获取菜单")
-    @GetMapping(value = "/getMenu")
-    public R getMenu(HttpServletRequest request){
+    @ApiOperation(value = "获取权限树",notes = "也是菜单及API")
+    @GetMapping(value = "/getAuthorityTree")
+    public R getAuthorityTree(HttpServletRequest request){
         // 获取当前用户的权限
         String tokenStr = request.getHeader(WebConstant.TOKEN_HEADER);
         LoginUser loginUser = tokenService.getAccessToken(tokenStr);
