@@ -62,8 +62,8 @@ public class SystemUserController {
     }
 
     @ApiOperation(value = "获取当前登录用户",notes = "获取当前登录用户")
-    @GetMapping(value = "/getCurrent")
-    public R getCurrent(HttpServletRequest request){
+    @GetMapping(value = "/getLoginInfo")
+    public R getLoginInfo(HttpServletRequest request){
         String tokenStr = request.getHeader(WebConstant.TOKEN_HEADER);
         return this.getById(tokenService.getAccessToken(tokenStr).getId());
     }

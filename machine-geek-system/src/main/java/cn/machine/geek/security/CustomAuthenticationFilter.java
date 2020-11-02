@@ -94,7 +94,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         loginUser.setPassword(null);
         // 构建Token
         String accessToken = tokenService.createAccessToken(loginUser);
-        String refreshToken = tokenService.createRefreshToken(null);
+        String refreshToken = tokenService.createRefreshToken(loginUser);
         // 构建需要返回给前端的数据
         Map<String,Object> data = new HashMap<>();
         data.put("accessToken",accessToken);

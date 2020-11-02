@@ -32,6 +32,13 @@ public class SystemAuthorityController {
     @Autowired
     private ITokenService tokenService;
 
+    @ApiOperation(value = "获取所有权限树",notes = "获取所有权限树")
+    @GetMapping(value = "/getAllAuthorityTree")
+    public R getAllAuthorityTree(){
+        // 转换为菜单树返回
+        return R.ok(this.getChildren(0L,systemAuthorityService.list()));
+    }
+
     @ApiOperation(value = "获取权限树",notes = "也是菜单及API")
     @GetMapping(value = "/getAuthorityTree")
     public R getAuthorityTree(HttpServletRequest request){

@@ -36,7 +36,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter writer = httpServletResponse.getWriter();
-        String json = objectMapper.writeValueAsString(R.fail("身份过期或未登陆"));
+        String json = objectMapper.writeValueAsString(new R(false,401,"身份过期或未登陆",null));
         writer.print(json);
         writer.flush();
         writer.close();

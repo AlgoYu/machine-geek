@@ -1,6 +1,7 @@
 package cn.machine.geek.entity;
 
 import cn.machine.geek.enums.AuthorityEnum;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -14,17 +15,28 @@ import java.time.LocalDateTime;
 public class SystemAuthority implements GrantedAuthority {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
+    @TableField(value = "`name`")
     private String name;
+    @TableField(value = "`key`")
     private String key;
+    @TableField(value = "`description`")
     private String description;
+    @TableField(value = "`type`")
     private AuthorityEnum type;
+    @TableField(value = "`path`")
     private String path;
+    @TableField(value = "`parent_id`")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long parentId;
+    @TableField(value = "`sort`")
     private Integer sort;
+    @TableField(value = "`disable`")
     private Boolean disable;
+    @TableField(value = "`version`")
     private Integer version;
+    @TableField(value = "`create_time`")
     private LocalDateTime createTime;
+    @TableField(value = "`update_time`")
     private LocalDateTime updateTime;
 
     public Long getId() {

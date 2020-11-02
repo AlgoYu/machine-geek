@@ -1,5 +1,6 @@
 package cn.machine.geek.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
@@ -12,12 +13,19 @@ import java.time.LocalDateTime;
 public class SystemRole {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
+    @TableField(value = "`name`")
     private String name;
+    @TableField(value = "`key`")
     private String key;
+    @TableField(value = "`description`")
     private String description;
+    @TableField(value = "`disable`")
     private Boolean disable;
+    @TableField(value = "`version`")
     private Integer version;
+    @TableField(value = "`create_time`")
     private LocalDateTime createTime;
+    @TableField(value = "`update_time`")
     private LocalDateTime updateTime;
 
     public Long getId() {
