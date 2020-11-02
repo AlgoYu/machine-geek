@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 29/10/2020 18:23:19
+ Date: 02/11/2020 16:21:54
 */
 
 SET NAMES utf8mb4;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `system_authority`;
 CREATE TABLE `system_authority`  (
   `id` bigint(0) NOT NULL COMMENT '唯一标识',
   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '名称',
-  `key` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '关键字',
+  `key` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '关键字',
   `description` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '描述',
   `sort` int(0) NULL DEFAULT NULL COMMENT '排序',
   `type` tinyint(0) NULL DEFAULT NULL COMMENT '权限类型：0是模块，1是菜单，3是接口。',
@@ -54,6 +54,18 @@ INSERT INTO `system_authority` VALUES (8, '删除异常信息', 'DEVELOP:EXCEPTI
 INSERT INTO `system_authority` VALUES (9, '用户管理', 'MANAGEMENT:SYSTEMUSER', '用户管理', 0, 0, '/Management/SystemUser', 4, 0, 0, '2020-10-29 13:13:58', '2020-10-29 13:14:06');
 INSERT INTO `system_authority` VALUES (10, '角色管理', 'MANAGEMENT:SYSTEMROLE', '角色管理', 0, 0, '/Management/SystemRole', 4, 0, 0, '2020-10-29 13:15:08', '2020-10-29 13:15:10');
 INSERT INTO `system_authority` VALUES (11, '权限管理', 'MANAGEMENT:SYSTEMAUTHORITY', '权限管理', 0, 0, '/Management/SystemAuthority', 4, 0, 0, '2020-10-29 13:16:05', '2020-10-29 13:16:07');
+INSERT INTO `system_authority` VALUES (12, '增加用户', 'MANAGEMENT:SYSTEMUSER:ADD', '增加用户', 0, 1, '', 9, 0, NULL, '2020-11-02 08:04:02', NULL);
+INSERT INTO `system_authority` VALUES (13, '删除用户', 'MANAGEMENT:SYSTEMUSER:DELETE', '删除用户', 0, 1, '', 9, 0, NULL, '2020-11-02 08:06:47', NULL);
+INSERT INTO `system_authority` VALUES (14, '修改用户', 'MANAGEMENT:SYSTEMUSER:MODIFY', '修改用户', 0, 1, '', 9, 0, NULL, '2020-11-02 08:06:54', NULL);
+INSERT INTO `system_authority` VALUES (15, '查找用户', 'MANAGEMENT:SYSTEMUSER:GET', '查找用户', 0, 1, '', 9, 0, 0, '2020-11-02 08:09:59', NULL);
+INSERT INTO `system_authority` VALUES (16, '增加角色', 'MANAGEMENT:SYSTEMROLE:ADD', '增加角色', 0, 1, '', 10, 0, 0, '2020-11-02 08:13:31', NULL);
+INSERT INTO `system_authority` VALUES (17, '删除角色', 'MANAGEMENT:SYSTEMROLE:DELETE', '删除角色', 0, 1, '', 10, 0, 0, '2020-11-02 08:13:37', NULL);
+INSERT INTO `system_authority` VALUES (18, '修改角色', 'MANAGEMENT:SYSTEMROLE:MODIFY', '修改角色', 0, 1, '', 10, 0, 0, '2020-11-02 08:13:47', NULL);
+INSERT INTO `system_authority` VALUES (19, '查找角色', 'MANAGEMENT:SYSTEMROLE:GET', '查找角色', 0, 1, '', 10, 0, 0, '2020-11-02 08:14:11', NULL);
+INSERT INTO `system_authority` VALUES (20, '增加权限', 'MANAGEMENT:SYSTEMAUTHORITY:ADD', '增加权限', 0, 1, '', 11, 0, 0, '2020-11-02 08:16:07', NULL);
+INSERT INTO `system_authority` VALUES (21, '删除权限', 'MANAGEMENT:SYSTEMAUTHORITY:DELETE', '删除权限', 0, 1, '', 11, 0, 0, '2020-11-02 08:16:19', NULL);
+INSERT INTO `system_authority` VALUES (22, '修改权限', 'MANAGEMENT:SYSTEMAUTHORITY:MODIFY', '修改权限', 0, 1, '', 11, 0, 0, '2020-11-02 08:16:27', NULL);
+INSERT INTO `system_authority` VALUES (23, '查找权限', 'MANAGEMENT:SYSTEMAUTHORITY:GET', '查找权限', 0, 1, '', 11, 0, 0, '2020-11-02 08:16:35', NULL);
 
 -- ----------------------------
 -- Table structure for system_role

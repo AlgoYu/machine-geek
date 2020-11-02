@@ -5,6 +5,7 @@ import cn.machine.geek.dto.AuthorityTree;
 import cn.machine.geek.dto.R;
 import cn.machine.geek.entity.LoginUser;
 import cn.machine.geek.entity.SystemAuthority;
+import cn.machine.geek.enums.AuthorityEnum;
 import cn.machine.geek.service.ISystemAuthorityService;
 import cn.machine.geek.service.ITokenService;
 import io.swagger.annotations.Api;
@@ -80,8 +81,12 @@ public class SystemAuthorityController {
     }
 
     @ApiOperation(value = "增加系统权限",notes = "增加权限")
-    @GetMapping(value = "/add")
+    @PostMapping(value = "/add")
     public R add(@RequestBody SystemAuthority systemAuthority){
+        systemAuthority.setSort(0);
+        systemAuthority.setType(AuthorityEnum.API);
+        systemAuthority.setDisable(false);
+        systemAuthority.setVersion(0);
         systemAuthority.setCreateTime(LocalDateTime.now());
         return R.ok(systemAuthorityService.save(systemAuthority));
     }
