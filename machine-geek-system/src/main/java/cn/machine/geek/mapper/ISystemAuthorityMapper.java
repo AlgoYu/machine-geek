@@ -15,4 +15,5 @@ import java.util.List;
 @Mapper
 public interface ISystemAuthorityMapper extends BaseMapper<SystemAuthority> {
     List<SystemAuthority> selectByUserId(@Param(value = "userId")Long userId);
+    List<SystemAuthority> selectByRoleId(@Param(value = "roleId")Long roleId);
 }

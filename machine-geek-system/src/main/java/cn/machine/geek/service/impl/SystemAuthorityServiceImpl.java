@@ -19,4 +19,9 @@ public class SystemAuthorityServiceImpl extends ServiceImpl<ISystemAuthorityMapp
     public List<SystemAuthority> listByUserId(Long userId) {
         return baseMapper.selectByUserId(userId);
     }
+
+    @Override
+    public List<SystemAuthority> listByRoleId(Long roleId) {
+        return baseMapper.selectByRoleId(roleId);
+    }
 }

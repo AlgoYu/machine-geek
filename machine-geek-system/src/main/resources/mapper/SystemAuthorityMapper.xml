@@ -33,4 +33,14 @@
         WHERE
         system_user_role_relation.user_id = #{userId}
     </select>
+    <!-- 根据用户ID查询权力 -->
+    <select id="selectByRoleId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM
+        system_authority
+        INNER JOIN system_role_authority_relation ON system_role_authority_relation.authority_id = system_authority.id
+        WHERE
+        system_role_authority_relation.role_id = #{roleId}
+    </select>
 </mapper>

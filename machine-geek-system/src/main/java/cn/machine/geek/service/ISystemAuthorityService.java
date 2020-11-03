@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface ISystemAuthorityService extends IService<SystemAuthority> {
     List<SystemAuthority> listByUserId(Long userId);
+    List<SystemAuthority> listByRoleId(Long roleId);
 }

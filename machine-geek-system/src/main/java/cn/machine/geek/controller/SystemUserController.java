@@ -9,6 +9,7 @@ import cn.machine.geek.service.ITokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,7 @@ public class SystemUserController {
 
     @ApiOperation(value = "增加系统用户",notes = "增加系统用户")
     @PostMapping(value = "/add")
+    @Transactional
     public R add(@RequestBody SystemUser systemUser){
         systemUser.setCreateTime(LocalDateTime.now());
         return R.ok(systemUserService.save(systemUser));
@@ -50,6 +52,7 @@ public class SystemUserController {
 
     @ApiOperation(value = "根据ID更新系统用户",notes = "根据ID更新系统用户")
     @PutMapping(value = "/modifyById")
+    @Transactional
     public R modifyById(@RequestBody SystemUser systemUser){
         systemUser.setUpdateTime(LocalDateTime.now());
         return R.ok(systemUserService.updateById(systemUser));

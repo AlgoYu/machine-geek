@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,7 @@ public class SystemAuthorityController {
     }
 
     /** @Author: MachineGeek
-    * @Description: 转换成菜单树
+    * @Description: 递归转换权力菜单树
     * @Date: 2020/10/28
     * @param: id
     * @param: authorities
@@ -82,6 +83,7 @@ public class SystemAuthorityController {
 
     @ApiOperation(value = "增加系统权限",notes = "增加权限")
     @PostMapping(value = "/add")
+    @Transactional
     public R add(@RequestBody SystemAuthority systemAuthority){
         systemAuthority.setSort(0);
         systemAuthority.setType(AuthorityEnum.API);
@@ -93,6 +95,7 @@ public class SystemAuthorityController {
 
     @ApiOperation(value = "根据ID修改系统权限",notes = "根据ID修改系统权限")
     @GetMapping(value = "/modifyById")
+    @Transactional
     public R modifyById(@RequestBody SystemAuthority systemAuthority){
         systemAuthority.setUpdateTime(LocalDateTime.now());
         return R.ok(systemAuthorityService.updateById(systemAuthority));
