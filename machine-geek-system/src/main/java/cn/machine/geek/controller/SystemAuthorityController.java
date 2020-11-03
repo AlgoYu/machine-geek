@@ -37,7 +37,7 @@ public class SystemAuthorityController {
 
     @ApiOperation(value = "获取所有权限树",notes = "获取所有权限树")
     @GetMapping(value = "/getAllAuthorityTree")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMAUTHORITY:GET')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMAUTHORITY:GET')")
     public R getAllAuthorityTree(){
         // 转换为菜单树返回
         return R.ok(this.getChildren(0L,systemAuthorityService.list()));
@@ -45,7 +45,7 @@ public class SystemAuthorityController {
 
     @ApiOperation(value = "获取权限树",notes = "也是菜单及API")
     @GetMapping(value = "/getAuthorityTree")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMAUTHORITY:GET')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMAUTHORITY:GET')")
     public R getAuthorityTree(HttpServletRequest request){
         // 获取当前用户的权限
         String tokenStr = request.getHeader(WebConstant.TOKEN_HEADER);
@@ -86,7 +86,7 @@ public class SystemAuthorityController {
 
     @ApiOperation(value = "增加系统权限",notes = "增加权限")
     @PostMapping(value = "/add")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMAUTHORITY:ADD')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMAUTHORITY:ADD')")
     @Transactional
     public R add(@RequestBody SystemAuthority systemAuthority){
         systemAuthority.setSort(0);
@@ -99,7 +99,7 @@ public class SystemAuthorityController {
 
     @ApiOperation(value = "根据ID修改系统权限",notes = "根据ID修改系统权限")
     @GetMapping(value = "/modifyById")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMAUTHORITY:MODIFY')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMAUTHORITY:MODIFY')")
     @Transactional
     public R modifyById(@RequestBody SystemAuthority systemAuthority){
         systemAuthority.setUpdateTime(LocalDateTime.now());
@@ -108,7 +108,7 @@ public class SystemAuthorityController {
 
     @ApiOperation(value = "根据ID获取系统权限",notes = "根据ID获取系统权限")
     @GetMapping(value = "/getById")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMAUTHORITY:GET')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMAUTHORITY:GET')")
     public R getById(@RequestParam(value = "id") Long id){
         return R.ok(systemAuthorityService.getById(id));
     }

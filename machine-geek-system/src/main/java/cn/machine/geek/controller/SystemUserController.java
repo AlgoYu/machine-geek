@@ -33,14 +33,14 @@ public class SystemUserController {
 
     @ApiOperation(value = "分页获取系统用户",notes = "分页获取系统用户")
     @GetMapping(value = "/list")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMUSER:GET')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:GET')")
     public R list(@Validated PageRequest pageRequest){
         return R.ok(systemUserService.listByCondition(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
     }
 
     @ApiOperation(value = "增加系统用户",notes = "增加系统用户")
     @PostMapping(value = "/add")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMUSER:ADD')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:ADD')")
     @Transactional
     public R add(@RequestBody SystemUser systemUser){
         systemUser.setCreateTime(LocalDateTime.now());
@@ -49,7 +49,7 @@ public class SystemUserController {
 
     @ApiOperation(value = "根据ID删除系统用户",notes = "根据ID删除系统用户")
     @DeleteMapping(value = "/deleteById")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMUSER:DELETE')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:DELETE')")
     public R deleteById(@RequestParam(value = "id") Long id){
         return R.ok(systemUserService.removeById(id));
     }
@@ -64,14 +64,14 @@ public class SystemUserController {
 
     @ApiOperation(value = "根据ID获取系统用户",notes = "根据ID获取系统用户")
     @GetMapping(value = "/getById")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMUSER:GET')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:GET')")
     public R getById(@RequestParam(value = "id") Long id){
         return R.ok(systemUserService.getById(id));
     }
 
     @ApiOperation(value = "获取当前登录用户",notes = "获取当前登录用户")
     @GetMapping(value = "/getLoginInfo")
-    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMUSER:GET')")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:GET')")
     public R getLoginInfo(HttpServletRequest request){
         String tokenStr = request.getHeader(WebConstant.TOKEN_HEADER);
         return this.getById(tokenService.getAccessToken(tokenStr).getId());
