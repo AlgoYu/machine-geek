@@ -1,9 +1,7 @@
 package cn.machine.geek.controller;
 
-import cn.machine.geek.constant.WebConstant;
 import cn.machine.geek.dto.AuthorityTree;
 import cn.machine.geek.dto.R;
-import cn.machine.geek.entity.LoginUser;
 import cn.machine.geek.entity.SystemAuthority;
 import cn.machine.geek.enums.AuthorityEnum;
 import cn.machine.geek.service.ISystemAuthorityService;
@@ -17,7 +15,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -35,28 +32,16 @@ public class SystemAuthorityController {
     @Autowired
     private ITokenService tokenService;
 
-    @ApiOperation(value = "获取所有权限树",notes = "获取所有权限树")
-    @GetMapping(value = "/getAllAuthorityTree")
+    @ApiOperation(value = "获取权限树",notes = "获取权限树")
+    @GetMapping(value = "/getTree")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMAUTHORITY:GET')")
-    public R getAllAuthorityTree(){
+    public R getTree(){
         // 转换为菜单树返回
         return R.ok(this.getChildren(0L,systemAuthorityService.list()));
     }
 
-    @ApiOperation(value = "获取权限树",notes = "也是菜单及API")
-    @GetMapping(value = "/getAuthorityTree")
-    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMAUTHORITY:GET')")
-    public R getAuthorityTree(HttpServletRequest request){
-        // 获取当前用户的权限
-        String tokenStr = request.getHeader(WebConstant.TOKEN_HEADER);
-        LoginUser loginUser = tokenService.getAccessToken(tokenStr);
-        Collection<? extends GrantedAuthority> authorities = loginUser.getAuthorities();
-        // 转换为菜单树返回
-        return R.ok(this.getChildren(0L,authorities));
-    }
-
     /** @Author: MachineGeek
-    * @Description: 递归转换权力菜单树
+    * @Description: 递归转换权限菜单树
     * @Date: 2020/10/28
     * @param: id
     * @param: authorities
