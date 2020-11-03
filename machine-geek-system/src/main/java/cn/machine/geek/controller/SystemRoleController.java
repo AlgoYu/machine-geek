@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,12 +41,14 @@ public class SystemRoleController {
 
     @ApiOperation(value = "分页获取系统角色",notes = "分页获取系统角色")
     @GetMapping(value = "/list")
+    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMROLE:GET')")
     public R list(@Validated PageRequest pageRequest){
         return R.ok(systemRoleService.listByCondition(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
     }
 
     @ApiOperation(value = "增加系统角色",notes = "增加系统角色")
     @PostMapping(value = "/add")
+    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMROLE:ADD')")
     @Transactional
     public R add(@RequestBody SystemRole systemRole){
         systemRole.setCreateTime(LocalDateTime.now());
@@ -54,12 +57,14 @@ public class SystemRoleController {
 
     @ApiOperation(value = "根据ID删除系统角色",notes = "根据ID删除系统角色")
     @DeleteMapping(value = "/deleteById")
+    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMROLE:DELETE')")
     public R deleteById(@RequestParam(value = "id") Long id){
         return R.ok(systemRoleService.removeById(id));
     }
 
     @ApiOperation(value = "根据ID更新系统用户",notes = "根据ID更新系统用户")
     @PutMapping(value = "/modifyById")
+    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMROLE:MODIFY')")
     @Transactional
     public R modifyById(@RequestBody SystemRoleDTO systemRoleDTO){
         // 清除角色与权力之间的关系
@@ -81,6 +86,7 @@ public class SystemRoleController {
 
     @ApiOperation(value = "根据ID获取系统角色",notes = "根据ID获取系统角色")
     @GetMapping(value = "/getById")
+    @PreAuthorize("hasAnyRole('MANAGEMENT:SYSTEMROLE:GET')")
     public R getById(@RequestParam(value = "id") Long id){
         SystemRoleDTO systemRoleDTO = new SystemRoleDTO();
         BeanUtils.copyProperties(systemRoleService.getById(id), systemRoleDTO);
