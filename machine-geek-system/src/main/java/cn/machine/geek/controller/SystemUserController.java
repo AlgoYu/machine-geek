@@ -76,16 +76,16 @@ public class SystemUserController {
     }
 
     @ApiOperation(value = "根据ID更新系统用户和角色",notes = "根据ID更新系统用户和角色")
-    @PutMapping(value = "/modifyWidthRoleById")
+    @PutMapping(value = "/modifyWithRoleById")
     @Transactional
-    public R modifyWidthRoleById(@RequestBody SystemUserDTO systemUserDTO){
+    public R modifyWithRoleById(@RequestBody SystemUserDTO systemUserDTO){
         // 删除与用户与角色的关系
         QueryWrapper<SystemUserRoleRelation> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(SystemUserRoleRelation::getUserId,systemUserDTO.getId());
         systemUserRoleRelationService.remove(queryWrapper);
         // 重新添加用户与角色的关系
         List<SystemUserRoleRelation> systemUserRoleRelations = new ArrayList<>();
-        systemUserDTO.getSystemRoles().forEach((id)->{
+        systemUserDTO.getSystemRoleIds().forEach((id)->{
             SystemUserRoleRelation systemUserRoleRelation = new SystemUserRoleRelation();
             systemUserRoleRelation.setUserId(systemUserDTO.getId());
             systemUserRoleRelation.setRoleId(id);
@@ -111,10 +111,11 @@ public class SystemUserController {
         SystemUserDTO systemUserDTO = new SystemUserDTO();
         BeanUtils.copyProperties(systemUserService.getById(id),systemUserDTO);
         List<SystemRole> systemRoles = systemRoleService.listByUserId(systemUserDTO.getId());
+        systemUserDTO.setSystemRoleIds(new ArrayList<>());
         systemRoles.forEach((role)->{
-            systemUserDTO.getSystemRoles().add(role.getId());
+            systemUserDTO.getSystemRoleIds().add(role.getId());
         });
-        return R.ok(systemUserService.getById(id));
+        return R.ok(systemUserDTO);
     }
 
     @ApiOperation(value = "获取登录信息",notes = "获取登录信息")

@@ -39,6 +39,13 @@ public class SystemRoleController {
     @Autowired
     private ISystemRoleAuthorityRelationService systemRoleAuthorityRelationService;
 
+    @ApiOperation(value = "获取所有角色",notes = "获取所有角色")
+    @GetMapping(value = "/getAll")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:GET')")
+    public R getAll(){
+        return R.ok(systemRoleService.list());
+    }
+
     @ApiOperation(value = "分页获取系统角色",notes = "分页获取系统角色")
     @GetMapping(value = "/list")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:GET')")
@@ -82,7 +89,7 @@ public class SystemRoleController {
         systemRoleAuthorityRelationService.remove(queryWrapper);
         // 重新添加角色与权力的关系
         List<SystemRoleAuthorityRelation> systemRoleAuthorityRelations = new ArrayList<>();
-        systemRoleDTO.getAuthorityIds().forEach((id)->{
+        systemRoleDTO.getSystemAuthorityIds().forEach((id)->{
             SystemRoleAuthorityRelation systemRoleAuthorityRelation = new SystemRoleAuthorityRelation();
             systemRoleAuthorityRelation.setRoleId(systemRoleDTO.getId());
             systemRoleAuthorityRelation.setAuthorityId(id);
@@ -107,10 +114,10 @@ public class SystemRoleController {
     public R getWithAuthorityById(@RequestParam(value = "id") Long id){
         SystemRoleDTO systemRoleDTO = new SystemRoleDTO();
         BeanUtils.copyProperties(systemRoleService.getById(id), systemRoleDTO);
-        systemRoleDTO.setAuthorityIds(new ArrayList<>());
+        systemRoleDTO.setSystemAuthorityIds(new ArrayList<>());
         List<SystemAuthority> systemAuthorities = systemAuthorityService.listByRoleId(systemRoleDTO.getId());
         systemAuthorities.forEach((systemAuthority) -> {
-            systemRoleDTO.getAuthorityIds().add(systemAuthority.getId());
+            systemRoleDTO.getSystemAuthorityIds().add(systemAuthority.getId());
         });
         return R.ok(systemRoleDTO);
     }

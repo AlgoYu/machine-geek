@@ -1,17 +1,19 @@
 package cn.machine.geek.dto;
 
 import cn.machine.geek.entity.SystemUser;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.List;
 
 public class SystemUserDTO extends SystemUser {
-    private List<Long> systemRoles;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private List<Long> systemRoleIds;
 
-    public List<Long> getSystemRoles() {
-        return systemRoles;
+    public List<Long> getSystemRoleIds() {
+        return systemRoleIds;
     }
 
-    public void setSystemRoles(List<Long> systemRoles) {
-        this.systemRoles = systemRoles;
+    public void setSystemRoleIds(List<Long> systemRoleIds) {
+        this.systemRoleIds = systemRoleIds;
     }
 }

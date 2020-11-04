@@ -1,6 +1,7 @@
 package cn.machine.geek.dto;
 
 import cn.machine.geek.entity.SystemRole;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.List;
 
@@ -10,13 +11,14 @@ import java.util.List;
  * @Date: 2020/11/3
  */
 public class SystemRoleDTO extends SystemRole {
-    private List<Long> authorityIds;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private List<Long> systemAuthorityIds;
 
-    public List<Long> getAuthorityIds() {
-        return authorityIds;
+    public List<Long> getSystemAuthorityIds() {
+        return systemAuthorityIds;
     }
 
-    public void setAuthorityIds(List<Long> authorityIds) {
-        this.authorityIds = authorityIds;
+    public void setSystemAuthorityIds(List<Long> systemAuthorityIds) {
+        this.systemAuthorityIds = systemAuthorityIds;
     }
 }
