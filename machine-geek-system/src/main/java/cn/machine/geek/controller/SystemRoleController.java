@@ -66,7 +66,16 @@ public class SystemRoleController {
     @PutMapping(value = "/modifyById")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:MODIFY')")
     @Transactional
-    public R modifyById(@RequestBody SystemRoleDTO systemRoleDTO){
+    public R modifyById(@RequestBody SystemRole systemRole){
+        systemRole.setUpdateTime(LocalDateTime.now());
+        return R.ok(systemRoleService.updateById(systemRole));
+    }
+
+    @ApiOperation(value = "根据ID更新系统用户及权限",notes = "根据ID更新系统用户及权限")
+    @PutMapping(value = "/modifyWithAuthorityById")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:MODIFY')")
+    @Transactional
+    public R modifyWithAuthorityById(@RequestBody SystemRoleDTO systemRoleDTO){
         // 清除角色与权力之间的关系
         QueryWrapper<SystemRoleAuthorityRelation> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(SystemRoleAuthorityRelation::getRoleId,systemRoleDTO.getId());
@@ -89,6 +98,13 @@ public class SystemRoleController {
     @GetMapping(value = "/getById")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:GET')")
     public R getById(@RequestParam(value = "id") Long id){
+        return R.ok(systemRoleService.getById(id));
+    }
+
+    @ApiOperation(value = "根据ID获取系统角色与权限",notes = "根据ID获取系统角色与权限")
+    @GetMapping(value = "/getWithAuthorityById")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:GET')")
+    public R getWithAuthorityById(@RequestParam(value = "id") Long id){
         SystemRoleDTO systemRoleDTO = new SystemRoleDTO();
         BeanUtils.copyProperties(systemRoleService.getById(id), systemRoleDTO);
         systemRoleDTO.setAuthorityIds(new ArrayList<>());
