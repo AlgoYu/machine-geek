@@ -32,6 +32,14 @@ spring:
       min-idle: 5
       max-active: 20
       initial-size: 5
+      # 配置监控服务器
+      stat-view-servlet:
+        #是否允许开启监控
+        enabled: true
+        #是否允许重置监控数据
+        reset-enable: true
+        #druid访问路径
+        url-pattern: /druid/*
   # Redis
   redis:
     host: ${redis.host}
