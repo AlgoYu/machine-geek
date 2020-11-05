@@ -56,6 +56,8 @@ token:
   accessTokenExpire: 28800
   # 15天1296000
   refreshTokenExpire: 1296000
+# 代码生成器路径
+generatorPath: /generator/
 # 上传路径
 upload:
   urlPath: /upload/
