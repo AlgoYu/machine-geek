@@ -25,7 +25,7 @@ import java.util.Map;
  * @Description: 验证码控制器
  * @Date: 2020/10/25
  */
-@Api(tags = "验证码接口")
+@Api(tags = "Token接口")
 @RestController
 @RequestMapping(value = "/api/token/")
 public class TokenController {
@@ -41,6 +41,7 @@ public class TokenController {
             Map<String,Object> map = new HashMap<>();
             map.put("accessToken",tokenService.createAccessToken(loginUser));
             map.put("refreshToken",tokenService.createRefreshToken(loginUser));
+            map.put("user",loginUser);
             return R.ok(map);
         }
         return R.fail("Token已过期");
