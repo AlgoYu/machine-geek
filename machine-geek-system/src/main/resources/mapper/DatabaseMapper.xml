@@ -4,26 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.machine.geek.mapper.IDatabaseMapper">
     <!-- 通用查询映射结果 -->
-    <!--<resultMap id="BaseResultMap" type="cn.machine.geek.entity.SystemException">
-        <id column="id" property="id" />
-        <result column="uri" property="uri" />
-        <result column="method" property="method" />
-        <result column="parameter" property="parameter" />
-        <result column="ip" property="ip" />
-        <result column="exception_class" property="exceptionClass" />
-        <result column="exception_message" property="exceptionMessage" />
-        <result column="create_time" property="createTime" />
-    </resultMap>-->
-    <!-- 查询所有数据库 -->
-    <!--<sql id="Base_Column_List">
-        `id`,`uri`,`method`,`parameter`,`ip`,`exception_class`,`exception_message`,`create_time`
-    </sql>-->
-    <!-- 条件查询 -->
+    <resultMap id="BaseResultMap" type="cn.machine.geek.entity.DatabaseTable">
+        <result column="TABLE_NAME" property="tableName" />
+        <result column="ENGINE" property="engine" />
+        <result column="TABLE_COMMENT" property="tableComment" />
+        <result column="CREATE_TIME" property="createTime" />
+    </resultMap>
+    <!-- 查询所有数据库信息 -->
     <select id="selectAllDatabaseName" resultType="java.lang.String">
         SHOW DATABASES
     </select>
-
-    <select id="selectAllTableByDatabaseName" resultType="java.lang.String">
-        SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema=#{databaseName};
+    <!-- 通过数据库名查询所有数据表信息 -->
+    <select id="selectTableByCondition" resultMap="BaseResultMap">
+        SELECT
+            TABLE_NAME, ENGINE, TABLE_COMMENT,CREATE_TIME
+        FROM
+            INFORMATION_SCHEMA.TABLES
+        WHERE
+            TABLE_SCHEMA=#{databaseName}
+            AND
+            (
+                TABLE_NAME LIKE '%${keyWord}%'
+                OR
+                TABLE_COMMENT LIKE '%${keyWord}%'
+            )
     </select>
 </mapper>

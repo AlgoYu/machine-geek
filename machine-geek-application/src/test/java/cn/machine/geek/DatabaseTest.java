@@ -23,7 +23,5 @@ public class DatabaseTest {
     public void test(){
         List<String> strings = databaseMapper.selectAllDatabaseName();
         log.info(strings.toString());
-        List<String> machine_geek = databaseMapper.selectAllTableByDatabaseName("machine_geek");
-        log.info(machine_geek.toString());
     }
 }
