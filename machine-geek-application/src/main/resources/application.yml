@@ -29,8 +29,11 @@ spring:
     password: ${mysql.password}
     # 连接池
     druid:
+      # 最小空闲
       min-idle: 5
+      # 最大存活连接
       max-active: 20
+      # 初始化连接数
       initial-size: 5
       # 配置监控服务器
       stat-view-servlet:
@@ -40,6 +43,12 @@ spring:
         reset-enable: true
         #druid访问路径
         url-pattern: /druid/*
+      # 监控统计过滤器
+      filters: stat,wall,log4j2
+      # 检查关闭空闲连接的时间周期
+      time-between-eviction-runs-millis: 6000
+      # mergeSql，慢SQL记录
+      connect-properties: druid.state.mergeSql=true
   # Redis
   redis:
     host: ${redis.host}
