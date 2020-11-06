@@ -1,12 +1,16 @@
 package cn.machine.geek.global;
 
 import cn.machine.geek.dto.R;
+import cn.machine.geek.entity.SystemException;
+import cn.machine.geek.service.ISystemExceptionService;
 import cn.machine.geek.utils.HttpServletRequestUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 /**
  * @Author: MachineGeek
@@ -15,18 +19,36 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @Autowired
+    private ISystemExceptionService systemExceptionService;
+
+    /**
+    * @Author: MachineGeek
+    * @Description: 全局统一异常处理
+    * @Date: 12:04 下午
+     * @param httpServletRequest
+     * @param e
+    * @Return: cn.machine.geek.dto.R
+    */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public R exceptionHandler(HttpServletRequest httpServletRequest, Exception e){
-        System.out.println(httpServletRequest.getRequestURI());
-        System.out.println(httpServletRequest.getMethod());
+        // 构建异常信息
+        SystemException systemException = new SystemException();
+        systemException.setUri(httpServletRequest.getRequestURI());
+        systemException.setIp(HttpServletRequestUtil.getIpAddr(httpServletRequest));
+        systemException.setMethod(httpServletRequest.getMethod());
+        systemException.setExceptionClass(e.getClass().getName());
+        systemException.setExceptionMessage(e.getMessage());
         if(httpServletRequest.getMethod().equals("GET") || httpServletRequest.getMethod().equals("DELETE")){
-            System.out.println(HttpServletRequestUtil.getParameter(httpServletRequest));
+            systemException.setParameter(HttpServletRequestUtil.getParameter(httpServletRequest));
         }else{
-            System.out.println(HttpServletRequestUtil.getBody(httpServletRequest));
+            systemException.setParameter(HttpServletRequestUtil.getBody(httpServletRequest));
         }
-        System.out.println(e.getClass().getName());
-        System.out.println(e.getMessage());
-        return R.fail(e.getMessage());
+        systemException.setCreateTime(LocalDateTime.now());
+        // 插入数据库
+        systemExceptionService.save(systemException);
+        // 返回异常信息
+        return R.fail("系统错误");
     }
 }
