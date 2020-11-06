@@ -1,6 +1,7 @@
 package cn.machine.geek.dto;
 
 import cn.machine.geek.entity.SystemAuthority;
+import lombok.Data;
 
 import java.util.List;
 
@@ -9,14 +10,7 @@ import java.util.List;
  * @Description: 菜单传输类
  * @Date: 2020/10/28
  */
+@Data
 public class AuthorityTree extends SystemAuthority {
     private List<AuthorityTree> children;
-
-    public List<AuthorityTree> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<AuthorityTree> children) {
-        this.children = children;
-    }
 }

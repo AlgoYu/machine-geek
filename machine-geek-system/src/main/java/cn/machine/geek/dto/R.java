@@ -1,12 +1,18 @@
 package cn.machine.geek.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author: MachineGeek
  * @Description: Response响应结果类
  * @Date: 2020/10/6
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class R {
     private boolean success;
     private int code;
@@ -14,48 +20,6 @@ public class R {
     private String msg;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Object data;
-
-    public R() {
-    }
-
-    public R(boolean success, int code, String msg, Object data) {
-        this.success = success;
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
-    }
-
-    public boolean getSuccess() {
-        return this.success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public int getCode() {
-        return this.code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return this.msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Object getData() {
-        return this.data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
 
     /** @Author: MachineGeek
      * @Description: 成功
