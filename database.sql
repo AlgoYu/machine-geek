@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 05/11/2020 17:49:13
+ Date: 06/11/2020 17:26:02
 */
 
 SET NAMES utf8mb4;
@@ -50,8 +50,8 @@ INSERT INTO `system_authority` VALUES (3, '开发者工具', 'DEVELOP', '开发�
 INSERT INTO `system_authority` VALUES (4, '系统管理', 'MANAGEMENT', '系统管理', 0, 0, '/Management', 0, 0, 0, '2020-10-26 17:51:35', '2020-10-26 17:51:37');
 INSERT INTO `system_authority` VALUES (5, '代码生成器', 'DEVELOP:GENERATOR', '代码生成器', 0, 0, '/DevTools/CodeGenerator', 3, 0, 0, '2020-10-26 17:53:49', '2020-10-26 17:53:52');
 INSERT INTO `system_authority` VALUES (6, '数据监控', 'DEVELOP:DATAMONITOR', '数据库信息', 0, 0, '/DevTools/DataMonitor', 3, 0, 0, '2020-10-26 17:54:47', '2020-10-26 17:54:49');
-INSERT INTO `system_authority` VALUES (7, '异常信息', 'DEVELOP:EXCEPTION', '异常信息', 0, 0, '/DevTools/ExceptionInfo', 3, 0, 0, '2020-10-26 17:55:44', '2020-10-26 17:55:47');
-INSERT INTO `system_authority` VALUES (8, '删除异常信息', 'DEVELOP:EXCEPTION:DELETE', '删除异常信息', 0, 1, NULL, 7, 0, 0, '2020-10-26 17:58:02', '2020-10-26 17:58:04');
+INSERT INTO `system_authority` VALUES (7, '异常信息', 'DEVELOP:SYSTEMEXCEPTION', '异常信息', 0, 0, '/DevTools/SystemException', 3, 0, 0, '2020-10-26 17:55:44', '2020-10-26 17:55:47');
+INSERT INTO `system_authority` VALUES (8, '删除异常信息', 'DEVELOP:SYSTEMEXCEPTION:DELETE', '删除异常信息', 0, 1, NULL, 7, 0, 0, '2020-10-26 17:58:02', '2020-10-26 17:58:04');
 INSERT INTO `system_authority` VALUES (9, '用户管理', 'MANAGEMENT:SYSTEMUSER', '用户管理', 0, 0, '/Management/SystemUser', 4, 0, 0, '2020-10-29 13:13:58', '2020-10-29 13:14:06');
 INSERT INTO `system_authority` VALUES (10, '角色管理', 'MANAGEMENT:SYSTEMROLE', '角色管理', 0, 0, '/Management/SystemRole', 4, 0, 0, '2020-10-29 13:15:08', '2020-10-29 13:15:10');
 INSERT INTO `system_authority` VALUES (11, '权限管理', 'MANAGEMENT:SYSTEMAUTHORITY', '权限管理', 0, 0, '/Management/SystemAuthority', 4, 0, 0, '2020-10-29 13:16:05', '2020-10-29 13:16:07');
@@ -69,6 +69,37 @@ INSERT INTO `system_authority` VALUES (22, '修改权限', 'MANAGEMENT:SYSTEMAUT
 INSERT INTO `system_authority` VALUES (23, '查找权限', 'MANAGEMENT:SYSTEMAUTHORITY:GET', '查找权限', 0, 1, '', 11, 0, 0, '2020-11-02 08:16:35', NULL);
 INSERT INTO `system_authority` VALUES (24, '应用监控', 'DEVELOP:APPLICATIONMONITOR', '应用健康', 0, 0, '/DevTools/ApplicationMonitor', 3, 0, 0, '2020-11-05 06:26:38', NULL);
 INSERT INTO `system_authority` VALUES (25, '开发文档', 'DEVELOP:DOCUMENTATION', '开发文档', 0, 0, '/DevTools/Documentation', 3, 0, 0, '2020-11-05 07:02:57', NULL);
+INSERT INTO `system_authority` VALUES (26, '获取异常信息', 'DEVELOP:SYSTEMEXCEPTION:GET', '获取异常信息', 0, 1, NULL, 7, 0, 0, '2020-11-06 12:12:45', NULL);
+INSERT INTO `system_authority` VALUES (27, '获取数据库表', 'DEVELOP:GENERATOR:GET', '获取数据库表', 0, 1, NULL, 5, 0, 0, '2020-11-06 17:08:38', NULL);
+INSERT INTO `system_authority` VALUES (28, '生成代码', 'DEVELOP:GENERATOR:GENERATE', '生成代码', 0, 1, NULL, 5, 0, 0, '2020-11-06 17:09:27', '2020-11-06 17:09:30');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for system_exception
+-- ----------------------------
+DROP TABLE IF EXISTS `system_exception`;
+CREATE TABLE `system_exception` (
+  `id` bigint NOT NULL COMMENT '唯一标识',
+  `uri` varchar(255) DEFAULT NULL COMMENT 'URI',
+  `method` varchar(8) DEFAULT NULL COMMENT '请求方法',
+  `parameter` varchar(500) DEFAULT NULL COMMENT '请求参数',
+  `ip` varchar(65) DEFAULT NULL COMMENT 'IP地址',
+  `exception_class` varchar(100) DEFAULT NULL COMMENT '异常类',
+  `exception_message` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '异常信息',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统异常';
+
+-- ----------------------------
+-- Records of system_exception
+-- ----------------------------
+BEGIN;
+INSERT INTO `system_exception` VALUES (1324563749892943874, '/api/exception/addException', 'PUT', '{    \"success\": false,    \"code\": 200,    \"msg\": \"/ by zero\"}', '0:0:0:0:0:0:0:1', 'java.lang.ArithmeticException', '/ by zero', '2020-11-06 04:06:22');
+INSERT INTO `system_exception` VALUES (1324563897251426305, '/api/exception/addException', 'GET', 'asd:[ad123, 123344],ads:[123123],', '0:0:0:0:0:0:0:1', 'org.springframework.web.HttpRequestMethodNotSupportedException', 'Request method \'GET\' not supported', '2020-11-06 04:06:57');
+INSERT INTO `system_exception` VALUES (1324563943015477249, '/api/exception/addException', 'DELETE', 'asd:[ad123, 123344],ads:[123123],', '0:0:0:0:0:0:0:1', 'org.springframework.web.HttpRequestMethodNotSupportedException', 'Request method \'DELETE\' not supported', '2020-11-06 04:07:08');
+INSERT INTO `system_exception` VALUES (1324573297584275457, '/systemException/list', 'GET', '', '0:0:0:0:0:0:0:1', 'org.springframework.validation.BindException', 'org.springframework.validation.BeanPropertyBindingResult: 2 errors\nField error in object \'pageRequest\' on field \'page\': rejected value [0]; codes [Min.pageRequest.page,Min.page,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [pageRequest.page,page]; arguments []; default message [page],1]; default message [当前页不能小于1]\nField error in object \'pageRequest\' on field \'size\': rejected value [0]; codes [Min.pageRequest.size,Min.size,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [pageRequest.size,size]; arguments []; default message [size],1]; default message [页尺寸不能小于1]', '2020-11-06 04:44:18');
+INSERT INTO `system_exception` VALUES (1324573417784639490, '/systemException/list', 'POST', '', '0:0:0:0:0:0:0:1', 'org.springframework.validation.BindException', 'org.springframework.validation.BeanPropertyBindingResult: 2 errors\nField error in object \'pageRequest\' on field \'page\': rejected value [0]; codes [Min.pageRequest.page,Min.page,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [pageRequest.page,page]; arguments []; default message [page],1]; default message [当前页不能小于1]\nField error in object \'pageRequest\' on field \'size\': rejected value [0]; codes [Min.pageRequest.size,Min.size,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [pageRequest.size,size]; arguments []; default message [size],1]; default message [页尺寸不能小于1]', '2020-11-06 04:44:47');
+INSERT INTO `system_exception` VALUES (1324641170864353281, '/codeGenerator/list', 'GET', '?page=[1]&size=[10]&keyWord=[]&', '0:0:0:0:0:0:0:1', 'org.springframework.security.access.AccessDeniedException', '不允许访问', '2020-11-06 09:14:00');
 COMMIT;
 
 -- ----------------------------
@@ -94,7 +125,7 @@ CREATE TABLE `system_role` (
 -- Records of system_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `system_role` VALUES (1, '超级管理员', 'ROLE_ADMINISTRATOR', '超级管理员', 0, 0, '2020-10-23 09:45:21', '2020-11-05 07:03:11');
+INSERT INTO `system_role` VALUES (1, '超级管理员', 'ROLE_ADMINISTRATOR', '超级管理员', 0, 0, '2020-10-22 17:45:21', '2020-11-06 09:11:20');
 COMMIT;
 
 -- ----------------------------
@@ -137,6 +168,9 @@ INSERT INTO `system_role_authority_relation` VALUES (1, 22);
 INSERT INTO `system_role_authority_relation` VALUES (1, 23);
 INSERT INTO `system_role_authority_relation` VALUES (1, 24);
 INSERT INTO `system_role_authority_relation` VALUES (1, 25);
+INSERT INTO `system_role_authority_relation` VALUES (1, 26);
+INSERT INTO `system_role_authority_relation` VALUES (1, 27);
+INSERT INTO `system_role_authority_relation` VALUES (1, 28);
 COMMIT;
 
 -- ----------------------------
