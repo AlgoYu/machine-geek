@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.machine.geek.mapper.IDatabaseMapper">
+    <!-- 通用查询映射结果 -->
+    <!--<resultMap id="BaseResultMap" type="cn.machine.geek.entity.SystemException">
+        <id column="id" property="id" />
+        <result column="uri" property="uri" />
+        <result column="method" property="method" />
+        <result column="parameter" property="parameter" />
+        <result column="ip" property="ip" />
+        <result column="exception_class" property="exceptionClass" />
+        <result column="exception_message" property="exceptionMessage" />
+        <result column="create_time" property="createTime" />
+    </resultMap>-->
+    <!-- 查询所有数据库 -->
+    <!--<sql id="Base_Column_List">
+        `id`,`uri`,`method`,`parameter`,`ip`,`exception_class`,`exception_message`,`create_time`
+    </sql>-->
+    <!-- 条件查询 -->
+    <select id="selectAllDatabaseName" resultType="java.lang.String">
+        SHOW DATABASES
+    </select>
+
+    <select id="selectAllTableByDatabaseName" resultType="java.lang.String">
+        SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema=#{databaseName};
+    </select>
+</mapper>
