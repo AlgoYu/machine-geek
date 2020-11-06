@@ -1,6 +1,7 @@
 package cn.machine.geek.service;
 
 import cn.machine.geek.entity.SystemException;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,4 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @Date: 2020/11/6
  */
 public interface ISystemExceptionService extends IService<SystemException> {
+    IPage<SystemException> listByCondition(int page, int size, String keyWord);
 }
