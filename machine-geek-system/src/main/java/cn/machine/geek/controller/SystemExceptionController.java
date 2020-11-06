@@ -24,9 +24,9 @@ public class SystemExceptionController {
     @Autowired
     private ISystemExceptionService systemExceptionService;
 
-    @ApiOperation(value = "分页获取系统角色",notes = "分页获取系统角色")
+    @ApiOperation(value = "分页获取系统异常",notes = "分页获取系统异常")
     @GetMapping(value = "/list")
-    @PreAuthorize("hasAuthority('DEVELOP:EXCEPTION:GET')")
+    @PreAuthorize("hasAuthority('DEVELOP:SYSTEMEXCEPTION:GET')")
     public R list(@Validated PageRequest pageRequest){
         return R.ok(systemExceptionService.listByCondition(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
     }

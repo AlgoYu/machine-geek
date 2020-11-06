@@ -16,7 +16,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        `ip`,`uri`,`method`,`parameter`,`ip`,`exception_class`,`exception_message`,`create_time`
+        `id`,`uri`,`method`,`parameter`,`ip`,`exception_class`,`exception_message`,`create_time`
     </sql>
     <!-- 条件查询 -->
     <select id="selectByCondition" resultMap="BaseResultMap">

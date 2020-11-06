@@ -63,10 +63,10 @@ public class HttpServletRequestUtil {
     * @Return: java.lang.String
     */
     public static String getParameter(HttpServletRequest httpServletRequest){
-        String parameter = "";
+        String parameter = "?";
         Set<Map.Entry<String, String[]>> entries = httpServletRequest.getParameterMap().entrySet();
         for (Map.Entry<String,String[]> entry : entries){
-            parameter = parameter + entry.getKey() + ":" + Arrays.toString(entry.getValue()) + ",";
+            parameter = parameter + entry.getKey() + "=" + Arrays.toString(entry.getValue()) + "&";
         }
         return parameter;
     }
