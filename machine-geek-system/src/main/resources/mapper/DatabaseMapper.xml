@@ -3,19 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.machine.geek.mapper.IDatabaseMapper">
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.machine.geek.entity.DatabaseTable">
+    <!-- 数据表查询映射结果 -->
+    <resultMap id="DatabaseTableResultMap" type="cn.machine.geek.entity.DatabaseTable">
         <result column="TABLE_NAME" property="tableName" />
         <result column="ENGINE" property="engine" />
         <result column="TABLE_COMMENT" property="tableComment" />
         <result column="CREATE_TIME" property="createTime" />
+    </resultMap>
+    <!-- 列查询映射结果 -->
+    <resultMap id="DatabaseTableColumnResultMap" type="cn.machine.geek.entity.DatabaseTableColumn">
+        <result column="column_name" property="columnName" />
+        <result column="data_type" property="dataType" />
+        <result column="column_comment" property="columnComment" />
+        <result column="column_key" property="columnKey" />
     </resultMap>
     <!-- 查询所有数据库信息 -->
     <select id="selectAllDatabaseName" resultType="java.lang.String">
         SHOW DATABASES
     </select>
     <!-- 通过数据库名查询所有数据表信息 -->
-    <select id="selectTableByCondition" resultMap="BaseResultMap">
+    <select id="selectTableByCondition" resultMap="DatabaseTableResultMap">
         SELECT
             TABLE_NAME, ENGINE, TABLE_COMMENT,CREATE_TIME
         FROM
@@ -28,5 +35,8 @@
                 OR
                 TABLE_COMMENT LIKE '%${keyWord}%'
             )
+    </select>
+    <select id="selectColumnByTableName" resultMap="DatabaseTableColumnResultMap">
+        SELECT COLUMN_NAME,DATA_TYPE,COLUMN_COMMENT,COLUMN_KEY FROM information_schema.columns WHERE TABLE_NAME=#{tableName};
     </select>
 </mapper>

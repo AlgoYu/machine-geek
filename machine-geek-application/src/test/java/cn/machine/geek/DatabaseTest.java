@@ -1,12 +1,10 @@
 package cn.machine.geek;
 
-import cn.machine.geek.mapper.IDatabaseMapper;
+import cn.machine.geek.service.impl.CodeGeneratorImpl;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 /**
  * @Author: MachineGeek
@@ -17,11 +15,10 @@ import java.util.List;
 @SpringBootTest
 public class DatabaseTest {
     @Autowired
-    private IDatabaseMapper databaseMapper;
+    private CodeGeneratorImpl codeGenerator;
 
     @Test
     public void test(){
-        List<String> strings = databaseMapper.selectAllDatabaseName();
-        log.info(strings.toString());
+        codeGenerator.generate("system_user","用户");
     }
 }
