@@ -37,14 +37,18 @@ public class CodeGeneratorImpl {
     public void generate(String tableName, String moduleName){
         Template entityTemplate = configuration.getTemplate("entity.ftl");
         Template mapperTemplate = configuration.getTemplate("mapper.ftl");
+        Template serviceTemplate = configuration.getTemplate("service.ftl");
+        Template serviceImplTemplate = configuration.getTemplate("serviceimpl.ftl");
         Map<String,Object> map = new HashMap<>();
         List<DatabaseTableColumn> databaseTableColumns = databaseMapper.selectColumnByTableName(tableName);
         map.put("data",databaseTableColumns);
         map.put("tableName",tableName);
         map.put("moduleName",moduleName);
         map.put("date", LocalDate.now());
-        String entityStr = FreeMarkerTemplateUtils.processTemplateIntoString(entityTemplate, map);
+        //String entityStr = FreeMarkerTemplateUtils.processTemplateIntoString(entityTemplate, map);
         //String mapperStr = FreeMarkerTemplateUtils.processTemplateIntoString(mapperTemplate, map);
-        System.out.println(entityStr);
+        //String serviceStr = FreeMarkerTemplateUtils.processTemplateIntoString(serviceTemplate, map);
+        String serviceImplStr = FreeMarkerTemplateUtils.processTemplateIntoString(serviceImplTemplate, map);
+        System.out.println(serviceImplStr);
     }
 }
