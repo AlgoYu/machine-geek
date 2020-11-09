@@ -1,6 +1,9 @@
 package cn.machine.geek.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +14,9 @@ import java.util.Collection;
  * @Description: 登录用户类
  * @Date: 2020/10/18
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginUser implements UserDetails {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
@@ -21,72 +27,6 @@ public class LoginUser implements UserDetails {
     private boolean credentialsNonExpired;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
-
-    public LoginUser() {
-    }
-
-    public LoginUser(Long id, String username, String password, boolean enable, Collection<GrantedAuthority> authorities, boolean credentialsNonExpired, boolean accountNonExpired, boolean accountNonLocked) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.enable = enable;
-        this.authorities = authorities;
-        this.credentialsNonExpired = credentialsNonExpired;
-        this.accountNonExpired = accountNonExpired;
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean getEnable() {
-        return this.enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
-    public void setAuthorities(Collection<GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public boolean getCredentialsNonExpired() {
-        return this.credentialsNonExpired;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
-    public boolean getAccountNonExpired() {
-        return this.accountNonExpired;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public boolean getAccountNonLocked() {
-        return this.accountNonLocked;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
