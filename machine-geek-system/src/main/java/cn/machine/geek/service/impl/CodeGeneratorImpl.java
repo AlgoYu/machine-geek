@@ -1,5 +1,6 @@
 package cn.machine.geek.service.impl;
 
+import cn.machine.geek.custom.FreeMarkerHump;
 import cn.machine.geek.entity.DatabaseTableColumn;
 import cn.machine.geek.mapper.IDatabaseMapper;
 import freemarker.template.Configuration;
@@ -21,10 +22,16 @@ import java.util.Map;
  */
 @Service
 public class CodeGeneratorImpl {
-    @Autowired
     private Configuration configuration;
-    @Autowired
     private IDatabaseMapper databaseMapper;
+
+    @Autowired
+    public CodeGeneratorImpl(Configuration configuration, IDatabaseMapper databaseMapper) {
+        this.configuration = configuration;
+        this.databaseMapper = databaseMapper;
+        // 加入驼峰函数
+        this.configuration.setSharedVariable("toHump",new FreeMarkerHump());
+    }
 
     @SneakyThrows
     public void generate(String tableName, String moduleName){

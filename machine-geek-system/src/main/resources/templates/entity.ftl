@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-
 /**
 * @Author: MachineGeek
 * @Description: ${moduleName}类
@@ -13,27 +12,29 @@ import java.time.LocalDateTime;
 * @Date: ${date}
 */
 @Data
+@ApiModel(description = "${moduleName}")
 @TableName(value = "${tableName}")
-public class ${tableName}{
+public class ${toHump(tableName)?cap_first}{
 <#list data as value>
     <#if value.columnKey == "PRI">
     @TableId(value = "`${value.columnName}`")
     <#else>
     @TableField(value = "`${value.columnName}`")
     </#if>
+    @ApiModelProperty(value = "${value.columnComment}")
     <#switch value.dataType>
     <#case "bigint">
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long ${value.columnName};
+    private Long ${toHump(value.columnName)};
     <#break>
     <#case "int">
-    private Integer ${value.columnName};
+    private Integer ${toHump(value.columnName)};
     <#break>
     <#case "datetime">
-    private LocalDateTime ${value.columnName};
+    private LocalDateTime ${toHump(value.columnName)};
     <#break>
     <#default>
-    private String ${value.columnName};
+    private String ${toHump(value.columnName)};
     </#switch>
 </#list>
 }
