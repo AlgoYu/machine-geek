@@ -43,7 +43,7 @@ public class CodeGeneratorController {
     }
 
     @ApiOperation(value = "生成代码",notes = "生成代码")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/generate")
     @PreAuthorize("hasAuthority('DEVELOP:GENERATOR:GENERATE')")
     public void generate(@RequestParam(value = "tableName") String tableName, @RequestParam(value = "moduleName") String moduleName, HttpServletResponse response){
         String generatePath = codeGeneratorService.generate(tableName, moduleName);
