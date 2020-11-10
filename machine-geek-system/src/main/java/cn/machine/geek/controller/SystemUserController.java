@@ -12,6 +12,7 @@ import cn.machine.geek.service.ISystemUserRoleRelationService;
 import cn.machine.geek.service.ISystemUserService;
 import cn.machine.geek.service.ITokenService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -124,5 +125,9 @@ public class SystemUserController {
     public R getLoginInfo(HttpServletRequest request){
         String tokenStr = request.getHeader(WebConstant.TOKEN_HEADER);
         return this.getById(tokenService.getAccessToken(tokenStr).getId());
+    }
+
+    public R get(){
+        return R.ok(systemUserService.page(new Page<>(1,10)));
     }
 }
