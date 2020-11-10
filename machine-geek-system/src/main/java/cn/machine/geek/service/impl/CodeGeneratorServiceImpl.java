@@ -58,11 +58,11 @@ public class CodeGeneratorServiceImpl implements ICodeGeneratorService {
         Template serviceTemplate = configuration.getTemplate("service.ftl");
         Template serviceImplTemplate = configuration.getTemplate("serviceimpl.ftl");
         Template controllerTemplate = configuration.getTemplate("controller.ftl");
-        // 获取表字段
+        // 获取数据
         Map<String,Object> map = new HashMap<>();
-        List<DatabaseTableColumn> databaseTableColumns = databaseMapper.selectColumnByTableName(tableName);
         String className = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL,tableName);
         String instanceName = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL,tableName);
+        List<DatabaseTableColumn> databaseTableColumns =getColumnsByTableName(tableName);
         // 设置数据
         map.put("data",databaseTableColumns);
         map.put("tableName",tableName);
@@ -74,13 +74,38 @@ public class CodeGeneratorServiceImpl implements ICodeGeneratorService {
         String directory = this.generatePath + RandomUtil.generateRandomString(5);
         File file = new File(directory);
         file.mkdirs();
+        // 创建目录下的子文件
+        File entityFile = new File(directory,className + ".java");
+        File xmlFile = new File(directory,className + "Mapper.xml");
+        File mapperFile = new File(directory,"I" + className + "Mapper.java");
+        File serviceFile = new File(directory,"/I" + className + "Service.java");
+        File serviceImplFile = new File(directory,className + "ServiceImpl.java");
+        File controllerFile = new File(directory,className + "Controller.java");
+        // 创建新文件
+        entityFile.createNewFile();
+        xmlFile.createNewFile();
+        mapperFile.createNewFile();
+        serviceFile.createNewFile();
+        serviceImplFile.createNewFile();
+        controllerFile.createNewFile();
         // 生成代码
-        entityTemplate.process(map,new BufferedWriter(new FileWriter(directory + "/" + className + ".java")));
-        xmlTemplate.process(map,new BufferedWriter(new FileWriter(directory + "/" + className + "Mapper.xml")));
-        mapperTemplate.process(map,new BufferedWriter(new FileWriter(directory + "/I" + className + "Mapper.java")));
-        serviceTemplate.process(map,new BufferedWriter(new FileWriter(directory + "/I" + className + "Service.java")));
-        serviceImplTemplate.process(map,new BufferedWriter(new FileWriter(directory + "/" + className + "ServiceImpl.java")));
-        controllerTemplate.process(map,new BufferedWriter(new FileWriter(directory + "/" + className + "Controller.java")));
+        entityTemplate.process(map,new BufferedWriter(new FileWriter(entityFile)));
+        xmlTemplate.process(map,new BufferedWriter(new FileWriter(xmlFile)));
+        mapperTemplate.process(map,new BufferedWriter(new FileWriter(mapperFile)));
+        serviceTemplate.process(map,new BufferedWriter(new FileWriter(serviceFile)));
+        serviceImplTemplate.process(map,new BufferedWriter(new FileWriter(serviceImplFile)));
+        controllerTemplate.process(map,new BufferedWriter(new FileWriter(controllerFile)));
         return directory;
+    }
+
+    /**
+    * @Author: MachineGeek
+    * @Description: 根据表名获取表字段
+    * @Date: 1:26 下午
+     * @param tableName
+    * @Return: java.util.List<cn.machine.geek.entity.DatabaseTableColumn>
+    */
+    private List<DatabaseTableColumn> getColumnsByTableName(String tableName){
+        return databaseMapper.selectColumnByTableName(tableName);
     }
 }
