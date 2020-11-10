@@ -1,6 +1,6 @@
 package cn.machine.geek;
 
-import cn.machine.geek.service.impl.CodeGeneratorImpl;
+import cn.machine.geek.service.impl.CodeGeneratorServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class DatabaseTest {
     @Autowired
-    private CodeGeneratorImpl codeGenerator;
+    private CodeGeneratorServiceImpl codeGenerator;
 
     @Test
     public void test(){

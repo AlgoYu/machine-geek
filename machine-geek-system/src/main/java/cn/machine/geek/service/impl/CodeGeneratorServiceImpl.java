@@ -3,6 +3,7 @@ package cn.machine.geek.service.impl;
 import cn.machine.geek.custom.FreeMarkerHump;
 import cn.machine.geek.entity.DatabaseTableColumn;
 import cn.machine.geek.mapper.IDatabaseMapper;
+import cn.machine.geek.service.ICodeGeneratorService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.SneakyThrows;
@@ -21,12 +22,12 @@ import java.util.Map;
  * @Date: 2020/11/05
  */
 @Service
-public class CodeGeneratorImpl {
+public class CodeGeneratorServiceImpl implements ICodeGeneratorService {
     private Configuration configuration;
     private IDatabaseMapper databaseMapper;
 
     @Autowired
-    public CodeGeneratorImpl(Configuration configuration, IDatabaseMapper databaseMapper) {
+    public CodeGeneratorServiceImpl(Configuration configuration, IDatabaseMapper databaseMapper) {
         this.configuration = configuration;
         this.databaseMapper = databaseMapper;
         // 加入驼峰函数
@@ -34,7 +35,7 @@ public class CodeGeneratorImpl {
     }
 
     @SneakyThrows
-    public void generate(String tableName, String moduleName){
+    public String generate(String tableName, String moduleName){
         Template entityTemplate = configuration.getTemplate("entity.ftl");
         Template mapperTemplate = configuration.getTemplate("mapper.ftl");
         Template serviceTemplate = configuration.getTemplate("service.ftl");
@@ -46,11 +47,11 @@ public class CodeGeneratorImpl {
         map.put("tableName",tableName);
         map.put("moduleName",moduleName);
         map.put("date", LocalDate.now());
-        //String entityStr = FreeMarkerTemplateUtils.processTemplateIntoString(entityTemplate, map);
-        //String mapperStr = FreeMarkerTemplateUtils.processTemplateIntoString(mapperTemplate, map);
-        //String serviceStr = FreeMarkerTemplateUtils.processTemplateIntoString(serviceTemplate, map);
-        //String serviceImplStr = FreeMarkerTemplateUtils.processTemplateIntoString(serviceImplTemplate, map);
+        String entityStr = FreeMarkerTemplateUtils.processTemplateIntoString(entityTemplate, map);
+        String mapperStr = FreeMarkerTemplateUtils.processTemplateIntoString(mapperTemplate, map);
+        String serviceStr = FreeMarkerTemplateUtils.processTemplateIntoString(serviceTemplate, map);
+        String serviceImplStr = FreeMarkerTemplateUtils.processTemplateIntoString(serviceImplTemplate, map);
         String controllerStr = FreeMarkerTemplateUtils.processTemplateIntoString(controllerTemplate, map);
-        System.out.println(controllerStr);
+        return "";
     }
 }
