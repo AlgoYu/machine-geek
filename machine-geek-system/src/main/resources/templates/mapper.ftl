@@ -1,5 +1,5 @@
 package cn.machine.geek.mapper;
-<#assign className = toHump(tableName)?cap_first>
+
 import cn.machine.geek.entity.${className};
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;

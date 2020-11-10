@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @ApiModel(description = "${moduleName}")
 @TableName(value = "${tableName}")
-public class ${toHump(tableName)?cap_first}{
+public class ${className}{
 <#list data as value>
     <#if value.columnKey == "PRI">
     @TableId(value = "`${value.columnName}`")

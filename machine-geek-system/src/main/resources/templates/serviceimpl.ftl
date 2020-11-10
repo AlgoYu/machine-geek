@@ -1,5 +1,5 @@
 package cn.machine.geek.service.impl;
-<#assign className = toHump(tableName)?cap_first>
+
 import cn.machine.geek.entity.${className};
 import cn.machine.geek.mapper.I${className}Mapper;
 import cn.machine.geek.service.I${className}Service;

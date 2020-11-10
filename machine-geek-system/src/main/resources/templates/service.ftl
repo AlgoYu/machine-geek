@@ -1,5 +1,5 @@
 package cn.machine.geek.service;
-<#assign className = toHump(tableName)?cap_first>
+
 import cn.machine.geek.entity.${className};
 import com.baomidou.mybatisplus.extension.service.IService;
 

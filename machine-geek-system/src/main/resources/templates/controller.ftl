@@ -1,5 +1,5 @@
 package cn.machine.geek.controller;
-<#assign className = toHump(tableName)?cap_first>
+
 import cn.machine.geek.constant.WebConstant;
 import cn.machine.geek.dto.PageRequest;
 import cn.machine.geek.dto.R;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-<#assign instanceName = toHump(tableName)>
+
 /**
 * @Author: MachineGeek
 * @Description: ${moduleName}控制器
