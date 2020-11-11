@@ -18,7 +18,13 @@ import org.springframework.stereotype.Service;
 public class SystemUserServiceImpl extends ServiceImpl<ISystemUserMapper, SystemUser> implements ISystemUserService {
     @Override
     public IPage<SystemUser> listByCondition(int page, int size, String keyWord) {
-        return baseMapper.selectByCondition(new Page<SystemUser>(page,size),keyWord);
+        QueryWrapper<SystemUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().like(SystemUser::getNickname,keyWord)
+                .or().like(SystemUser::getEmail,keyWord)
+                .or().like(SystemUser::getDescription,keyWord)
+                .or().like(SystemUser::getPhone,keyWord)
+                .or().like(SystemUser::getUsername,keyWord);
+        return baseMapper.selectPage(new Page<>(page,size),queryWrapper);
     }
 
     @Override

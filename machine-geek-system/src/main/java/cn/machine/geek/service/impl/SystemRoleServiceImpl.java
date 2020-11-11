@@ -3,6 +3,7 @@ package cn.machine.geek.service.impl;
 import cn.machine.geek.entity.SystemRole;
 import cn.machine.geek.mapper.ISystemRoleMapper;
 import cn.machine.geek.service.ISystemRoleService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,6 +25,10 @@ public class SystemRoleServiceImpl extends ServiceImpl<ISystemRoleMapper, System
 
     @Override
     public IPage<SystemRole> listByCondition(int page, int size, String keyWord) {
-        return baseMapper.selectByCondition(new Page<SystemRole>(page,size),keyWord);
+        QueryWrapper<SystemRole> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().like(SystemRole::getKey,keyWord)
+                .or().like(SystemRole::getName,keyWord)
+                .or().like(SystemRole::getDescription,keyWord);
+        return baseMapper.selectPage(new Page<>(page,size),queryWrapper);
     }
 }

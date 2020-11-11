@@ -18,17 +18,4 @@
     <sql id="Base_Column_List">
         `id`,`uri`,`method`,`parameter`,`ip`,`exception_class`,`exception_message`,`create_time`
     </sql>
-    <!-- 条件查询 -->
-    <select id="selectByCondition" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"></include>
-        FROM
-        system_exception
-        <if test='keyWord != null and keyWord != ""'>
-            WHERE
-            system_exception.`url` LIKE '%${keyWord}%'
-            OR
-            system_exception.`exception_message` LIKE '%${keyWord}%'
-        </if>
-    </select>
 </mapper>

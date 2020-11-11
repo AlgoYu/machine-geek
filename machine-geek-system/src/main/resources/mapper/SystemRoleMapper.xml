@@ -28,17 +28,4 @@
         WHERE
         system_user_role_relation.user_id = #{userId}
     </select>
-    <!-- 条件查询 -->
-    <select id="selectByCondition" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"></include>
-        FROM
-        system_role
-        <if test='keyWord != null and keyWord != ""'>
-            WHERE
-            system_user.`name` LIKE '%${keyWord}%'
-            OR
-            system_user.`description` LIKE '%${keyWord}%'
-        </if>
-    </select>
 </mapper>

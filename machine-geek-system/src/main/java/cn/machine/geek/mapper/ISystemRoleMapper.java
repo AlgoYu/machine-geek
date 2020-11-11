@@ -2,7 +2,6 @@ package cn.machine.geek.mapper;
 
 import cn.machine.geek.entity.SystemRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,5 +15,4 @@ import java.util.List;
 @Mapper
 public interface ISystemRoleMapper extends BaseMapper<SystemRole> {
     List<SystemRole> selectByUserId(@Param(value = "userId") Long userId);
-    IPage<SystemRole> selectByCondition(IPage<SystemRole> page, @Param(value = "keyWord") String keyWord);
 }
