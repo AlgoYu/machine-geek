@@ -47,10 +47,10 @@ public class SystemRoleController {
     }
 
     @ApiOperation(value = "分页获取系统角色",notes = "分页获取系统角色")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/paging")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:GET')")
-    public R list(@Validated PageRequest pageRequest){
-        return R.ok(systemRoleService.listByCondition(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
+    public R paging(@Validated PageRequest pageRequest){
+        return R.ok(systemRoleService.paging(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
     }
 
     @ApiOperation(value = "增加系统角色",notes = "增加系统角色")

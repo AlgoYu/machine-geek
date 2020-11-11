@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SystemUserServiceImpl extends ServiceImpl<ISystemUserMapper, SystemUser> implements ISystemUserService {
     @Override
-    public IPage<SystemUser> listByCondition(int page, int size, String keyWord) {
+    public IPage<SystemUser> paging(int page, int size, String keyWord) {
         QueryWrapper<SystemUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().like(SystemUser::getNickname,keyWord)
                 .or().like(SystemUser::getEmail,keyWord)

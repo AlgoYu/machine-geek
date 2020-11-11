@@ -1,22 +1,17 @@
 package cn.machine.geek.controller;
 
-import cn.machine.geek.dto.AuthorityTree;
 import cn.machine.geek.dto.R;
 import cn.machine.geek.entity.SystemAuthority;
 import cn.machine.geek.enums.AuthorityEnum;
 import cn.machine.geek.service.ISystemAuthorityService;
-import cn.machine.geek.service.ITokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.*;
 
 /**
  * @Author: MachineGeek
@@ -29,44 +24,13 @@ import java.util.*;
 public class SystemAuthorityController {
     @Autowired
     private ISystemAuthorityService systemAuthorityService;
-    @Autowired
-    private ITokenService tokenService;
 
     @ApiOperation(value = "获取权限树",notes = "获取权限树")
-    @GetMapping(value = "/getTree")
+    @GetMapping(value = "/tree")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMAUTHORITY:GET')")
-    public R getTree(){
+    public R tree(){
         // 转换为菜单树返回
-        return R.ok(this.getChildren(0L,systemAuthorityService.list()));
-    }
-
-    /** @Author: MachineGeek
-    * @Description: 递归转换权限菜单树
-    * @Date: 2020/10/28
-    * @param: id
-    * @param: authorities
-    * @Return java.util.List<cn.machine.geek.dto.Menu>
-    */
-    private List<AuthorityTree> getChildren(Long id, Collection<? extends GrantedAuthority> authorities){
-        // 递归获取子树
-        List<AuthorityTree> authorityTrees = new ArrayList<>();
-        authorities.forEach((authority)->{
-            SystemAuthority systemAuthority = (SystemAuthority) authority;
-            if(id.equals(systemAuthority.getParentId())){
-                AuthorityTree authorityTree = new AuthorityTree();
-                BeanUtils.copyProperties(systemAuthority, authorityTree);
-                authorityTree.setChildren(this.getChildren(authorityTree.getId(),authorities));
-                authorityTrees.add(authorityTree);
-            }
-        });
-        // 排序
-        Collections.sort(authorityTrees, new Comparator<AuthorityTree>() {
-            @Override
-            public int compare(AuthorityTree o1, AuthorityTree o2) {
-                return o2.getSort() - o1.getSort();
-            }
-        });
-        return authorityTrees;
+        return R.ok(systemAuthorityService.tree());
     }
 
     @ApiOperation(value = "增加系统权限",notes = "增加权限")

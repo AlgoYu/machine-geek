@@ -106,6 +106,6 @@ public class CodeGeneratorServiceImpl implements ICodeGeneratorService {
     * @Return: java.util.List<cn.machine.geek.entity.DatabaseTableColumn>
     */
     private List<DatabaseTableColumn> getColumnsByTableName(String tableName){
-        return databaseMapper.selectColumnByTableName(tableName);
+        return databaseMapper.listColumnByTableName(tableName);
     }
 }

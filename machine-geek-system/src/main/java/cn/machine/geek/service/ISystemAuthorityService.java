@@ -1,5 +1,6 @@
 package cn.machine.geek.service;
 
+import cn.machine.geek.dto.SystemAuthorityTree;
 import cn.machine.geek.entity.SystemAuthority;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import java.util.List;
 public interface ISystemAuthorityService extends IService<SystemAuthority> {
     List<SystemAuthority> listByUserId(Long userId);
     List<SystemAuthority> listByRoleId(Long roleId);
+    List<SystemAuthorityTree> tree();
 }

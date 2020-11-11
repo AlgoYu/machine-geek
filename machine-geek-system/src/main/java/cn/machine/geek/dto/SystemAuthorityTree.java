@@ -11,6 +11,6 @@ import java.util.List;
  * @Date: 2020/10/28
  */
 @Data
-public class AuthorityTree extends SystemAuthority {
-    private List<AuthorityTree> children;
+public class SystemAuthorityTree extends SystemAuthority {
+    private List<SystemAuthorityTree> children;
 }

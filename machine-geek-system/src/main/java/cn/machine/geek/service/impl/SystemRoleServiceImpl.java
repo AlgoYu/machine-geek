@@ -24,7 +24,7 @@ public class SystemRoleServiceImpl extends ServiceImpl<ISystemRoleMapper, System
     }
 
     @Override
-    public IPage<SystemRole> listByCondition(int page, int size, String keyWord) {
+    public IPage<SystemRole> paging(int page, int size, String keyWord) {
         QueryWrapper<SystemRole> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().like(SystemRole::getKey,keyWord)
                 .or().like(SystemRole::getName,keyWord)

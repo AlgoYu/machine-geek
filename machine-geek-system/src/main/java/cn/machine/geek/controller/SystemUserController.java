@@ -46,10 +46,10 @@ public class SystemUserController {
     private ITokenService tokenService;
 
     @ApiOperation(value = "分页获取系统用户",notes = "分页获取系统用户")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/paging")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:GET')")
-    public R list(@Validated PageRequest pageRequest){
-        return R.ok(systemUserService.listByCondition(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
+    public R paging(@Validated PageRequest pageRequest){
+        return R.ok(systemUserService.paging(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
     }
 
     @ApiOperation(value = "增加系统用户",notes = "增加系统用户")

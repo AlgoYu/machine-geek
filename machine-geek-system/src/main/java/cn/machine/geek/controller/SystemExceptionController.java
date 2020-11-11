@@ -25,9 +25,9 @@ public class SystemExceptionController {
     private ISystemExceptionService systemExceptionService;
 
     @ApiOperation(value = "分页获取系统异常",notes = "分页获取系统异常")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/paging")
     @PreAuthorize("hasAuthority('DEVELOP:SYSTEMEXCEPTION:GET')")
-    public R list(@Validated PageRequest pageRequest){
-        return R.ok(systemExceptionService.listByCondition(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
+    public R paging(@Validated PageRequest pageRequest){
+        return R.ok(systemExceptionService.paging(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
     }
 }

@@ -36,10 +36,10 @@ public class CodeGeneratorController {
     private ICodeGeneratorService codeGeneratorService;
 
     @ApiOperation(value = "获取数据库表",notes = "获取数据库表")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/tablePageByDatabaseName")
     @PreAuthorize("hasAuthority('DEVELOP:GENERATOR:GET')")
-    public R list(@Validated PageRequest pageRequest){
-        return R.ok(databaseService.getTableByCondition(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
+    public R tablePageByDatabaseName(@Validated PageRequest pageRequest){
+        return R.ok(databaseService.pagingTableByDatabaseName(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
     }
 
     @ApiOperation(value = "生成代码",notes = "生成代码")

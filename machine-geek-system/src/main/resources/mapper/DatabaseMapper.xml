@@ -18,11 +18,11 @@
         <result column="column_key" property="columnKey" />
     </resultMap>
     <!-- 查询所有数据库信息 -->
-    <select id="selectAllDatabaseName" resultType="java.lang.String">
+    <select id="listDatabase" resultType="java.lang.String">
         SHOW DATABASES
     </select>
     <!-- 通过数据库名查询所有数据表信息 -->
-    <select id="selectTableByCondition" resultMap="DatabaseTableResultMap">
+    <select id="pagingTableByDatabaseName" resultMap="DatabaseTableResultMap">
         SELECT
             TABLE_NAME, ENGINE, TABLE_COMMENT,CREATE_TIME
         FROM
@@ -36,7 +36,7 @@
                 TABLE_COMMENT LIKE '%${keyWord}%'
             )
     </select>
-    <select id="selectColumnByTableName" resultMap="DatabaseTableColumnResultMap">
+    <select id="listColumnByTableName" resultMap="DatabaseTableColumnResultMap">
         SELECT COLUMN_NAME,DATA_TYPE,COLUMN_COMMENT,COLUMN_KEY FROM information_schema.columns WHERE TABLE_NAME=#{tableName};
     </select>
 </mapper>

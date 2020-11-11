@@ -23,12 +23,12 @@ public class DatabaseServiceImpl implements IDatabaseService {
     @Value("${mysql.database}")
     private String databaseName;
     @Override
-    public List<String> getAllDatabaseName() {
-        return databaseMapper.selectAllDatabaseName();
+    public List<String> listDatabase() {
+        return databaseMapper.listDatabase();
     }
 
     @Override
-    public IPage<DatabaseTable> getTableByCondition(int page, int size, String keyWord) {
-        return databaseMapper.selectTableByCondition(new Page<>(page,size),databaseName,keyWord);
+    public IPage<DatabaseTable> pagingTableByDatabaseName(int page, int size, String keyWord) {
+        return databaseMapper.pagingTableByDatabaseName(new Page<>(page,size),databaseName,keyWord);
     }
 }
