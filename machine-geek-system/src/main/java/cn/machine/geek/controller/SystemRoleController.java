@@ -40,9 +40,9 @@ public class SystemRoleController {
     private ISystemRoleAuthorityRelationService systemRoleAuthorityRelationService;
 
     @ApiOperation(value = "获取所有角色",notes = "获取所有角色")
-    @GetMapping(value = "/getAll")
+    @GetMapping(value = "/list")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:GET')")
-    public R getAll(){
+    public R list(){
         return R.ok(systemRoleService.list());
     }
 

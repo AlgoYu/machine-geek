@@ -36,9 +36,9 @@ public class CodeGeneratorController {
     private ICodeGeneratorService codeGeneratorService;
 
     @ApiOperation(value = "获取数据库表",notes = "获取数据库表")
-    @GetMapping(value = "/tablePageByDatabaseName")
+    @GetMapping(value = "/pagingTableByDatabaseName")
     @PreAuthorize("hasAuthority('DEVELOP:GENERATOR:GET')")
-    public R tablePageByDatabaseName(@Validated PageRequest pageRequest){
+    public R pagingTableByDatabaseName(@Validated PageRequest pageRequest){
         return R.ok(databaseService.pagingTableByDatabaseName(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
     }
 
