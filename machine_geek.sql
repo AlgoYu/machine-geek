@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 06/11/2020 17:26:02
+ Date: 11/11/2020 18:06:43
 */
 
 SET NAMES utf8mb4;
@@ -72,6 +72,7 @@ INSERT INTO `system_authority` VALUES (25, '开发文档', 'DEVELOP:DOCUMENTATIO
 INSERT INTO `system_authority` VALUES (26, '获取异常信息', 'DEVELOP:SYSTEMEXCEPTION:GET', '获取异常信息', 0, 1, NULL, 7, 0, 0, '2020-11-06 12:12:45', NULL);
 INSERT INTO `system_authority` VALUES (27, '获取数据库表', 'DEVELOP:GENERATOR:GET', '获取数据库表', 0, 1, NULL, 5, 0, 0, '2020-11-06 17:08:38', NULL);
 INSERT INTO `system_authority` VALUES (28, '生成代码', 'DEVELOP:GENERATOR:GENERATE', '生成代码', 0, 1, NULL, 5, 0, 0, '2020-11-06 17:09:27', '2020-11-06 17:09:30');
+INSERT INTO `system_authority` VALUES (29, '清空异常信息', 'DEVELOP:SYSTEMEXCEPTION:CLEAR', '清空异常信息', 0, 1, NULL, 7, 0, 0, '2020-11-11 11:53:48', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -94,12 +95,6 @@ CREATE TABLE `system_exception` (
 -- Records of system_exception
 -- ----------------------------
 BEGIN;
-INSERT INTO `system_exception` VALUES (1324563749892943874, '/api/exception/addException', 'PUT', '{    \"success\": false,    \"code\": 200,    \"msg\": \"/ by zero\"}', '0:0:0:0:0:0:0:1', 'java.lang.ArithmeticException', '/ by zero', '2020-11-06 04:06:22');
-INSERT INTO `system_exception` VALUES (1324563897251426305, '/api/exception/addException', 'GET', 'asd:[ad123, 123344],ads:[123123],', '0:0:0:0:0:0:0:1', 'org.springframework.web.HttpRequestMethodNotSupportedException', 'Request method \'GET\' not supported', '2020-11-06 04:06:57');
-INSERT INTO `system_exception` VALUES (1324563943015477249, '/api/exception/addException', 'DELETE', 'asd:[ad123, 123344],ads:[123123],', '0:0:0:0:0:0:0:1', 'org.springframework.web.HttpRequestMethodNotSupportedException', 'Request method \'DELETE\' not supported', '2020-11-06 04:07:08');
-INSERT INTO `system_exception` VALUES (1324573297584275457, '/systemException/list', 'GET', '', '0:0:0:0:0:0:0:1', 'org.springframework.validation.BindException', 'org.springframework.validation.BeanPropertyBindingResult: 2 errors\nField error in object \'pageRequest\' on field \'page\': rejected value [0]; codes [Min.pageRequest.page,Min.page,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [pageRequest.page,page]; arguments []; default message [page],1]; default message [当前页不能小于1]\nField error in object \'pageRequest\' on field \'size\': rejected value [0]; codes [Min.pageRequest.size,Min.size,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [pageRequest.size,size]; arguments []; default message [size],1]; default message [页尺寸不能小于1]', '2020-11-06 04:44:18');
-INSERT INTO `system_exception` VALUES (1324573417784639490, '/systemException/list', 'POST', '', '0:0:0:0:0:0:0:1', 'org.springframework.validation.BindException', 'org.springframework.validation.BeanPropertyBindingResult: 2 errors\nField error in object \'pageRequest\' on field \'page\': rejected value [0]; codes [Min.pageRequest.page,Min.page,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [pageRequest.page,page]; arguments []; default message [page],1]; default message [当前页不能小于1]\nField error in object \'pageRequest\' on field \'size\': rejected value [0]; codes [Min.pageRequest.size,Min.size,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [pageRequest.size,size]; arguments []; default message [size],1]; default message [页尺寸不能小于1]', '2020-11-06 04:44:47');
-INSERT INTO `system_exception` VALUES (1324641170864353281, '/codeGenerator/list', 'GET', '?page=[1]&size=[10]&keyWord=[]&', '0:0:0:0:0:0:0:1', 'org.springframework.security.access.AccessDeniedException', '不允许访问', '2020-11-06 09:14:00');
 COMMIT;
 
 -- ----------------------------
@@ -125,7 +120,7 @@ CREATE TABLE `system_role` (
 -- Records of system_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `system_role` VALUES (1, '超级管理员', 'ROLE_ADMINISTRATOR', '超级管理员', 0, 0, '2020-10-22 17:45:21', '2020-11-06 09:11:20');
+INSERT INTO `system_role` VALUES (1, '超级管理员', 'ROLE_ADMINISTRATOR', '超级管理员', 0, 0, '2020-10-22 09:45:21', '2020-11-11 03:54:05');
 COMMIT;
 
 -- ----------------------------
@@ -171,6 +166,7 @@ INSERT INTO `system_role_authority_relation` VALUES (1, 25);
 INSERT INTO `system_role_authority_relation` VALUES (1, 26);
 INSERT INTO `system_role_authority_relation` VALUES (1, 27);
 INSERT INTO `system_role_authority_relation` VALUES (1, 28);
+INSERT INTO `system_role_authority_relation` VALUES (1, 29);
 COMMIT;
 
 -- ----------------------------
