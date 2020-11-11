@@ -1,7 +1,5 @@
-package cn.machine.geek.config;
+package cn.machine.geek.security;
 
-import cn.machine.geek.security.CustomAuthenticationFilter;
-import cn.machine.geek.security.TokenAuthenticationFilter;
 import cn.machine.geek.service.ITokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
