@@ -1,12 +1,12 @@
 package cn.machine.geek.websocket.handler;
 
-import cn.machine.geek.websocket.entity.WebSocketMessage;
 import cn.machine.geek.websocket.service.IWebSocketPublishService;
 import cn.machine.geek.websocket.utils.WebSocketSessionManager;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Component;
@@ -90,9 +90,10 @@ public class WebSocketHandler extends TextWebSocketHandler implements MessageLis
     @Override
     public void onMessage(Message message, byte[] bytes) {
         try {
-            WebSocketMessage webSocketMessage = objectMapper.readValue(message.toString(), WebSocketMessage.class);
-            WebSocketSessionManager.sendText(webSocketMessage.getId(),new TextMessage(message.getBody()));
-        } catch (JsonProcessingException e) {
+            String data = StringEscapeUtils.unescapeJson(message.toString());
+            JSONObject jsonObject = new JSONObject(data.substring(1,data.length()-1));
+            WebSocketSessionManager.sendText(jsonObject.getString("id"),new TextMessage(jsonObject.getString("data")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

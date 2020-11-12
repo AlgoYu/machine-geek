@@ -15,6 +15,7 @@
     <properties>
         <start-class>cn.machine.geek.Application</start-class>
         <easy-captcha.version>1.6.2</easy-captcha.version>
+        <commons-text.version>1.9</commons-text.version>
         <mysql.version>8.0.21</mysql.version>
         <druid.version>1.1.22</druid.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
@@ -72,6 +73,11 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${commons-text.version}</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
