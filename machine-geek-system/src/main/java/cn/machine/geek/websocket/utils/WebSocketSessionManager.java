@@ -1,4 +1,4 @@
-package cn.machine.geek.websocket;
+package cn.machine.geek.websocket.utils;
 
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Author: MachineGeek
- * @Description: WebSocket连接池
+ * @Description: WebSocketSession管理器
  * @Email: 794763733@qq.com
  * @Date: 2020/11/11
  */

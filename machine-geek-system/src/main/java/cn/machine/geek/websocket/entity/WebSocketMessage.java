@@ -1,4 +1,4 @@
-package cn.machine.geek.websocket;
+package cn.machine.geek.websocket.entity;
 
 import lombok.Data;
 

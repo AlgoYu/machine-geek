@@ -1,7 +1,8 @@
-package cn.machine.geek.websocket;
+package cn.machine.geek.websocket.interceptor;
 
 import cn.machine.geek.entity.LoginUser;
 import cn.machine.geek.service.ITokenService;
+import cn.machine.geek.websocket.constant.WebSocketConstant;
 import io.netty.util.internal.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
         ServletServerHttpRequest servletServerHttpRequest = (ServletServerHttpRequest) request;
-        String token = servletServerHttpRequest.getServletRequest().getParameter("token");
+        String token = servletServerHttpRequest.getServletRequest().getParameter(WebSocketConstant.TOKEN);
         if (!StringUtil.isNullOrEmpty(token)) {
             if (tokenService.existsAccessToken(token)) {
                 LoginUser loginUser = tokenService.getAccessToken(token);
