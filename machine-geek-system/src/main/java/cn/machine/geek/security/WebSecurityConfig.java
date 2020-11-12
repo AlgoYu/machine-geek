@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 /**
 * @Author: MachineGeek
 * @Description: 安全配置类
+* @Email: 794763733@qq.com
 * @Date: 2020/10/3
 */
 @Configuration
@@ -53,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/swagger-resources",
             "/v2/api-docs",
-            "/druid/**"
+            "/druid/**",
+            "/websocket/**"
     };
 
     /** @Author: MachineGeek
