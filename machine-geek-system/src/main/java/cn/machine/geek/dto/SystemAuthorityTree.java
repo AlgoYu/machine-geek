@@ -1,6 +1,7 @@
 package cn.machine.geek.dto;
 
 import cn.machine.geek.entity.SystemAuthority;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -12,5 +13,6 @@ import java.util.List;
  */
 @Data
 public class SystemAuthorityTree extends SystemAuthority {
+    @ApiModelProperty(value = "子级系统权限")
     private List<SystemAuthorityTree> children;
 }

@@ -2,6 +2,7 @@ package cn.machine.geek.dto;
 
 import cn.machine.geek.entity.SystemUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Data
 public class SystemUserDTO extends SystemUser {
+    @ApiModelProperty(value = "系统角色ID")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private List<Long> systemRoleIds;
 }

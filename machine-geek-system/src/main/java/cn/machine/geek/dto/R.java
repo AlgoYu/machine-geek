@@ -1,6 +1,8 @@
 package cn.machine.geek.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,14 +12,19 @@ import lombok.NoArgsConstructor;
  * @Description: Response响应结果类
  * @Date: 2020/10/6
  */
+@ApiModel(value = "结果信息")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class R {
+    @ApiModelProperty(value = "状态")
     private boolean success;
+    @ApiModelProperty(value = "代码")
     private int code;
+    @ApiModelProperty(value = "信息")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String msg;
+    @ApiModelProperty(value = "数据")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Object data;
 
