@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 11/11/2020 18:06:43
+ Date: 13/11/2020 18:21:13
 */
 
 SET NAMES utf8mb4;
@@ -95,6 +95,7 @@ CREATE TABLE `system_exception` (
 -- Records of system_exception
 -- ----------------------------
 BEGIN;
+INSERT INTO `system_exception` VALUES (1327194463113199617, '/codeGenerator/generate', 'GET', '?tableName=[system_user]&moduleName=[系统用户]&', '0:0:0:0:0:0:0:1', 'java.lang.reflect.UndeclaredThrowableException', NULL, '2020-11-13 10:19:53');
 COMMIT;
 
 -- ----------------------------
