@@ -9,6 +9,11 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  # Email配置
+  mail:
+    host: smtp.qq.com
+    username: 794763733@qq.com
+    password: soimybdqdxnxbcgc
   # FreeMarker
   freemarker:
     cache: false
