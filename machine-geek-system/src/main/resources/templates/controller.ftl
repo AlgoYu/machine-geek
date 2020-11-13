@@ -1,24 +1,19 @@
 package cn.machine.geek.controller;
 
-import cn.machine.geek.constant.WebConstant;
 import cn.machine.geek.dto.PageRequest;
 import cn.machine.geek.dto.R;
 import cn.machine.geek.entity.${className};
 import cn.machine.geek.service.I${className}Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
 * @Author: MachineGeek
@@ -34,9 +29,11 @@ public class ${className}Controller {
     private I${className}Service ${instanceName}Service;
 
     @ApiOperation(value = "分页获取${moduleName}",notes = "分页获取${moduleName}")
-    @GetMapping(value = "/list")
-    public R list(@Validated PageRequest pageRequest){
-        return R.ok(${instanceName}Service.page(new Page<>(1,10)));
+    @GetMapping(value = "/paging")
+    public R paging(@Validated PageRequest pageRequest){
+        QueryWrapper<${className}> queryWrapper = new QueryWrapper<>();
+        // 在这里写条件查询逻辑逻辑
+        return R.ok(${instanceName}Service.page(new Page<>(pageRequest.getPage(),pageRequest.getSize()),queryWrapper));
     }
 
     @ApiOperation(value = "增加${moduleName}",notes = "增加${moduleName}")

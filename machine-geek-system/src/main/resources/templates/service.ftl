@@ -11,5 +11,5 @@ import java.util.List;
 * @Email: 794763733@qq.com
 * @Date: ${date}
 */
-public interface I${moduleName}Service extends IService<${className}> {
+public interface I${className}Service extends IService<${className}> {
 }

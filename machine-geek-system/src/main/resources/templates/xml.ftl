@@ -13,12 +13,13 @@
         </#if>
         </#list>
     </resultMap>
-    <#assign columnStr="">
+    <#assign columns>
     <#list data as value>
-        ${columnStr + "`" + value.columnName + "`,"}
+        ${"`" + value.columnName + "`,"}
     </#list>
+    </#assign>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ${columnStr}
+        ${columns}
     </sql>
 </mapper>
