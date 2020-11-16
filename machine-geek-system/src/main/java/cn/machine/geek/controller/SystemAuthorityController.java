@@ -40,7 +40,6 @@ public class SystemAuthorityController {
     public R add(@RequestBody SystemAuthority systemAuthority){
         systemAuthority.setSort(0);
         systemAuthority.setType(AuthorityEnum.API);
-        systemAuthority.setDisable(false);
         systemAuthority.setVersion(0);
         systemAuthority.setCreateTime(LocalDateTime.now());
         return R.ok(systemAuthorityService.save(systemAuthority));
