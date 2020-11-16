@@ -56,7 +56,6 @@ public class SystemRoleController {
     @ApiOperation(value = "增加系统角色",notes = "增加系统角色")
     @PostMapping(value = "/add")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:ADD')")
-    @Transactional
     public R add(@RequestBody SystemRole systemRole){
         systemRole.setCreateTime(LocalDateTime.now());
         return R.ok(systemRoleService.save(systemRole));

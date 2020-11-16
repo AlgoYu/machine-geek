@@ -12,7 +12,6 @@ import cn.machine.geek.service.ISystemUserRoleRelationService;
 import cn.machine.geek.service.ISystemUserService;
 import cn.machine.geek.service.ITokenService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -71,6 +70,7 @@ public class SystemUserController {
     @ApiOperation(value = "根据ID更新系统用户",notes = "根据ID更新系统用户")
     @PutMapping(value = "/modifyById")
     @Transactional
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:MODIFY')")
     public R modifyById(@RequestBody SystemUser systemUser){
         systemUser.setUpdateTime(LocalDateTime.now());
         return R.ok(systemUserService.updateById(systemUser));
@@ -79,6 +79,7 @@ public class SystemUserController {
     @ApiOperation(value = "根据ID更新系统用户和角色",notes = "根据ID更新系统用户和角色")
     @PutMapping(value = "/modifyWithRoleById")
     @Transactional
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:MODIFY')")
     public R modifyWithRoleById(@RequestBody SystemUserDTO systemUserDTO){
         // 删除与用户与角色的关系
         QueryWrapper<SystemUserRoleRelation> queryWrapper = new QueryWrapper<>();
@@ -125,9 +126,5 @@ public class SystemUserController {
     public R getLoginInfo(HttpServletRequest request){
         String tokenStr = request.getHeader(WebConstant.TOKEN_HEADER);
         return this.getById(tokenService.getAccessToken(tokenStr).getId());
-    }
-
-    public R get(){
-        return R.ok(systemUserService.page(new Page<>(1,10)));
     }
 }
