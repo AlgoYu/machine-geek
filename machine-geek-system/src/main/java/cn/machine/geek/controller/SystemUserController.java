@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,8 @@ public class SystemUserController {
     private ISystemRoleService systemRoleService;
     @Autowired
     private ITokenService tokenService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @ApiOperation(value = "分页获取系统用户",notes = "分页获取系统用户")
     @GetMapping(value = "/paging")
@@ -57,10 +60,12 @@ public class SystemUserController {
     @Transactional
     public R add(@RequestBody SystemUser systemUser){
         systemUser.setCreateTime(LocalDateTime.now());
+        systemUser.setDisable(false);
+        systemUser.setPassword(passwordEncoder.encode(systemUser.getPassword()));
         return R.ok(systemUserService.save(systemUser));
     }
 
-    @ApiOperation(value = "增加系统用户及与角色的关系",notes = "增加系统用户及与角色的关系")
+    @ApiOperation(value = "增加系统用户以及与角色的关系",notes = "增加系统用户以及与角色的关系")
     @PostMapping(value = "/addWithRole")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:ADD')")
     @Transactional

@@ -61,7 +61,7 @@ public class SystemRoleController {
         return R.ok(systemRoleService.save(systemRole));
     }
 
-    @ApiOperation(value = "增加系统角色及权限关系",notes = "增加系统角色及权限关系")
+    @ApiOperation(value = "增加系统角色以及与权限关系",notes = "增加系统角色以及与权限关系")
     @PostMapping(value = "/addWithAuthority")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:ADD')")
     public R addWithAuthority(@RequestBody SystemRoleDTO systemRoleDTO){
