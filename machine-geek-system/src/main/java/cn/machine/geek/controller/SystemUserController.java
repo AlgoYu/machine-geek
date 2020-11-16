@@ -60,6 +60,17 @@ public class SystemUserController {
         return R.ok(systemUserService.save(systemUser));
     }
 
+    @ApiOperation(value = "增加系统用户及与角色的关系",notes = "增加系统用户及与角色的关系")
+    @PostMapping(value = "/addWithRole")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:ADD')")
+    @Transactional
+    public R addWithRole(@RequestBody SystemUserDTO systemUserDTO){
+        systemUserDTO.setCreateTime(LocalDateTime.now());
+        systemUserService.save(systemUserDTO);
+        this.addRelations(systemUserDTO);
+        return R.ok();
+    }
+
     @ApiOperation(value = "根据ID删除系统用户",notes = "根据ID删除系统用户")
     @DeleteMapping(value = "/deleteById")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:DELETE')")
@@ -85,15 +96,7 @@ public class SystemUserController {
         QueryWrapper<SystemUserRoleRelation> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(SystemUserRoleRelation::getUserId,systemUserDTO.getId());
         systemUserRoleRelationService.remove(queryWrapper);
-        // 重新添加用户与角色的关系
-        List<SystemUserRoleRelation> systemUserRoleRelations = new ArrayList<>();
-        systemUserDTO.getSystemRoleIds().forEach((id)->{
-            SystemUserRoleRelation systemUserRoleRelation = new SystemUserRoleRelation();
-            systemUserRoleRelation.setUserId(systemUserDTO.getId());
-            systemUserRoleRelation.setRoleId(id);
-            systemUserRoleRelations.add(systemUserRoleRelation);
-        });
-        systemUserRoleRelationService.saveBatch(systemUserRoleRelations);
+        this.addRelations(systemUserDTO);
         // 修改用户信息
         systemUserDTO.setUpdateTime(LocalDateTime.now());
         return R.ok(systemUserService.updateById(systemUserDTO));
@@ -126,5 +129,24 @@ public class SystemUserController {
     public R getLoginInfo(HttpServletRequest request){
         String tokenStr = request.getHeader(WebConstant.TOKEN_HEADER);
         return this.getById(tokenService.getAccessToken(tokenStr).getId());
+    }
+
+    /**
+    * @Author: MachineGeek
+    * @Description: 添加系统用户和系统角色的关系
+    * @Date: 2020/11/16
+     * @param systemUserDTO
+    * @Return: java.util.List<cn.machine.geek.entity.SystemUserRoleRelation>
+    */
+    private void addRelations(SystemUserDTO systemUserDTO){
+        // 重新添加用户与角色的关系
+        List<SystemUserRoleRelation> systemUserRoleRelations = new ArrayList<>();
+        systemUserDTO.getSystemRoleIds().forEach((id)->{
+            SystemUserRoleRelation systemUserRoleRelation = new SystemUserRoleRelation();
+            systemUserRoleRelation.setUserId(systemUserDTO.getId());
+            systemUserRoleRelation.setRoleId(id);
+            systemUserRoleRelations.add(systemUserRoleRelation);
+        });
+        systemUserRoleRelationService.saveBatch(systemUserRoleRelations);
     }
 }
