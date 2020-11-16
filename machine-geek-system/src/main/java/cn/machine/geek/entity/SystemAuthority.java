@@ -51,10 +51,6 @@ public class SystemAuthority implements GrantedAuthority {
     @TableField(value = "`sort`")
     private Integer sort;
 
-    @ApiModelProperty(value = "系统权限禁用")
-    @TableField(value = "`disable`")
-    private Boolean disable;
-
     @ApiModelProperty(value = "乐观锁")
     @TableField(value = "`version`")
     private Integer version;

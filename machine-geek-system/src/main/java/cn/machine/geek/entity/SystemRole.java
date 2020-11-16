@@ -32,10 +32,6 @@ public class SystemRole {
     @TableField(value = "`description`")
     private String description;
 
-    @ApiModelProperty(value = "系统角色禁用")
-    @TableField(value = "`disable`")
-    private Boolean disable;
-
     @ApiModelProperty(value = "乐观锁")
     @TableField(value = "`version`")
     private Integer version;
