@@ -61,6 +61,16 @@ public class SystemRoleController {
         return R.ok(systemRoleService.save(systemRole));
     }
 
+    @ApiOperation(value = "增加系统角色及权限关系",notes = "增加系统角色及权限关系")
+    @PostMapping(value = "/addWithAuthority")
+    @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:ADD')")
+    public R addWithAuthority(@RequestBody SystemRoleDTO systemRoleDTO){
+        systemRoleDTO.setCreateTime(LocalDateTime.now());
+        systemRoleService.save(systemRoleDTO);
+        this.addRelations(systemRoleDTO);
+        return R.ok();
+    }
+
     @ApiOperation(value = "根据ID删除系统角色",notes = "根据ID删除系统角色")
     @DeleteMapping(value = "/deleteById")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:DELETE')")
@@ -87,14 +97,7 @@ public class SystemRoleController {
         queryWrapper.lambda().eq(SystemRoleAuthorityRelation::getRoleId,systemRoleDTO.getId());
         systemRoleAuthorityRelationService.remove(queryWrapper);
         // 重新添加角色与权力的关系
-        List<SystemRoleAuthorityRelation> systemRoleAuthorityRelations = new ArrayList<>();
-        systemRoleDTO.getSystemAuthorityIds().forEach((id)->{
-            SystemRoleAuthorityRelation systemRoleAuthorityRelation = new SystemRoleAuthorityRelation();
-            systemRoleAuthorityRelation.setRoleId(systemRoleDTO.getId());
-            systemRoleAuthorityRelation.setAuthorityId(id);
-            systemRoleAuthorityRelations.add(systemRoleAuthorityRelation);
-        });
-        systemRoleAuthorityRelationService.saveBatch(systemRoleAuthorityRelations);
+        this.addRelations(systemRoleDTO);
         // 更新角色信息
         systemRoleDTO.setUpdateTime(LocalDateTime.now());
         return R.ok(systemRoleService.updateById(systemRoleDTO));
@@ -119,5 +122,23 @@ public class SystemRoleController {
             systemRoleDTO.getSystemAuthorityIds().add(systemAuthority.getId());
         });
         return R.ok(systemRoleDTO);
+    }
+
+    /**
+    * @Author: MachineGeek
+    * @Description: 增加角色和权限的关系
+    * @Date: 2020/11/16
+     * @param systemRoleDTO
+    * @Return: void
+    */
+    private void addRelations(SystemRoleDTO systemRoleDTO){
+        List<SystemRoleAuthorityRelation> systemRoleAuthorityRelations = new ArrayList<>();
+        systemRoleDTO.getSystemAuthorityIds().forEach((id)->{
+            SystemRoleAuthorityRelation systemRoleAuthorityRelation = new SystemRoleAuthorityRelation();
+            systemRoleAuthorityRelation.setRoleId(systemRoleDTO.getId());
+            systemRoleAuthorityRelation.setAuthorityId(id);
+            systemRoleAuthorityRelations.add(systemRoleAuthorityRelation);
+        });
+        systemRoleAuthorityRelationService.saveBatch(systemRoleAuthorityRelations);
     }
 }
