@@ -15,7 +15,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        `id`,`name`,`key`,`description`,`disable`,`version`,`create_time`,`update_time`
+        `id`,`name`,`key`,`description`,`version`,`create_time`,`update_time`
     </sql>
     <!-- 根据用户ID查询角色 -->
     <select id="selectByUserId" resultMap="BaseResultMap">
