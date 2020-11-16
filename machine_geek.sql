@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 13/11/2020 18:21:13
+ Date: 16/11/2020 14:20:08
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,6 @@ CREATE TABLE `system_authority` (
   `type` tinyint DEFAULT NULL COMMENT '权限类型：0是模块，1是菜单，3是接口。',
   `path` varchar(2083) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '路径',
   `parent_id` bigint DEFAULT NULL COMMENT '父级权限ID',
-  `disable` tinyint DEFAULT NULL COMMENT '禁用',
   `version` int DEFAULT NULL COMMENT '乐观锁',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
@@ -44,35 +43,35 @@ CREATE TABLE `system_authority` (
 -- Records of system_authority
 -- ----------------------------
 BEGIN;
-INSERT INTO `system_authority` VALUES (1, '系统设置', 'SYSTEM', '系统设置', 0, 0, '/Setting', 0, 0, 0, '2020-10-26 17:47:10', '2020-10-26 17:47:12');
-INSERT INTO `system_authority` VALUES (2, '数据中心', 'DATACENTER', '数据中心', 100, 0, '/DataCenter', 0, 0, 0, '2020-10-26 17:49:22', '2020-10-26 17:49:23');
-INSERT INTO `system_authority` VALUES (3, '开发者工具', 'DEVELOP', '开发者工具', 0, 0, '/DevTools', 0, 0, 0, '2020-10-26 17:50:25', '2020-10-26 17:50:28');
-INSERT INTO `system_authority` VALUES (4, '系统管理', 'MANAGEMENT', '系统管理', 0, 0, '/Management', 0, 0, 0, '2020-10-26 17:51:35', '2020-10-26 17:51:37');
-INSERT INTO `system_authority` VALUES (5, '代码生成器', 'DEVELOP:GENERATOR', '代码生成器', 0, 0, '/DevTools/CodeGenerator', 3, 0, 0, '2020-10-26 17:53:49', '2020-10-26 17:53:52');
-INSERT INTO `system_authority` VALUES (6, '数据监控', 'DEVELOP:DATAMONITOR', '数据库信息', 0, 0, '/DevTools/DataMonitor', 3, 0, 0, '2020-10-26 17:54:47', '2020-10-26 17:54:49');
-INSERT INTO `system_authority` VALUES (7, '异常信息', 'DEVELOP:SYSTEMEXCEPTION', '异常信息', 0, 0, '/DevTools/SystemException', 3, 0, 0, '2020-10-26 17:55:44', '2020-10-26 17:55:47');
-INSERT INTO `system_authority` VALUES (8, '删除异常信息', 'DEVELOP:SYSTEMEXCEPTION:DELETE', '删除异常信息', 0, 1, NULL, 7, 0, 0, '2020-10-26 17:58:02', '2020-10-26 17:58:04');
-INSERT INTO `system_authority` VALUES (9, '用户管理', 'MANAGEMENT:SYSTEMUSER', '用户管理', 0, 0, '/Management/SystemUser', 4, 0, 0, '2020-10-29 13:13:58', '2020-10-29 13:14:06');
-INSERT INTO `system_authority` VALUES (10, '角色管理', 'MANAGEMENT:SYSTEMROLE', '角色管理', 0, 0, '/Management/SystemRole', 4, 0, 0, '2020-10-29 13:15:08', '2020-10-29 13:15:10');
-INSERT INTO `system_authority` VALUES (11, '权限管理', 'MANAGEMENT:SYSTEMAUTHORITY', '权限管理', 0, 0, '/Management/SystemAuthority', 4, 0, 0, '2020-10-29 13:16:05', '2020-10-29 13:16:07');
-INSERT INTO `system_authority` VALUES (12, '增加用户', 'MANAGEMENT:SYSTEMUSER:ADD', '增加用户', 0, 1, '', 9, 0, NULL, '2020-11-02 08:04:02', NULL);
-INSERT INTO `system_authority` VALUES (13, '删除用户', 'MANAGEMENT:SYSTEMUSER:DELETE', '删除用户', 0, 1, '', 9, 0, NULL, '2020-11-02 08:06:47', NULL);
-INSERT INTO `system_authority` VALUES (14, '修改用户', 'MANAGEMENT:SYSTEMUSER:MODIFY', '修改用户', 0, 1, '', 9, 0, NULL, '2020-11-02 08:06:54', NULL);
-INSERT INTO `system_authority` VALUES (15, '查找用户', 'MANAGEMENT:SYSTEMUSER:GET', '查找用户', 0, 1, '', 9, 0, 0, '2020-11-02 08:09:59', NULL);
-INSERT INTO `system_authority` VALUES (16, '增加角色', 'MANAGEMENT:SYSTEMROLE:ADD', '增加角色', 0, 1, '', 10, 0, 0, '2020-11-02 08:13:31', NULL);
-INSERT INTO `system_authority` VALUES (17, '删除角色', 'MANAGEMENT:SYSTEMROLE:DELETE', '删除角色', 0, 1, '', 10, 0, 0, '2020-11-02 08:13:37', NULL);
-INSERT INTO `system_authority` VALUES (18, '修改角色', 'MANAGEMENT:SYSTEMROLE:MODIFY', '修改角色', 0, 1, '', 10, 0, 0, '2020-11-02 08:13:47', NULL);
-INSERT INTO `system_authority` VALUES (19, '查找角色', 'MANAGEMENT:SYSTEMROLE:GET', '查找角色', 0, 1, '', 10, 0, 0, '2020-11-02 08:14:11', NULL);
-INSERT INTO `system_authority` VALUES (20, '增加权限', 'MANAGEMENT:SYSTEMAUTHORITY:ADD', '增加权限', 0, 1, '', 11, 0, 0, '2020-11-02 08:16:07', NULL);
-INSERT INTO `system_authority` VALUES (21, '删除权限', 'MANAGEMENT:SYSTEMAUTHORITY:DELETE', '删除权限', 0, 1, '', 11, 0, 0, '2020-11-02 08:16:19', NULL);
-INSERT INTO `system_authority` VALUES (22, '修改权限', 'MANAGEMENT:SYSTEMAUTHORITY:MODIFY', '修改权限', 0, 1, '', 11, 0, 0, '2020-11-02 08:16:27', NULL);
-INSERT INTO `system_authority` VALUES (23, '查找权限', 'MANAGEMENT:SYSTEMAUTHORITY:GET', '查找权限', 0, 1, '', 11, 0, 0, '2020-11-02 08:16:35', NULL);
-INSERT INTO `system_authority` VALUES (24, '应用监控', 'DEVELOP:APPLICATIONMONITOR', '应用健康', 0, 0, '/DevTools/ApplicationMonitor', 3, 0, 0, '2020-11-05 06:26:38', NULL);
-INSERT INTO `system_authority` VALUES (25, '开发文档', 'DEVELOP:DOCUMENTATION', '开发文档', 0, 0, '/DevTools/Documentation', 3, 0, 0, '2020-11-05 07:02:57', NULL);
-INSERT INTO `system_authority` VALUES (26, '获取异常信息', 'DEVELOP:SYSTEMEXCEPTION:GET', '获取异常信息', 0, 1, NULL, 7, 0, 0, '2020-11-06 12:12:45', NULL);
-INSERT INTO `system_authority` VALUES (27, '获取数据库表', 'DEVELOP:GENERATOR:GET', '获取数据库表', 0, 1, NULL, 5, 0, 0, '2020-11-06 17:08:38', NULL);
-INSERT INTO `system_authority` VALUES (28, '生成代码', 'DEVELOP:GENERATOR:GENERATE', '生成代码', 0, 1, NULL, 5, 0, 0, '2020-11-06 17:09:27', '2020-11-06 17:09:30');
-INSERT INTO `system_authority` VALUES (29, '清空异常信息', 'DEVELOP:SYSTEMEXCEPTION:CLEAR', '清空异常信息', 0, 1, NULL, 7, 0, 0, '2020-11-11 11:53:48', NULL);
+INSERT INTO `system_authority` VALUES (1, '系统设置', 'SYSTEM', '系统设置', 0, 0, '/Setting', 0, 0, '2020-10-26 17:47:10', '2020-10-26 17:47:12');
+INSERT INTO `system_authority` VALUES (2, '数据中心', 'DATACENTER', '数据中心', 100, 0, '/DataCenter', 0, 0, '2020-10-26 17:49:22', '2020-10-26 17:49:23');
+INSERT INTO `system_authority` VALUES (3, '开发者工具', 'DEVELOP', '开发者工具', 0, 0, '/DevTools', 0, 0, '2020-10-26 17:50:25', '2020-10-26 17:50:28');
+INSERT INTO `system_authority` VALUES (4, '系统管理', 'MANAGEMENT', '系统管理', 0, 0, '/Management', 0, 0, '2020-10-26 17:51:35', '2020-10-26 17:51:37');
+INSERT INTO `system_authority` VALUES (5, '代码生成器', 'DEVELOP:GENERATOR', '代码生成器', 0, 0, '/DevTools/CodeGenerator', 3, 0, '2020-10-26 17:53:49', '2020-10-26 17:53:52');
+INSERT INTO `system_authority` VALUES (6, '数据监控', 'DEVELOP:DATAMONITOR', '数据库信息', 0, 0, '/DevTools/DataMonitor', 3, 0, '2020-10-26 17:54:47', '2020-10-26 17:54:49');
+INSERT INTO `system_authority` VALUES (7, '异常信息', 'DEVELOP:SYSTEMEXCEPTION', '异常信息', 0, 0, '/DevTools/SystemException', 3, 0, '2020-10-26 17:55:44', '2020-10-26 17:55:47');
+INSERT INTO `system_authority` VALUES (8, '删除异常信息', 'DEVELOP:SYSTEMEXCEPTION:DELETE', '删除异常信息', 0, 1, NULL, 7, 0, '2020-10-26 17:58:02', '2020-10-26 17:58:04');
+INSERT INTO `system_authority` VALUES (9, '用户管理', 'MANAGEMENT:SYSTEMUSER', '用户管理', 0, 0, '/Management/SystemUser', 4, 0, '2020-10-29 13:13:58', '2020-10-29 13:14:06');
+INSERT INTO `system_authority` VALUES (10, '角色管理', 'MANAGEMENT:SYSTEMROLE', '角色管理', 0, 0, '/Management/SystemRole', 4, 0, '2020-10-29 13:15:08', '2020-10-29 13:15:10');
+INSERT INTO `system_authority` VALUES (11, '权限管理', 'MANAGEMENT:SYSTEMAUTHORITY', '权限管理', 0, 0, '/Management/SystemAuthority', 4, 0, '2020-10-29 13:16:05', '2020-10-29 13:16:07');
+INSERT INTO `system_authority` VALUES (12, '增加用户', 'MANAGEMENT:SYSTEMUSER:ADD', '增加用户', 0, 1, '', 9, NULL, '2020-11-02 08:04:02', NULL);
+INSERT INTO `system_authority` VALUES (13, '删除用户', 'MANAGEMENT:SYSTEMUSER:DELETE', '删除用户', 0, 1, '', 9, NULL, '2020-11-02 08:06:47', NULL);
+INSERT INTO `system_authority` VALUES (14, '修改用户', 'MANAGEMENT:SYSTEMUSER:MODIFY', '修改用户', 0, 1, '', 9, NULL, '2020-11-02 08:06:54', NULL);
+INSERT INTO `system_authority` VALUES (15, '查找用户', 'MANAGEMENT:SYSTEMUSER:GET', '查找用户', 0, 1, '', 9, 0, '2020-11-02 08:09:59', NULL);
+INSERT INTO `system_authority` VALUES (16, '增加角色', 'MANAGEMENT:SYSTEMROLE:ADD', '增加角色', 0, 1, '', 10, 0, '2020-11-02 08:13:31', NULL);
+INSERT INTO `system_authority` VALUES (17, '删除角色', 'MANAGEMENT:SYSTEMROLE:DELETE', '删除角色', 0, 1, '', 10, 0, '2020-11-02 08:13:37', NULL);
+INSERT INTO `system_authority` VALUES (18, '修改角色', 'MANAGEMENT:SYSTEMROLE:MODIFY', '修改角色', 0, 1, '', 10, 0, '2020-11-02 08:13:47', NULL);
+INSERT INTO `system_authority` VALUES (19, '查找角色', 'MANAGEMENT:SYSTEMROLE:GET', '查找角色', 0, 1, '', 10, 0, '2020-11-02 08:14:11', NULL);
+INSERT INTO `system_authority` VALUES (20, '增加权限', 'MANAGEMENT:SYSTEMAUTHORITY:ADD', '增加权限', 0, 1, '', 11, 0, '2020-11-02 08:16:07', NULL);
+INSERT INTO `system_authority` VALUES (21, '删除权限', 'MANAGEMENT:SYSTEMAUTHORITY:DELETE', '删除权限', 0, 1, '', 11, 0, '2020-11-02 08:16:19', NULL);
+INSERT INTO `system_authority` VALUES (22, '修改权限', 'MANAGEMENT:SYSTEMAUTHORITY:MODIFY', '修改权限', 0, 1, '', 11, 0, '2020-11-02 08:16:27', NULL);
+INSERT INTO `system_authority` VALUES (23, '查找权限', 'MANAGEMENT:SYSTEMAUTHORITY:GET', '查找权限', 0, 1, '', 11, 0, '2020-11-02 08:16:35', NULL);
+INSERT INTO `system_authority` VALUES (24, '应用监控', 'DEVELOP:APPLICATIONMONITOR', '应用健康', 0, 0, '/DevTools/ApplicationMonitor', 3, 0, '2020-11-05 06:26:38', NULL);
+INSERT INTO `system_authority` VALUES (25, '开发文档', 'DEVELOP:DOCUMENTATION', '开发文档', 0, 0, '/DevTools/Documentation', 3, 0, '2020-11-05 07:02:57', NULL);
+INSERT INTO `system_authority` VALUES (26, '获取异常信息', 'DEVELOP:SYSTEMEXCEPTION:GET', '获取异常信息', 0, 1, NULL, 7, 0, '2020-11-06 12:12:45', NULL);
+INSERT INTO `system_authority` VALUES (27, '获取数据库表', 'DEVELOP:GENERATOR:GET', '获取数据库表', 0, 1, NULL, 5, 0, '2020-11-06 17:08:38', NULL);
+INSERT INTO `system_authority` VALUES (28, '生成代码', 'DEVELOP:GENERATOR:GENERATE', '生成代码', 0, 1, NULL, 5, 0, '2020-11-06 17:09:27', '2020-11-06 17:09:30');
+INSERT INTO `system_authority` VALUES (29, '清空异常信息', 'DEVELOP:SYSTEMEXCEPTION:CLEAR', '清空异常信息', 0, 1, NULL, 7, 0, '2020-11-11 11:53:48', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -95,7 +94,6 @@ CREATE TABLE `system_exception` (
 -- Records of system_exception
 -- ----------------------------
 BEGIN;
-INSERT INTO `system_exception` VALUES (1327194463113199617, '/codeGenerator/generate', 'GET', '?tableName=[system_user]&moduleName=[系统用户]&', '0:0:0:0:0:0:0:1', 'java.lang.reflect.UndeclaredThrowableException', NULL, '2020-11-13 10:19:53');
 COMMIT;
 
 -- ----------------------------
@@ -107,7 +105,6 @@ CREATE TABLE `system_role` (
   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色名称',
   `key` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '关键字',
   `description` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
-  `disable` tinyint DEFAULT NULL COMMENT '禁用',
   `version` int DEFAULT NULL COMMENT '乐观锁',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
@@ -121,7 +118,7 @@ CREATE TABLE `system_role` (
 -- Records of system_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `system_role` VALUES (1, '超级管理员', 'ROLE_ADMINISTRATOR', '超级管理员', 0, 0, '2020-10-22 09:45:21', '2020-11-11 03:54:05');
+INSERT INTO `system_role` VALUES (1, '超级管理员', 'ROLE_ADMINISTRATOR', '超级管理员', 0, '2020-10-21 01:45:21', '2020-11-16 03:46:55');
 COMMIT;
 
 -- ----------------------------
