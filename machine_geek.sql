@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 16/11/2020 15:31:49
+ Date: 16/11/2020 18:17:05
 */
 
 SET NAMES utf8mb4;
@@ -114,6 +114,13 @@ INSERT INTO `system_exception` VALUES (1328237406389469186, '/systemRole/getWith
 INSERT INTO `system_exception` VALUES (1328237610580770817, '/systemUser/getWithRoleById', 'GET', '?id=[1]&', '0:0:0:0:0:0:0:1', 'org.springframework.jdbc.BadSqlGrammarException', '\n### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column \'disable\' in \'field list\'\n### The error may exist in file [/Users/machine/JavaProject/machine-geek/machine-geek-system/target/classes/mapper/SystemRoleMapper.xml]\n### The error may involve defaultParameterMap\n### The error occurred while setting parameters\n### SQL: SELECT                       `id`,`name`,`key`,`description`,`disable`,`version`,`create_time`,`update_time`               FROM             system_role         INNER JOIN system_user_role_relation ON system_user_role_relation.role_id = system_role.id         WHERE         system_user_role_relation.user_id = ?\n### Cause: java.sql.SQLSyntaxErrorException: Unknown column \'disable\' in \'field list\'\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Unknown column \'disable\' in \'field list\'', '2020-11-16 07:24:58');
 INSERT INTO `system_exception` VALUES (1328237669745623042, '/systemUser/getWithRoleById', 'GET', '?id=[1]&', '0:0:0:0:0:0:0:1', 'org.springframework.jdbc.BadSqlGrammarException', '\n### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column \'disable\' in \'field list\'\n### The error may exist in file [/Users/machine/JavaProject/machine-geek/machine-geek-system/target/classes/mapper/SystemRoleMapper.xml]\n### The error may involve defaultParameterMap\n### The error occurred while setting parameters\n### SQL: SELECT                       `id`,`name`,`key`,`description`,`disable`,`version`,`create_time`,`update_time`               FROM             system_role         INNER JOIN system_user_role_relation ON system_user_role_relation.role_id = system_role.id         WHERE         system_user_role_relation.user_id = ?\n### Cause: java.sql.SQLSyntaxErrorException: Unknown column \'disable\' in \'field list\'\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Unknown column \'disable\' in \'field list\'', '2020-11-16 07:25:13');
 INSERT INTO `system_exception` VALUES (1328237913539543041, '/systemUser/getWithRoleById', 'GET', '?id=[1]&', '0:0:0:0:0:0:0:1', 'org.springframework.jdbc.BadSqlGrammarException', '\n### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column \'disable\' in \'field list\'\n### The error may exist in file [/Users/machine/JavaProject/machine-geek/machine-geek-system/target/classes/mapper/SystemRoleMapper.xml]\n### The error may involve defaultParameterMap\n### The error occurred while setting parameters\n### SQL: SELECT                       `id`,`name`,`key`,`description`,`disable`,`version`,`create_time`,`update_time`               FROM             system_role         INNER JOIN system_user_role_relation ON system_user_role_relation.role_id = system_role.id         WHERE         system_user_role_relation.user_id = ?\n### Cause: java.sql.SQLSyntaxErrorException: Unknown column \'disable\' in \'field list\'\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Unknown column \'disable\' in \'field list\'', '2020-11-16 07:26:11');
+INSERT INTO `system_exception` VALUES (1328255323764097026, '/systemUser/deleteById', 'GET', '?0=[1328253848501551105]&', '0:0:0:0:0:0:0:1', 'org.springframework.web.HttpRequestMethodNotSupportedException', 'Request method \'GET\' not supported', '2020-11-16 08:35:22');
+INSERT INTO `system_exception` VALUES (1328255444908179458, '/systemUser/deleteById', 'GET', '?id=[1328253848501551105]&', '0:0:0:0:0:0:0:1', 'org.springframework.web.HttpRequestMethodNotSupportedException', 'Request method \'GET\' not supported', '2020-11-16 08:35:51');
+INSERT INTO `system_exception` VALUES (1328273102550532098, '/systemUser/getLoginInfo', 'GET', '?', '0:0:0:0:0:0:0:1', 'org.springframework.security.access.AccessDeniedException', '不允许访问', '2020-11-16 09:46:00');
+INSERT INTO `system_exception` VALUES (1328273159760838657, '/systemUser/getLoginInfo', 'GET', '?', '0:0:0:0:0:0:0:1', 'org.springframework.security.access.AccessDeniedException', '不允许访问', '2020-11-16 09:46:14');
+INSERT INTO `system_exception` VALUES (1328279021304836097, '/systemUser/deleteById', 'GET', '?id=[1328277903849975809]&', '0:0:0:0:0:0:0:1', 'org.springframework.web.HttpRequestMethodNotSupportedException', 'Request method \'GET\' not supported', '2020-11-16 10:09:32');
+INSERT INTO `system_exception` VALUES (1328279249990873089, '/systemUser/deleteById', 'GET', '?id=[1328277903849975809]&', '0:0:0:0:0:0:0:1', 'org.springframework.web.HttpRequestMethodNotSupportedException', 'Request method \'GET\' not supported', '2020-11-16 10:10:26');
+INSERT INTO `system_exception` VALUES (1328279290029699074, '/systemUser/deleteById', 'GET', '?id=[1328277903849975809]&', '0:0:0:0:0:0:0:1', 'org.springframework.web.HttpRequestMethodNotSupportedException', 'Request method \'GET\' not supported', '2020-11-16 10:10:36');
 COMMIT;
 
 -- ----------------------------
@@ -139,6 +146,7 @@ CREATE TABLE `system_role` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `system_role` VALUES (1, '超级管理员', 'ROLE_ADMINISTRATOR', '超级管理员', 0, '2020-10-21 01:45:21', '2020-11-16 03:46:55');
+INSERT INTO `system_role` VALUES (1328272182123102210, '测试角色', NULL, '测试角色', NULL, '2020-11-16 09:42:21', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -160,10 +168,14 @@ CREATE TABLE `system_role_authority_relation` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `system_role_authority_relation` VALUES (1, 1);
+INSERT INTO `system_role_authority_relation` VALUES (1328272182123102210, 1);
 INSERT INTO `system_role_authority_relation` VALUES (1, 2);
+INSERT INTO `system_role_authority_relation` VALUES (1328272182123102210, 2);
 INSERT INTO `system_role_authority_relation` VALUES (1, 3);
+INSERT INTO `system_role_authority_relation` VALUES (1328272182123102210, 3);
 INSERT INTO `system_role_authority_relation` VALUES (1, 4);
 INSERT INTO `system_role_authority_relation` VALUES (1, 5);
+INSERT INTO `system_role_authority_relation` VALUES (1328272182123102210, 5);
 INSERT INTO `system_role_authority_relation` VALUES (1, 6);
 INSERT INTO `system_role_authority_relation` VALUES (1, 7);
 INSERT INTO `system_role_authority_relation` VALUES (1, 8);
@@ -186,6 +198,7 @@ INSERT INTO `system_role_authority_relation` VALUES (1, 24);
 INSERT INTO `system_role_authority_relation` VALUES (1, 25);
 INSERT INTO `system_role_authority_relation` VALUES (1, 26);
 INSERT INTO `system_role_authority_relation` VALUES (1, 27);
+INSERT INTO `system_role_authority_relation` VALUES (1328272182123102210, 27);
 INSERT INTO `system_role_authority_relation` VALUES (1, 28);
 INSERT INTO `system_role_authority_relation` VALUES (1, 29);
 COMMIT;
@@ -218,7 +231,8 @@ CREATE TABLE `system_user` (
 -- Records of system_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `system_user` VALUES (1, 'admin', '$2a$10$ygZQ5b508eevxCGV6NBNAuRVs3qkfSBgOqpa2PsyM11rkPloNTKkq', '/static/Administrator.jpg', '肖宇', '超级管理员', '794763733@qq.com', '18106666986', '127.0.0.1', 0, 0, '2020-10-25 01:36:43', '2020-10-25 01:36:47', '2020-11-05 07:26:18');
+INSERT INTO `system_user` VALUES (1, 'admin', '$2a$10$ygZQ5b508eevxCGV6NBNAuRVs3qkfSBgOqpa2PsyM11rkPloNTKkq', '/static/Administrator.jpg', '肖宇', '超级管理员', '794763733@qq.com', '18106666986', '127.0.0.1', 0, 0, '2020-10-24 09:36:43', '2020-10-24 09:36:47', '2020-11-16 08:25:31');
+INSERT INTO `system_user` VALUES (1328272526752284673, 'test', '$2a$10$ygZQ5b508eevxCGV6NBNAuRVs3qkfSBgOqpa2PsyM11rkPloNTKkq', NULL, '测试用户', '测试用户', NULL, NULL, NULL, 0, 0, NULL, '2020-11-16 09:43:43', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -240,6 +254,7 @@ CREATE TABLE `system_user_role_relation` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `system_user_role_relation` VALUES (1, 1);
+INSERT INTO `system_user_role_relation` VALUES (1328272526752284673, 1328272182123102210);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
