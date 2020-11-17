@@ -13,5 +13,4 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface ISystemExceptionMapper extends BaseMapper<SystemException> {
-    IPage<SystemException> selectByCondition(IPage<SystemException> page, @Param(value = "keyWord") String keyWord);
 }

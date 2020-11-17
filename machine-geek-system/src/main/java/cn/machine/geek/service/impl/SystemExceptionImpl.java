@@ -16,13 +16,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SystemExceptionImpl extends ServiceImpl<ISystemExceptionMapper, SystemException> implements ISystemExceptionService {
-    @Override
-    public IPage<SystemException> paging(int page, int size, String keyWord) {
-        QueryWrapper<SystemException> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().like(SystemException::getUri,keyWord)
-                .or().like(SystemException::getExceptionMessage,keyWord)
-                .or().like(SystemException::getExceptionClass,keyWord)
-                .or().like(SystemException::getParameter,keyWord);
-        return baseMapper.selectPage(new Page<>(page,size),queryWrapper);
-    }
 }

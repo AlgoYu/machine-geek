@@ -22,13 +22,4 @@ public class SystemRoleServiceImpl extends ServiceImpl<ISystemRoleMapper, System
     public List<SystemRole> listByUserId(Long userId) {
         return baseMapper.selectByUserId(userId);
     }
-
-    @Override
-    public IPage<SystemRole> paging(int page, int size, String keyWord) {
-        QueryWrapper<SystemRole> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().like(SystemRole::getKey,keyWord)
-                .or().like(SystemRole::getName,keyWord)
-                .or().like(SystemRole::getDescription,keyWord);
-        return baseMapper.selectPage(new Page<>(page,size),queryWrapper);
-    }
 }

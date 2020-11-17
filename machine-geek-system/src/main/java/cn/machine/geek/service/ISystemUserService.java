@@ -10,6 +10,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @Date: 2020/10/3
  */
 public interface ISystemUserService extends IService<SystemUser> {
-    IPage<SystemUser> paging(int page,int size,String keyWord);
-    SystemUser getByUserName(String username);
 }

@@ -13,5 +13,4 @@ import java.util.List;
  */
 public interface ISystemRoleService extends IService<SystemRole> {
     List<SystemRole> listByUserId(Long userId);
-    IPage<SystemRole> paging(int page, int size, String keyWord);
 }

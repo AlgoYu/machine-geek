@@ -10,12 +10,14 @@ import cn.machine.geek.service.ISystemAuthorityService;
 import cn.machine.geek.service.ISystemRoleAuthorityRelationService;
 import cn.machine.geek.service.ISystemRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +52,14 @@ public class SystemRoleController {
     @GetMapping(value = "/paging")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMROLE:GET')")
     public R paging(@Validated PageRequest pageRequest){
-        return R.ok(systemRoleService.paging(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
+        QueryWrapper<SystemRole> queryWrapper = new QueryWrapper<>();
+        String keyWord = pageRequest.getKeyWord();
+        if(!StringUtils.isEmpty(keyWord)){
+            queryWrapper.lambda().like(SystemRole::getKey,keyWord)
+                    .or().like(SystemRole::getName,keyWord)
+                    .or().like(SystemRole::getDescription,keyWord);
+        }
+        return R.ok(systemRoleService.page(new Page<>(pageRequest.getPage(),pageRequest.getSize()),queryWrapper));
     }
 
     @ApiOperation(value = "增加系统角色",notes = "增加系统角色")

@@ -5,6 +5,7 @@ import cn.machine.geek.enums.AuthorityEnum;
 import cn.machine.geek.service.ISystemAuthorityService;
 import cn.machine.geek.service.ISystemRoleService;
 import cn.machine.geek.service.ISystemUserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +40,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根据用户名查询出用户
-        SystemUser systemUser = systemUserService.getByUserName(username);
+        QueryWrapper<SystemUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(SystemUser::getUsername,username);
+        SystemUser systemUser = systemUserService.getOne(queryWrapper);
         if(null == systemUser){
             throw new UsernameNotFoundException("用户不存在！");
         }

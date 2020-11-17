@@ -10,5 +10,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @Date: 2020/11/6
  */
 public interface ISystemExceptionService extends IService<SystemException> {
-    IPage<SystemException> paging(int page, int size, String keyWord);
 }

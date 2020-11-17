@@ -12,6 +12,7 @@ import cn.machine.geek.service.ISystemUserRoleRelationService;
 import cn.machine.geek.service.ISystemUserService;
 import cn.machine.geek.service.ITokenService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +53,16 @@ public class SystemUserController {
     @GetMapping(value = "/paging")
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:GET')")
     public R paging(@Validated PageRequest pageRequest){
-        return R.ok(systemUserService.paging(pageRequest.getPage(),pageRequest.getSize(),pageRequest.getKeyWord()));
+        QueryWrapper<SystemUser> queryWrapper = new QueryWrapper<>();
+        String keyWord = pageRequest.getKeyWord();
+        if(!StringUtils.isEmpty(keyWord)){
+            queryWrapper.lambda().like(SystemUser::getNickname,keyWord)
+                    .or().like(SystemUser::getEmail,keyWord)
+                    .or().like(SystemUser::getDescription,keyWord)
+                    .or().like(SystemUser::getPhone,keyWord)
+                    .or().like(SystemUser::getUsername,keyWord);
+        }
+        return R.ok(systemUserService.page(new Page<>(pageRequest.getPage(),pageRequest.getSize()),queryWrapper));
     }
 
     @ApiOperation(value = "增加系统用户",notes = "增加系统用户")
