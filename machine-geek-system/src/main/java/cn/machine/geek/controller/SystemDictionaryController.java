@@ -1,7 +1,6 @@
 package cn.machine.geek.controller;
 
 import cn.machine.geek.dto.R;
-import cn.machine.geek.mapper.ISystemDictionaryMapper;
 import cn.machine.geek.service.ISystemDictionaryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
