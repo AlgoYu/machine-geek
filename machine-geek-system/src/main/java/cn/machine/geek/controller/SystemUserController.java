@@ -82,6 +82,8 @@ public class SystemUserController {
     @Transactional
     public R addWithRole(@RequestBody SystemUserDTO systemUserDTO){
         systemUserDTO.setCreateTime(LocalDateTime.now());
+        systemUserDTO.setDisable(false);
+        systemUserDTO.setPassword(passwordEncoder.encode(systemUserDTO.getPassword()));
         systemUserService.save(systemUserDTO);
         this.addRelations(systemUserDTO);
         return R.ok();
@@ -99,7 +101,6 @@ public class SystemUserController {
     @Transactional
     @PreAuthorize("hasAuthority('MANAGEMENT:SYSTEMUSER:MODIFY')")
     public R modifyById(@RequestBody SystemUser systemUser){
-        systemUser.setUpdateTime(LocalDateTime.now());
         return R.ok(systemUserService.updateById(systemUser));
     }
 

@@ -12,7 +12,8 @@ import java.util.Map;
  * @Date: 2020/11/17
  */
 @Mapper
-public interface ISystemDictionary {
+public interface ISystemDictionaryMapper {
+    String selectByKey(@Param(value = "key")String key);
     Map<String,String> list();
     Integer insert(@Param(value = "key")String key,@Param(value = "value")String value);
 }
