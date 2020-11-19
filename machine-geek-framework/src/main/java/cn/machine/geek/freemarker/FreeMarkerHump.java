@@ -1,4 +1,4 @@
-package cn.machine.geek.custom;
+package cn.machine.geek.freemarker;
 
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;

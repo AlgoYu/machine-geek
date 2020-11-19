@@ -1,6 +1,6 @@
 package cn.machine.geek.service.impl;
 
-import cn.machine.geek.custom.FreeMarkerHump;
+import cn.machine.geek.freemarker.FreeMarkerHump;
 import cn.machine.geek.entity.DatabaseTableColumn;
 import cn.machine.geek.mapper.IDatabaseMapper;
 import cn.machine.geek.service.ICodeGeneratorService;
