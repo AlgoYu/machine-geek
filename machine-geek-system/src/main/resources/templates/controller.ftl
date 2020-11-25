@@ -28,11 +28,25 @@ public class ${className}Controller {
     @Autowired
     private I${className}Service ${instanceName}Service;
 
+    @ApiOperation(value = "获取所有${moduleName}",notes = "获取所有${moduleName}")
+    @GetMapping(value = "/list")
+    public R list(){
+        return R.ok(${instanceName}Service.list());
+    }
+
     @ApiOperation(value = "分页获取${moduleName}",notes = "分页获取${moduleName}")
     @GetMapping(value = "/paging")
     public R paging(@Validated PageRequest pageRequest){
         QueryWrapper<${className}> queryWrapper = new QueryWrapper<>();
         // 在这里写条件查询逻辑逻辑
+        String keyWord = pageRequest.getKeyWord();
+        if(!StringUtils.isEmpty(keyWord)){
+            queryWrapper.lambda().like(SystemUser::getNickname,keyWord)
+                .or().like(SystemUser::getEmail,keyWord)
+                .or().like(SystemUser::getDescription,keyWord)
+                .or().like(SystemUser::getPhone,keyWord)
+                .or().like(SystemUser::getUsername,keyWord);
+        }
         return R.ok(${instanceName}Service.page(new Page<>(pageRequest.getPage(),pageRequest.getSize()),queryWrapper));
     }
 

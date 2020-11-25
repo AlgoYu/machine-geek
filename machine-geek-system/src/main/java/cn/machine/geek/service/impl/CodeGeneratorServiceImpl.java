@@ -58,6 +58,8 @@ public class CodeGeneratorServiceImpl implements ICodeGeneratorService {
         Template serviceTemplate = configuration.getTemplate("service.ftl");
         Template serviceImplTemplate = configuration.getTemplate("serviceimpl.ftl");
         Template controllerTemplate = configuration.getTemplate("controller.ftl");
+        Template apiTemplate = configuration.getTemplate("api.ftl");
+        Template vueTemplate = configuration.getTemplate("vue.ftl");
         // 获取数据
         Map<String,Object> map = new HashMap<>();
         String className = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL,tableName);
@@ -81,6 +83,8 @@ public class CodeGeneratorServiceImpl implements ICodeGeneratorService {
         File serviceFile = new File(directory,"/I" + className + "Service.java");
         File serviceImplFile = new File(directory,className + "ServiceImpl.java");
         File controllerFile = new File(directory,className + "Controller.java");
+        File apiFile = new File(directory,className+"Api.js");
+        File vueFile = new File(directory,className+".vue");
         // 创建新文件
         entityFile.createNewFile();
         xmlFile.createNewFile();
@@ -88,6 +92,8 @@ public class CodeGeneratorServiceImpl implements ICodeGeneratorService {
         serviceFile.createNewFile();
         serviceImplFile.createNewFile();
         controllerFile.createNewFile();
+        apiFile.createNewFile();
+        vueFile.createNewFile();
         // 生成代码
         entityTemplate.process(map,new BufferedWriter(new FileWriter(entityFile)));
         xmlTemplate.process(map,new BufferedWriter(new FileWriter(xmlFile)));
@@ -95,6 +101,8 @@ public class CodeGeneratorServiceImpl implements ICodeGeneratorService {
         serviceTemplate.process(map,new BufferedWriter(new FileWriter(serviceFile)));
         serviceImplTemplate.process(map,new BufferedWriter(new FileWriter(serviceImplFile)));
         controllerTemplate.process(map,new BufferedWriter(new FileWriter(controllerFile)));
+        apiTemplate.process(map,new BufferedWriter(new FileWriter(apiFile)));
+        vueTemplate.process(map,new BufferedWriter(new FileWriter(vueFile)));
         return directory;
     }
 
