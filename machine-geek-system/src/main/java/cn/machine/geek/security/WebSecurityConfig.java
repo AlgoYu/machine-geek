@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 /**
 * @Author: MachineGeek
-* @Description: 安全配置类
+* @Description: Security安全配置类
 * @Email: 794763733@qq.com
 * @Date: 2020/10/3
 */

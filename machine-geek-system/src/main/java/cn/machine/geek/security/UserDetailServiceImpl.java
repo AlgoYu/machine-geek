@@ -1,4 +1,4 @@
-package cn.machine.geek.service.impl;
+package cn.machine.geek.security;
 
 import cn.machine.geek.entity.*;
 import cn.machine.geek.enums.AuthorityEnum;
