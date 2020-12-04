@@ -2,9 +2,7 @@ package cn.machine.geek.mapper;
 
 import cn.machine.geek.entity.${className};
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 /**
 * @Author: MachineGeek

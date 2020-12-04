@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,11 +42,6 @@ public class ${className}Controller {
         // 在这里写条件查询逻辑逻辑
         String keyWord = pageRequest.getKeyWord();
         if(!StringUtils.isEmpty(keyWord)){
-            queryWrapper.lambda().like(SystemUser::getNickname,keyWord)
-                .or().like(SystemUser::getEmail,keyWord)
-                .or().like(SystemUser::getDescription,keyWord)
-                .or().like(SystemUser::getPhone,keyWord)
-                .or().like(SystemUser::getUsername,keyWord);
         }
         return R.ok(${instanceName}Service.page(new Page<>(pageRequest.getPage(),pageRequest.getSize()),queryWrapper));
     }
@@ -55,7 +51,7 @@ public class ${className}Controller {
     @Transactional
     public R add(@RequestBody ${className} ${instanceName}){
         ${instanceName}.setCreateTime(LocalDateTime.now());
-        return R.ok(${instanceName}Service.save(systemUser));
+        return R.ok(${instanceName}Service.save(${instanceName}));
     }
 
     @ApiOperation(value = "根据ID删除${moduleName}",notes = "根据ID删除${moduleName}")
@@ -69,7 +65,7 @@ public class ${className}Controller {
     @Transactional
     public R modifyById(@RequestBody ${className} ${instanceName}){
         ${instanceName}.setUpdateTime(LocalDateTime.now());
-        return R.ok(${instanceName}Service.updateById(systemUser));
+        return R.ok(${instanceName}Service.updateById(${instanceName}));
     }
 
     @ApiOperation(value = "根据ID获取${moduleName}",notes = "根据ID获取${moduleName}")

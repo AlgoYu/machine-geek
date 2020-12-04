@@ -3,8 +3,6 @@ package cn.machine.geek.service;
 import cn.machine.geek.entity.${className};
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.List;
-
 /**
 * @Author: MachineGeek
 * @Description: ${moduleName}服务类

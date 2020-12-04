@@ -6,8 +6,6 @@ import cn.machine.geek.service.I${className}Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
 * @Author: MachineGeek
 * @Description: ${moduleName}服务实现类
