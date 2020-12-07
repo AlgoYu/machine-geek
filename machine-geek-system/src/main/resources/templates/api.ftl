@@ -27,5 +27,5 @@ export function list(callback){
 
 // 获取所有${moduleName}
 export function paging(data,callback){
-    request("get","/${instanceName}/list",data,callback);
+    request("get","/${instanceName}/paging",data,callback);
 }
