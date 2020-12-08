@@ -121,7 +121,12 @@ export default {
         },
         edit(row) {
             this.statu = "edit";
-            this.form = row;
+            this.form = {
+                <#list data as value>
+                ${toHump(value.columnName)}: row.${toHump(value.columnName)},
+                </#list>
+            };
+            this.formDialog = true;
         },
         deleteData(row) {
             this.$confirm("确认删除这条数据吗?", "警告", {
@@ -175,13 +180,13 @@ export default {
                             add(this.form, (result) => {
                                 if (result.success) {
                                     this.$message({
-                                        message: "保存成功!",
+                                        message: "添加成功!",
                                         type: "success",
                                     });
                                     this.getPage();
                                 } else {
                                     this.$message({
-                                        message: "保存失败！",
+                                        message: "添加失败！",
                                         type: "warning",
                                     });
                                 }
@@ -192,13 +197,13 @@ export default {
                             modifyById(this.form, (result) => {
                                 if (result.success) {
                                     this.$message({
-                                        message: "保存成功!",
+                                        message: "修改成功!",
                                         type: "success",
                                     });
                                     this.getPage();
                                 } else {
                                     this.$message({
-                                        message: "保存失败！",
+                                        message: "修改失败！",
                                         type: "warning",
                                     });
                                 }
